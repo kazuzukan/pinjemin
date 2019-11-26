@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pinjemin/login_page.dart';
+import 'register.dart';
 
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
@@ -28,7 +30,7 @@ class HomePage extends StatelessWidget {
     final paragraf1 = Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'Halo, nama saya Akhmad Fuady Rifkiyanto, Sering dipanggil Rifki (di rumah) dan Fuad (di kampus).',
+        'Halo, ini adalah aplikasi Pinjemin!!',
         style: TextStyle(fontSize: 16.0, color: Colors.white),
       ),
     );
@@ -36,7 +38,7 @@ class HomePage extends StatelessWidget {
     final paragraf2 = Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'Saat ini, saya adalah freelance di salah satu instansi di Kabupaten Batang.',
+        'Saat ini, aku ganteng',
         style: TextStyle(fontSize: 16.0, color: Colors.white),
       ),
     );
@@ -44,7 +46,7 @@ class HomePage extends StatelessWidget {
     final paragraf3 = Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'Pernah menempuh pendidikan di STMIK Widya Pratama Pekalongan mengambil program studi Teknik Informatika.',
+        'uwu',
         style: TextStyle(fontSize: 16.0, color: Colors.white),
       ),
     );
@@ -59,6 +61,7 @@ class HomePage extends StatelessWidget {
         ]),
       ),
       child: Column(
+        child: Row(children: <Widget>[logo, welcome, signout],)
         children: <Widget>[profil, welcome, paragraf1,paragraf2,paragraf3],
       ),
     );
