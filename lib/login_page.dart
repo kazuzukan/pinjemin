@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: Image.asset(''),
+        child: Image.asset('assets/butterfly.png'),
       ),
     );
 
@@ -79,8 +79,8 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.all(28.0),
         decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
-          Colors.blue,
-          Colors.lightBlueAccent,
+          Colors.white,
+          Colors.white,
         ]),
       ),
       child: Center(
