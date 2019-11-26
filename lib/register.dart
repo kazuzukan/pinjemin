@@ -8,6 +8,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final formKey = new GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final logo = Hero(
@@ -27,16 +29,28 @@ class _RegisterState extends State<Register> {
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
+      validator: (value){
+        if (value.length == 0 ){
+          return "Enter Your Name";
+        }
+        return null;
+      }
     );
 
     final username = TextFormField(
       keyboardType: TextInputType.text,
       autofocus: false,
       decoration: InputDecoration(
-        hintText: 'Name',
+        hintText: 'username',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
+        validator: (value){
+        if (value.length == 0 ){
+          return "Enter Username";
+        }
+        return null;
+      }
     );
 
     final email = TextFormField(
@@ -47,6 +61,7 @@ class _RegisterState extends State<Register> {
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
+
     );
 
     final password = TextFormField(
@@ -57,15 +72,23 @@ class _RegisterState extends State<Register> {
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
+        validator: (value){
+        if (value.length <=8){
+          return "\Should be more than 8 Char";
+        }
+        return null;
+      },
     );
 
     final phone = TextFormField(
+        keyboardType: TextInputType.number,
         autofocus: false,
         decoration: InputDecoration(
-        hintText: 'Email',
+        hintText: 'Phone',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
+      validator: (val) => val.length == 0 ? "enter phone" : null,
     );
 
     final loginButton = Padding(
@@ -75,7 +98,9 @@ class _RegisterState extends State<Register> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () {
+          if (formKey.currentState.validate()){
           Navigator.of(context).pushNamed(LoginPage.tag);
+          }
         },
         padding: EdgeInsets.all(12),
         color: Colors.lightBlueAccent,
@@ -94,9 +119,19 @@ class _RegisterState extends State<Register> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: ListView(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.all(28.0),
+        decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Colors.blue,
+          Colors.lightBlueAccent,
+        ]),
+      ),
+        
+        child: Form(
+          key: formKey,
+          child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
@@ -116,6 +151,7 @@ class _RegisterState extends State<Register> {
             loginLabel
           ],
         ),
+      ),
       ),
     );
   }

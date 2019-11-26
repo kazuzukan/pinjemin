@@ -20,14 +20,20 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    final email = TextFormField(
+    final username = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
-        hintText: 'Email',
+        hintText: 'Username',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
+      validator: (value) {
+        if (value.isEmpty){
+          return 'Please enter username';
+        }
+        return null;
+      },
     );
 
     final password = TextFormField(
@@ -36,9 +42,11 @@ class _LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),     
       ),
+      validator: (value) => value.isEmpty ? 'password Can\'t be empty' : null,
     );
+
 
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -66,15 +74,23 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.all(28.0),
+        decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Colors.blue,
+          Colors.lightBlueAccent,
+        ]),
+      ),
+      child: Center(
         child: ListView(
-          shrinkWrap: true,
+        shrinkWrap: true,
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
+            children: <Widget>[
             logo,
             SizedBox(height: 48.0),
-            email,
+            username,
             SizedBox(height: 8.0),
             password,
             SizedBox(height: 24.0),
@@ -83,6 +99,8 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
+
+      ) 
     );
   }
 }
