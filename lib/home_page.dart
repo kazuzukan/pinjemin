@@ -64,9 +64,13 @@ class HomePage extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(28.0),
       decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [
-          Colors.indigo[100],
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end : Alignment.bottomRight,
+          colors:[
+
           Colors.lightBlue[100],
+          Colors.indigo[100],
         ]),
       ),
       child: Column(children: <Widget>[
