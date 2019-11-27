@@ -45,6 +45,11 @@ flutter:
     - assets/qr-code.png
     - assets/qr-code.jpg
     - assets/coin.png
+    - assets/pinjemin.png
+    - assets/categories-icon.png
+    - assets/categories.png
+    - assets/offer.png
+    - assets/request.png
   fonts:
     - family: Nunito
       fonts:
