@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
     final profil = Hero(
       tag: 'hero',
       child: Padding(
-        padding: EdgeInsets.only(left:0.0),
+        padding: EdgeInsets.only(left: 0.0),
         child: CircleAvatar(
           radius: 20.0,
           backgroundColor: Colors.transparent,
@@ -26,13 +26,28 @@ class HomePage extends StatelessWidget {
       ),
     );
 
-    final paragraf1 = Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Text(
-        'Halo, ini adalah aplikasi Pinjemin!!',
-        style: TextStyle(fontSize: 16.0, color: Colors.white),
+    final search = TextFormField(
+      decoration: InputDecoration(
+        hintText: 'Search. . .',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        fillColor: Colors.white,
+        filled: true,
       ),
     );
+
+    /*final scan = Hero(
+      tag: 'hero',
+      child: Padding(
+        padding: EdgeInsets.only(left:0.0),
+        child: CircleAvatar(
+          radius: 20.0,
+          backgroundColor: Colors.transparent,
+          backgroundImage: AssetImage('assets/qr-code.png'),
+        ),
+      ),
+    );
+*/
 
     final paragraf2 = Padding(
       padding: EdgeInsets.all(8.0),
@@ -59,17 +74,58 @@ class HomePage extends StatelessWidget {
           Colors.lightBlueAccent,
         ]),
       ),
-      child: Column(
-        
-          children: <Widget>
-          [new Row(
+      child: Column(children: <Widget>[
+        new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[profil, welcome]),
-          paragraf1, paragraf2, paragraf3]),
+        SizedBox(height: 16.0),
+        search,
+        SizedBox(height: 16.0),
+        
+        Container(
+          color: Colors.white,
+          child: new Row(
+            
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              new Image.asset('assets/qr-code.png', width: 30.0),
+              new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: new Image.asset(
+                        'assets/coin.png',
+                        width: 30.0,
+                      ),
+                    ),
+                    Text(
+                      'Rp. 33.000,00',
+                      style: new TextStyle(fontSize: 13.0, color: Colors.black87),
+                    )
+                  ]),
+              new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '18.000 Poin',
+                    style: new TextStyle(fontSize: 13.0, color: Colors.black87),
+                  ),
+                  Text(
+                    'Klik & kumpulkan poin',
+                    style: new TextStyle(fontSize: 10.0, color: Colors.black54),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+        paragraf2,
+        paragraf3
+      ]),
     );
 
-    return Scaffold(
-      body: body,
-    );
+    return Scaffold(body: body);
   }
 }

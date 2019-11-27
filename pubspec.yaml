@@ -42,6 +42,9 @@ flutter:
   assets:
     - assets/butterfly.png
     - assets/profil.jpg
+    - assets/qr-code.png
+    - assets/qr-code.jpg
+    - assets/coin.png
   fonts:
     - family: Nunito
       fonts:
