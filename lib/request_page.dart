@@ -24,7 +24,6 @@ class _RequestPageState extends State<RequestPage> {
       ),
     );
    
-   final listbox = ;
 
     final copyright = Padding( //footer
       padding: EdgeInsets.all(8.0),
@@ -101,7 +100,7 @@ class _RequestPageState extends State<RequestPage> {
           ),
         ),
          SizedBox(height: 16.0),search,
-        SizedBox(height: 16.0), listbox,
+        SizedBox(height: 16.0),
         new Row(
           mainAxisAlignment: MainAxisAlignment.center,
       
