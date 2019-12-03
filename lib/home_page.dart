@@ -1,32 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pinjemin/request_page.dart';
 
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static String tag = 'home-page';
 
   @override
-  Widget build(BuildContext context) {
-  //#EDF3F6
-  /*  final profil = Hero(
-      tag: 'hero',
-      child: Padding(
-        padding: EdgeInsets.only(left: 0.0),
-        child: CircleAvatar(
-          radius:  100.0,
-          backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage('assets/pinjemin.png'),
-        ),
-      ),
-    );
+  _HomePageState createState() => _HomePageState();
+}
 
-    final welcome = Padding(
-      padding: EdgeInsets.fromLTRB(10.0, 8.0, 2.0, 2.0),
-      child: Text(
-        'PINJEM.IN',
-        style: TextStyle(fontSize: 20.0, color: Colors.white),
-      ),
-    );
-*/
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
     final search = TextFormField(
       decoration: InputDecoration(
         hintText: 'Search. . .',
@@ -37,21 +21,6 @@ class HomePage extends StatelessWidget {
       ),
     );
 
-    /*final scan = Hero(
-      tag: 'hero',
-      child: Padding(
-        padding: EdgeInsets.only(left:0.0),
-        child: CircleAvatar(
-          radius: 20.0,
-          backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage('assets/qr-code.png'),
-        ),
-      ),
-    );
-*/
-
-
-    
     final copyright = Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
@@ -65,32 +34,29 @@ class HomePage extends StatelessWidget {
       padding: EdgeInsets.all(28.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end : Alignment.bottomRight,
-          colors:[
-
-          Colors.lightBlue[100],
-          Colors.indigo[100],
-        ]),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.lightBlue[100],
+              Colors.indigo[100],
+            ]),
       ),
       child: Column(children: <Widget>[
-        new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: new Image.asset(
-                        'assets/pinjemin.png',
-                        width: 150.0,
-                      ),
-                    ),]),
+        new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: new Image.asset(
+              'assets/pinjemin.png',
+              width: 150.0,
+            ),
+          ),
+        ]),
         SizedBox(height: 16.0),
         search,
         SizedBox(height: 16.0),
-        
         Container(
           color: Colors.white,
           child: new Row(
-            
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               new Image.asset('assets/qr-code.png', width: 30.0),
@@ -106,7 +72,8 @@ class HomePage extends StatelessWidget {
                     ),
                     Text(
                       'Rp. 33.000,00',
-                      style: new TextStyle(fontSize: 13.0, color: Colors.black87),
+                      style:
+                          new TextStyle(fontSize: 13.0, color: Colors.black87),
                     )
                   ]),
               new Column(
@@ -131,36 +98,42 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: new Image.asset(
-                        'assets/categories.png',
-                        width: 60.0,
-                      ),
-                    ),
+              padding: const EdgeInsets.all(8.0),
+              child: new Image.asset(
+                'assets/categories.png',
+                width: 60.0,
+              ),
+            ),
             Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: new Image.asset(
-                        'assets/offer.png',
-                        width: 60.0,
-                      ),
-                    ),
-            Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: new Image.asset(
-                        'assets/request.png',
-                        width: 60.0,
-                      ),
-                    ),
+              padding: const EdgeInsets.all(8.0),
+              child: new Image.asset(
+                'assets/offer.png',
+                width: 60.0,
+              ),
+            ),
+            new InkWell(
+              onTap:  (){
+                 Navigator.of(context).pushNamed(RequestPage.tag);
+              } ,
+
+              child: new Padding(
+              
+              padding: const EdgeInsets.all(8.0),
+              child: new Image.asset(
+                'assets/request.png',
+                width: 60.0,
+              ),
+            )),
           ],
         ),
         Expanded(
-          
           child: Column(
             children: <Widget>[], //diisi konten
-        ),),
+          ),
+        ),
         new Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[copyright],
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[copyright],
         )
       ]),
     );

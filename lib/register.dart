@@ -90,6 +90,16 @@ class _RegisterState extends State<Register> {
       ),
       validator: (val) => val.length == 0 ? "enter phone" : null,
     );
+    final phone2 = TextFormField(
+        keyboardType: TextInputType.number,
+        autofocus: false,
+        decoration: InputDecoration(
+        hintText: 'Phone',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+      ),
+      validator: (val) => val.length == 0 ? "enter phone" : null,
+    );
 
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -138,13 +148,15 @@ class _RegisterState extends State<Register> {
             logo,
             SizedBox(height: 48.0),
             name,
-            SizedBox(height: 8.0),
+            SizedBox(height: 10.0),
             username,
-            SizedBox(height: 8.0),
+            SizedBox(height: 10.0),
             email,
-            SizedBox(height: 8.0),
+            SizedBox(height: 10.0),
             phone,
-            SizedBox(height: 8.0),
+            SizedBox(height: 10.0),
+            phone2,
+            SizedBox(height: 10.0,),
             password,
             SizedBox(height: 24.0),
             loginButton,
