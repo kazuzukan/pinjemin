@@ -11,16 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final search = TextFormField(
-      decoration: InputDecoration(
-        hintText: 'Search. . .',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-        fillColor: Colors.white,
-        filled: true,
-      ),
-    );
-
+    
     final copyright = Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
@@ -51,8 +42,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ]),
-        SizedBox(height: 16.0),
-        search,
+     
         SizedBox(height: 16.0),
         Container(
           color: Colors.white,
@@ -105,7 +95,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(8.0, 8.0,8.0,8.0),
               child: new Image.asset(
                 'assets/offer.png',
                 width: 60.0,
