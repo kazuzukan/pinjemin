@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "990363651138",
+    "firebase_url": "https://pinjemin-project.firebaseio.com",
+    "project_id": "pinjemin-project",
+    "storage_bucket": "pinjemin-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990363651138:android:b8b81d046e3d2243bdb1db",
+        "android_client_info": {
+          "package_name": "com.unpad.pinjemin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990363651138-vgg6v6e0754vm3ei92fedaaulo9p0fel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unpad.pinjemin",
+            "certificate_hash": "e68a0c6ce26f25b0b8fd89945b869346f8d424c0"
+          }
+        },
+        {
+          "client_id": "990363651138-sgmit9nj3lhinhn2stkmntgc0bg57576.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqVkGWI6dSkFgx2KhtHWCv8GXkuC8UkYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990363651138-sgmit9nj3lhinhn2stkmntgc0bg57576.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
