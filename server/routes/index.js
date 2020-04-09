@@ -8,11 +8,13 @@ module.exports = app => {
 
     // Customer
     // All Customer    
-    app.get("/customer", user.findAll);
+    app.get("/customers", user.findAll);
 
     // Find One Customer
     app.get("/customer/:userId", user.findOne);
 
+    //Create Customer
+    app.post("/customer", user.createUser);
     //Offer
 
     //Request
