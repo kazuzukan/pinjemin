@@ -1,8 +1,8 @@
 const db = require("../models");
-const User = db.users;
+const User = db.offer;
 // const Op = db.sequelize.Op;
 
-exports.findAllUser = (req, res) => {
+exports.findAllOffer = (req, res) => {
   User.findAll()
     .then((data) => {
       res.send(data);
@@ -28,50 +28,15 @@ exports.findOne = (req, res) => {
     });
 };
 
-exports.findUserOffer = (req, res) => {
-  const id = req.params.id;
-
-  User.findByPk(id, {
-    include: [{ model: db.offer }],
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error retrieving User with id =" + id,
-      });
-    });
-};
-
-exports.findUserRequest = (req, res) => {
-  const id = req.params.id;
-
-  User.findByPk(id, {
-    include: [{ model: db.request }],
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error retrieving User with id =" + id,
-      });
-    });
-};
-
-exports.createUser = (req, res) => {
+exports.createOffer = (req, res) => {
   //constructor
   const user = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    address: req.body.address,
-    phone: req.body.phone,
-    gender: req.body.gender,
-    email: req.body.email,
-    password: req.body.password,
-    point: req.body.point,
-    isambassador: req.body.isambassador,
+    name: req.body.name,
+    method: req.body.method,
+    desc: req.body.desc,
+    price: req.body.price,
+    image: req.body.image,
+    userId: req.body.userId,
   };
 
   User.create(user)
@@ -85,20 +50,17 @@ exports.createUser = (req, res) => {
     });
 };
 
-exports.updateUser = (req, res) => {
+exports.updateOffer = (req, res) => {
   const id = req.params.id;
 
   //constructor
   const user = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    address: req.body.address,
-    phone: req.body.phone,
-    gender: req.body.gender,
-    email: req.body.email,
-    password: req.body.password,
-    point: req.body.point,
-    isambassador: req.body.isambassador,
+    name: req.body.name,
+    method: req.body.method,
+    desc: req.body.desc,
+    price: req.body.price,
+    image: req.body.image,
+    userId: req.body.userId,
   };
 
   User.update(user, {
@@ -118,7 +80,7 @@ exports.updateUser = (req, res) => {
     });
 };
 
-exports.deleteUser = (req, res) => {
+exports.deleteOffer = (req, res) => {
   const id = req.params.id;
 
   User.destroy({

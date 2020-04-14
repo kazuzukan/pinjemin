@@ -1,33 +1,72 @@
-module.exports = app => {
-    const user = require("../controller/userController")
+module.exports = (app) => {
+  const user = require("../controller/userController");
+  const offer = require("../controller/offerController");
+  const requests = require("../controller/requestController");
 
-    // Default
-    app.get("/", (req, res) => {
-        res.json({ Hello: "Welcome to Pinjemin Apps." });
-    });
+  // Default
+  app.get("/", (req, res) => {
+    res.json({ Hello: "Welcome to Pinjemin Apps." });
+  });
 
-    // Customer
-    // All User   
-    app.get("/users", user.findAllUser);
+  // Customer
+  // All User
+  app.get("/users", user.findAllUser);
 
-    // Find One User
-    app.get("/user/:id", user.findOne);
+  // Find One User
+  app.get("/user/:id", user.findOne);
 
-    //Create User
-    app.post("/user", user.createUser);
+  //Find User Offer
+  app.get("/useroffer/:id", user.findUserOffer);
 
-    //Update User
-    app.put("/user/:id", user.updateUser);
+  //Find User Request
+  app.get("/userrequest/:id", user.findUserOffer);
 
-    //Delete User
-    app.delete("/user/:id", user.deleteUser);
-    //Offer
+  //Create User
+  app.post("/user", user.createUser);
 
-    //Request
+  //Update User
+  app.put("/user/:id", user.updateUser);
 
-    //Log Request
+  //Delete User
+  app.delete("/user/:id", user.deleteUser);
 
-    //Log Offer
 
-    //Type
-}
+  //Offer
+  // All Offer
+  app.get("/offers", offer.findAllOffer);
+
+  // Find One offer
+  app.get("/offer/:id", offer.findOne);
+
+  //Create offer
+  app.post("/offer", offer.createOffer);
+
+  //Update offer
+  app.put("/offer/:id", offer.updateOffer);
+
+  //Delete offer
+  app.delete("/offer/:id", offer.deleteOffer);
+
+
+  //Request
+  // All Offer
+  app.get("/requests", requests.findAllRequest);
+
+  // Find One offer
+  app.get("/request/:id", requests.findOne);
+
+  //Create offer
+  app.post("/request", requests.createRequest);
+
+  //Update offer
+  app.put("/request/:id", requests.updateRequest);
+
+  //Delete offer
+  app.delete("/request/:id", requests.deleteRequest);
+
+  //Log Request
+
+  //Log Offer
+
+  //Type
+};
