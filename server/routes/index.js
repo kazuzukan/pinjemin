@@ -7,14 +7,20 @@ module.exports = app => {
     });
 
     // Customer
-    // All Customer    
-    app.get("/customers", user.findAll);
+    // All User   
+    app.get("/users", user.findAllUser);
 
-    // Find One Customer
-    app.get("/customer/:userId", user.findOne);
+    // Find One User
+    app.get("/user/:id", user.findOne);
 
-    //Create Customer
-    app.post("/customer", user.createUser);
+    //Create User
+    app.post("/user", user.createUser);
+
+    //Update User
+    app.put("/user/:id", user.updateUser);
+
+    //Delete User
+    app.delete("/user/:id", user.deleteUser);
     //Offer
 
     //Request

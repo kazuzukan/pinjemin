@@ -1,58 +1,107 @@
-const User = require('../models/userModel');
+const db = require("../models");
+const User = db.users;
+const Op = db.sequelize.Op;
 
-exports.findAll = (req, res) => {
-   User.getAll((err, data) => {
-    if (err) {
+exports.findAllUser = (req, res) => {
+  User.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving  req.body.",
+        message: err.message || "Some error occurred while retrieving Users.",
       });
-    } else res.send(data);
-  });
+    });
 };
 
 exports.findOne = (req, res) => {
-   User.getById(req.params.userId, (err, data) => {
-    if (err) { 
-      if (err.not === "not_found") {
-        res.status(404).send({
-          message: `Not found User with user id ${req.params.userId}.`,
-        });
-      } else {
-        res.status(500).send({
-          message: `Not found User ${req.params.userId}.`,
-        });
-      }
-    } else res.send(data);
-  });
+  const id = req.params.id;
+
+  User.findByPk(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving User with id =" + id,
+      });
+    });
 };
 
 exports.createUser = (req, res) => {
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
-
-  //constructor 
-  const user = new User({
-    first_name:  req.body.first_name,
-    last_name:  req.body.last_name,
+  //constructor
+  const user = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     address: req.body.address,
-    phone:  req.body.phone,
-    gender:  req.body.gender,
-    email:  req.body.email,
-    password:  req.body.password,
-    point:  req.body.point,
-    is_ambassador:  req.body.is_ambassador
-  });
+    phone: req.body.phone,
+    gender: req.body.gender,
+    email: req.body.email,
+    password: req.body.password,
+    point: req.body.point,
+    isambassador: req.body.isambassador,
+  };
 
-  User.creareUser(user, (err, data) => {
-    if(err){
+  User.create(user)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
       res.status(500).send({
-        message : 
-          err.message || "error euuy"
-      })
-    }
-    else res.send(data)
+        message: err.message || "Error udpate User with id =" + id,
+      });
+    });
+};
+
+exports.updateUser = (req, res) => {
+  const id = req.params.id;
+
+  //constructor
+  const user = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    address: req.body.address,
+    phone: req.body.phone,
+    gender: req.body.gender,
+    email: req.body.email,
+    password: req.body.password,
+    point: req.body.point,
+    isambassador: req.body.isambassador,
+  };
+
+  User.update(user, {
+    where: {
+      id: id,
+    },
   })
-}
+    .then((data) => {
+      res.json({
+        message: "user updated",
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Error udpate User with id =" + id,
+      });
+    });
+};
+
+exports.deleteUser = (req, res) => {
+  const id = req.params.id;
+
+  User
+    .destroy({
+      where: {
+        id: id,
+      },
+    })
+    .then((data) => {
+      res.send({ message: `${data} user deleted`});
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all tutorials.",
+      });
+    });
+};
