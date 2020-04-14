@@ -1,0 +1,2 @@
+# Pinjemin
+Pinjemin is an android-based application is a means of borrowing and borrowing among students to facilitate students in finding their needs and benefits. This application consists of a collection of items to be lent with an agreement between the borrower and the applicant both regarding the price and terms of the loan. This application is based on Android so it will be very helpful and practical to use on mobile phones.
