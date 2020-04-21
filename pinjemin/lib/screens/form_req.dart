@@ -10,10 +10,6 @@ class FormReq extends StatefulWidget {
 }
 
 class _FormReqState extends State<FormReq> {
-  String nama_brg = '';
-  String deskripsi = '';
-  String tipe_brg = '';
-
   DateTime tglAmbil = new DateTime.now();
   String tglAmbilText = '';
 
@@ -50,23 +46,6 @@ class _FormReqState extends State<FormReq> {
     }
   }
 
-  void _addDataReq(){
-    Firestore.instance.runTransaction((Transaction transaction) async{
-      CollectionReference reference = Firestore.instance.collection('req');
-      await reference.add({
-        "email" : email,
-        "nama_brg" : nama_brg,
-        "Deskripsi" : deskripsi,
-        "tipe_brg" : tipe_brg,
-        "tgl_awal" : tglAmbilText,
-        "tgl_akhir" : tglKembaliText
-      });
-    }); 
-
-    Navigator.pop(context);
-  }
-
-
   @override
   void initState() {
     // implement initState
@@ -80,30 +59,7 @@ class _FormReqState extends State<FormReq> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-                child: Image.asset('assets/pinjemin.png'),
-              )
-          ],
-        ),
-        backgroundColor: Colors.white,
-        leading: IconButton(
-            color: Colors.blue[300],
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              print("Clicked");
-            }),
-        actions: <Widget>[
-          IconButton(
-              color: Colors.blue[300],
-              icon: Icon(Icons.notifications_none),
-              onPressed: () {
-                print("Notification Clicked");
-              })
-        ],
+        title: Text("Form Permintaan"),
         elevation: 5,
       ),
       body: Center(
@@ -111,66 +67,14 @@ class _FormReqState extends State<FormReq> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.all(28.0),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.lightBlue[100],
-                  Colors.indigo[100],
-                ]),
-          ),
           child: new Column(
             children: <Widget>[
-              /* Padding(
-                    padding: const EdgeInsets.only(top:8.0, bottom: 8.0),
-                    child: TextFormField(
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        hintText: 'Nama Lengkap',
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 10.0),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        fillColor: Colors.white,
-                        filled: true,
-                      ),
-                      ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top:8.0, bottom: 8.0),
-                    child: TextFormField(
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        hintText: 'Domisili',
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 10.0),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        fillColor: Colors.white,
-                        filled: true,
-                      ),
-                      ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top:8.0, bottom: 8.0),
-                    child: TextFormField(                      
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        hintText: 'Input NIK kamu',
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 10.0),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        fillColor: Colors.white,
-                        filled: true,
-                      ),
-                      ),
-                  ),
-                  */
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                 child: TextFormField(
                   onChanged: (String str) {
                     setState(() {
-                      nama_brg = str;
+                      // nama_brg = str;
                     });
                   },
                   keyboardType: TextInputType.multiline,
@@ -190,7 +94,7 @@ class _FormReqState extends State<FormReq> {
                 child: TextFormField(
                   onChanged: (String str) {
                     setState(() {
-                      deskripsi = str;
+                      // deskripsi = str;
                     });
                   },
                   keyboardType: TextInputType.multiline,
@@ -210,7 +114,7 @@ class _FormReqState extends State<FormReq> {
                 child: TextFormField(
                   onChanged: (String str) {
                     setState(() {
-                      tipe_brg = str;
+                      // tipe_brg = str;
                     });
                   },
                   keyboardType: TextInputType.multiline,
@@ -273,38 +177,6 @@ class _FormReqState extends State<FormReq> {
                   ],
                 ),
               ),
-
-              /*
-                  Padding(
-                    padding: const EdgeInsets.only(top:8.0, bottom: 8.0),
-                    child: TextFormField(                      
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        hintText: 'Tanggal Pinjam',
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 10.0),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        fillColor: Colors.white,
-                        filled: true,
-                      ),
-                      ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top:8.0, bottom: 8.0),
-                    child: TextFormField(                      
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        hintText: 'Tanggal Pengembalian',
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 10.0),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        fillColor: Colors.white,
-                        filled: true,
-                      ),
-                      ),
-                  ),
-
-                  */
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: RaisedButton(
@@ -312,7 +184,7 @@ class _FormReqState extends State<FormReq> {
                     borderRadius: BorderRadius.circular(24),
                   ),
                   onPressed: () {
-                    _addDataReq();
+                    // _addDataReq();
                   },
                   padding: EdgeInsets.all(12),
                   color: Colors.lightBlueAccent,
@@ -324,21 +196,6 @@ class _FormReqState extends State<FormReq> {
           ),
         ),
       ),
-
-/*
- Padding(
-                    padding: const EdgeInsets.only(top:8.0, bottom: 8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Cari barang. . .',
-                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 10.0),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                        fillColor: Colors.white,
-                        filled: true,
-                      ),
-                      ),
-                  ),
- */
     );
   }
 }

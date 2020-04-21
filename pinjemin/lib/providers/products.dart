@@ -15,21 +15,21 @@ class Products with ChangeNotifier {
       desc: 'A nice pair of trousers.',
       price: 59.99,
       image:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
+          'https://images.evo.com/imgp/700/159426/676754/brixton-aberdeen-trouser-pants-women-s-.jpg',
     ),
     Product(
-      name: 'Yellow Scarf',
+      name: 'Blue Scarf',
       desc: 'Warm and cozy - exactly what you need for the winter.',
       price: 19.99,
       image:
-          'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
+          'https://www.cleo.ca/on/demandware.static/-/Sites-product-catalog/default/dw8a0d56a9/images/cleo/accessories/9289fw17shmb_400_1.jpg',
     ),
     Product(
       name: 'A Pan',
       desc: 'Prepare any meal you want.',
       price: 49.99,
       image:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+          'https://cdn.shopify.com/s/files/1/2131/5111/products/carbon-steel-mobile-1_grande.jpg?v=1587166842',
     ),
   ];
 

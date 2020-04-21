@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'app_theme.dart';
+
 import 'package:provider/provider.dart';
 import './providers/products.dart';
 
@@ -21,8 +23,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Pinjemin',
         debugShowCheckedModeBanner: false,
-        theme:
-            ThemeData(primarySwatch: Colors.orange, accentColor: Colors.white),
+        theme: AppTheme.lightTheme,
         home: RequestScreen(),
         routes: {
           LoginPage.tag: (context) => LoginPage(),

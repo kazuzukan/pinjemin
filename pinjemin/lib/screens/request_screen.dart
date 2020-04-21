@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/products_grid.dart';
+import '../screens/form_req.dart';
 
 class RequestScreen extends StatefulWidget {
   static String tag = 'request-screen';
@@ -18,16 +19,8 @@ class _RequestScreenState extends State<RequestScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[],
         ),
-        // backgroundColor: Colors.white,
-        leading: IconButton(
-            color: Theme.of(context).accentColor,
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              print("Clicked");
-            }),
         actions: <Widget>[
           IconButton(
-              color: Theme.of(context).accentColor,
               icon: Icon(Icons.notifications_none),
               onPressed: () {
                 print("Notification Clicked");
@@ -36,6 +29,12 @@ class _RequestScreenState extends State<RequestScreen> {
         elevation: 5,
       ),
       body: ProductsGrid(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(FormReq.tag);
+        },
+        child: Icon(Icons.add)
+        ),
     );
   }
 }
