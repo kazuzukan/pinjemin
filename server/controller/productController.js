@@ -1,9 +1,15 @@
 const db = require("../models");
-const User = db.offer;
+const Product = db.product;
 // const Op = db.sequelize.Op;
 
-exports.findAllOffer = (req, res) => {
-  User.findAll()
+exports.findAllProduct = (req, res) => {
+  Product.findAll({
+    include: [
+      {
+        model: db.section,
+      },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -17,7 +23,13 @@ exports.findAllOffer = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  User.findByPk(id)
+  Product.findByPk(id, {
+    include: [
+      {
+        model: db.section,
+      },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -28,18 +40,19 @@ exports.findOne = (req, res) => {
     });
 };
 
-exports.createOffer = (req, res) => {
+exports.createProduct = (req, res) => {
   //constructor
-  const user = {
+  const product = {
     name: req.body.name,
-    method: req.body.method,
     desc: req.body.desc,
+    method: req.body.method,
     price: req.body.price,
-    image: req.body.image,
+    duration: req.body.duration,
+    email: req.body.email,
     userId: req.body.userId,
   };
 
-  User.create(user)
+  Product.create(product)
     .then((data) => {
       res.send(data);
     })
@@ -50,20 +63,23 @@ exports.createOffer = (req, res) => {
     });
 };
 
-exports.updateOffer = (req, res) => {
+exports.updateProduct = (req, res) => {
   const id = req.params.id;
 
   //constructor
-  const user = {
+  const product = {
     name: req.body.name,
-    method: req.body.method,
     desc: req.body.desc,
+    method: req.body.method,
     price: req.body.price,
-    image: req.body.image,
-    userId: req.body.userId,
+    duration: req.body.duration,
+    email: req.body.email,
+    password: req.body.password,
+    point: req.body.point,
+    isambassador: req.body.isambassador,
   };
 
-  User.update(user, {
+  Product.update(product, {
     where: {
       id: id,
     },
@@ -80,10 +96,10 @@ exports.updateOffer = (req, res) => {
     });
 };
 
-exports.deleteOffer = (req, res) => {
+exports.deleteProduct = (req, res) => {
   const id = req.params.id;
 
-  User.destroy({
+  Product.destroy({
     where: {
       id: id,
     },

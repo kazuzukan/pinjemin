@@ -1,7 +1,8 @@
 module.exports = (app) => {
   const user = require("../controller/userController");
-  const offer = require("../controller/offerController");
-  const requests = require("../controller/requestController");
+  const product = require("../controller/productController");
+  const section = require("../controller/sectionController");
+  const order = require("../controller/orderController");
 
   // Default
   app.get("/", (req, res) => {
@@ -10,16 +11,16 @@ module.exports = (app) => {
 
   // Customer
   // All User
-  app.get("/users", user.findAllUser);
+  app.get("/user", user.findAllUser);
+
+  // User Product
+  app.get("/userproduct/:id", user.findUserProduct);
+
+  // User Order
+  app.get("/userorder/:id", user.findUserOrder);
 
   // Find One User
   app.get("/user/:id", user.findOne);
-
-  //Find User Offer
-  app.get("/useroffer/:id", user.findUserOffer);
-
-  //Find User Request
-  app.get("/userrequest/:id", user.findUserOffer);
 
   //Create User
   app.post("/user", user.createUser);
@@ -30,43 +31,42 @@ module.exports = (app) => {
   //Delete User
   app.delete("/user/:id", user.deleteUser);
 
+  //Product
+  // All product
+  app.get("/product", product.findAllProduct);
 
-  //Offer
-  // All Offer
-  app.get("/offers", offer.findAllOffer);
+  // Find One product
+  app.get("/product/:id", product.findOne);
 
-  // Find One offer
-  app.get("/offer/:id", offer.findOne);
+  // Create product
+  app.post("/product", product.createProduct);
 
-  //Create offer
-  app.post("/offer", offer.createOffer);
+  // Update product
+  app.put("/product/:id", product.updateProduct);
 
-  //Update offer
-  app.put("/offer/:id", offer.updateOffer);
+  // Delete product
+  app.delete("/product/:id", product.deleteProduct);
 
-  //Delete offer
-  app.delete("/offer/:id", offer.deleteOffer);
+  // Section
+  // Create Product Section
+  app.post("/section", section.createSection);
 
+  // Update Product Section 
+  app.put("/section/:id", section.updateSection);
 
-  //Request
-  // All Offer
-  app.get("/requests", requests.findAllRequest);
+  //delete Product Section
+  app.delete("/section/:id", section.deleteSection);
 
-  // Find One offer
-  app.get("/request/:id", requests.findOne);
+  //Order
+  // All Order
+  app.get("/order", order.findAllOrder);
 
-  //Create offer
-  app.post("/request", requests.createRequest);
+  // create Order
+  app.post("/order", order.createOrder);
 
-  //Update offer
-  app.put("/request/:id", requests.updateRequest);
+  // Update Order 
+  app.put("/order/:id", order.updateOrder);
 
-  //Delete offer
-  app.delete("/request/:id", requests.deleteRequest);
-
-  //Log Request
-
-  //Log Offer
-
-  //Type
+  //delete Order
+  app.delete("/order/:id", order.deleteOrder);
 };
