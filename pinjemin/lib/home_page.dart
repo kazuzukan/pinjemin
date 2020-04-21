@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/request_page.dart';
 import 'package:pinjemin/offer_page.dart';
-import 'sign_in.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -94,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                                     style: new TextStyle(fontSize: 13.0, color: Colors.black87),
                                   ),
                                   Text(
-                                    'kumpulkan poin, ' + name +"!",
+                                    'kumpulkan poin, ' +"!",
                                     style: new TextStyle(fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ],
