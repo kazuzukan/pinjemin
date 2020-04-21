@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/request_page.dart';
-import 'login_page.dart';
-import 'home_page.dart';
-import 'register.dart';
-import 'request_page.dart';
-import 'form_req.dart';
-import 'form_offer.dart';
-import 'offer_page.dart';
+import './screens/login_page.dart';
+import './screens/home_page.dart';
+import './screens/register.dart';
+import './screens/request_page.dart';
+import './screens/form_req.dart';
+import './screens/offer_page.dart';
+import './screens/form_offer.dart';
 
 
 

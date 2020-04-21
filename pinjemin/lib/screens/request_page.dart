@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/form_req.dart';
-import 'package:pinjemin/home_page.dart';
+import 'package:pinjemin/screens/form_req.dart';
+import 'package:pinjemin/screens/home_page.dart';
 
 class RequestPage extends StatefulWidget {
   static String tag = 'request-page';

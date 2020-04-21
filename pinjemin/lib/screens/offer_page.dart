@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/request_page.dart';
-import 'package:pinjemin/offer_page.dart';
+import 'package:pinjemin/screens/home_page.dart';
+import 'package:pinjemin/screens/form_offer.dart';
 
-class HomePage extends StatefulWidget {
-  static String tag = 'home-page';
+
+class OfferPage extends StatefulWidget {
+  static String tag = 'offer-page';
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _OfferPageState createState() => _OfferPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _OfferPageState extends State<OfferPage> {
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
@@ -19,8 +20,9 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(child: 
-            Image.asset('assets/pinjemin.png'),)
+            Expanded(
+                child: Image.asset('assets/pinjemin.png'),
+              )
           ],
         ),
         backgroundColor: Colors.white,
@@ -42,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         ],
         elevation: 5,
       ),
-        body: Center(
+      body: Center(
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -57,10 +59,12 @@ class _HomePageState extends State<HomePage> {
                   ]), 
                                  
             ),
-          child: new Column(
+          child: 
+          new Column(
             children: <Widget>[
-                new Column(mainAxisAlignment: MainAxisAlignment.center, 
-                children: <Widget>[
+                new Column(
+                  mainAxisAlignment: MainAxisAlignment.center, 
+                  children: <Widget>[
                     Container(
                       color:Colors.white,
                       child: new Row(
@@ -93,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                                     style: new TextStyle(fontSize: 13.0, color: Colors.black87),
                                   ),
                                   Text(
-                                    'kumpulkan poin, ' +"!",
+                                    'Klik & kumpulkan poin',
                                     style: new TextStyle(fontSize: 10.0, color: Colors.black54),
                                   ),
                                 ],
@@ -103,45 +107,49 @@ class _HomePageState extends State<HomePage> {
                         ]
                       )
                     ),
-                new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,       
-                  children: <Widget>[
-                    new Row(
+                  Padding(
+                    padding: const EdgeInsets.only(top:8.0, bottom: 8.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Cari barang. . .',
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 10.0),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+                        fillColor: Colors.white,
+                        filled: true,
+                      ),
+                      ),
+                  ),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(60.0,8.0,8.0,8.0),
-                          child: new Image.asset(
-                            'assets/categories.png', width: 60.0,
-                          ),
-                        ),
                         new InkWell(
                           onTap:  (){
-                            Navigator.of(context).pushNamed(OfferPage.tag);
+                            Navigator.of(context).pushNamed(HomePage.tag);
                           } ,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 8.0,8.0,8.0),           
-                          child: new Image.asset( 'assets/offer.png',width: 60.0),          
+                          child: new Image.asset( 'assets/backbutton.png',width: 60.0),          
                           )
                         ), 
                         new InkWell(
                           onTap:  (){
-                            Navigator.of(context).pushNamed(RequestPage.tag);
-                          } ,
+                            Navigator.of(context).pushNamed(FormOffer.tag);
+                          },
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 8.0,8.0,8.0),           
-                          child: new Image.asset( 'assets/request.png',width: 60.0),          
+                          child: new Image.asset( 'assets/plusbutton.png',width: 60.0),          
                           )
                         ), 
                       ],
                     )
-                  ] 
-                )
-              ],
+              ]
             ),
           ]
-        ),         
-      )      
+        ),
+      )
     )
+
     );
+ 
   }
 }
