@@ -26,15 +26,17 @@ class AppTheme {
       color: _iconColor,
     ),
     textTheme: _lightTextTheme,
+    fontFamily: 'Nunito'
   );
   
   static final TextTheme _lightTextTheme = TextTheme(
     headline: _lightScreenHeadingStyle,
-    body1: _lightScreenTaskNameStyle,
-    body2: _lightScreenTaskDurationStyle,
+    body1: _heading1,
+    body2: _heading3,
+    caption: _heading3
   );
 
   static final TextStyle _lightScreenHeadingStyle = TextStyle(fontSize: 48.0, letterSpacing: 1.2, color: _lightOnPrimaryColor);
-  static final TextStyle _lightScreenTaskNameStyle = TextStyle(fontSize: 20.0, color: _lightOnPrimaryColor);
-  static final TextStyle _lightScreenTaskDurationStyle = TextStyle(fontSize: 16.0, color: Colors.grey);
+  static final TextStyle _heading1 = TextStyle(fontSize: 16.0, color: _lightOnPrimaryColor);
+  static final TextStyle _heading3 = TextStyle(fontSize: 12.0, color: Colors.grey);
 }
