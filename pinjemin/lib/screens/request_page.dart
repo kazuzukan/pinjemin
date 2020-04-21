@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/screens/form_req.dart';
-import 'package:pinjemin/screens/home_page.dart';
+import 'package:pinjemin/screens/request_screen.dart';
 
 class RequestPage extends StatefulWidget {
   static String tag = 'request-page';
@@ -123,7 +123,7 @@ class _RequestPageState extends State<RequestPage> {
                       children: <Widget>[
                         new InkWell(
                           onTap:  (){
-                            Navigator.of(context).pushNamed(HomePage.tag);
+                            Navigator.of(context).pushNamed(RequestScreen.tag);
                           } ,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 8.0,8.0,8.0),           

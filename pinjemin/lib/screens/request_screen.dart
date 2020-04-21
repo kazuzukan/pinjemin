@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../components/products_grid.dart';
 
-class HomePage extends StatefulWidget {
-  static String tag = 'home-page';
+class RequestScreen extends StatefulWidget {
+  static String tag = 'request-screen';
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _RequestScreenState createState() => _RequestScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _RequestScreenState extends State<RequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

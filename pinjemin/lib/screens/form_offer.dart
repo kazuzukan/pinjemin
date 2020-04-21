@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/screens/home_page.dart';
+import 'package:pinjemin/screens/request_screen.dart';
 
 class FormOffer extends StatefulWidget {
   static String tag = 'form-offer-page';
@@ -158,7 +158,7 @@ class _FormOfferState extends State<FormOffer> {
                         borderRadius: BorderRadius.circular(24),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pushNamed(HomePage.tag);
+                        Navigator.of(context).pushNamed(RequestScreen.tag);
                       },
                       padding: EdgeInsets.all(12),
                       color: Colors.lightBlueAccent,

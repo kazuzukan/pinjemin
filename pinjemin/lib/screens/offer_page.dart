@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/screens/home_page.dart';
+import 'package:pinjemin/screens/request_screen.dart';
 import 'package:pinjemin/screens/form_offer.dart';
 
 
@@ -124,7 +124,7 @@ class _OfferPageState extends State<OfferPage> {
                       children: <Widget>[
                         new InkWell(
                           onTap:  (){
-                            Navigator.of(context).pushNamed(HomePage.tag);
+                            Navigator.of(context).pushNamed(RequestScreen.tag);
                           } ,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 8.0,8.0,8.0),           
