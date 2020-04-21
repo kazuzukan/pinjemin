@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="0 0 25 25">
+  <defs>
+    <filter id="Ellipse_9" x="18" y="9" width="1" height="1" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="notif" transform="translate(-257 -539)">
+    <g id="Group_29" data-name="Group 29" transform="translate(257 539)">
+      <g id="Group_30" data-name="Group 30" transform="translate(0 0)" opacity="0">
+        <rect id="Rectangle_4" data-name="Rectangle 4" width="25" height="25" fill="#b9b9b9"/>
+      </g>
+      <path id="notification" d="M71.164,17.151a3.391,3.391,0,0,1-1.08-1.386A15.2,15.2,0,0,1,68.958,9.43c0-.008,0-.016,0-.024A6.112,6.112,0,0,0,65.136,3.86V2.4A2.479,2.479,0,0,0,62.591,0H62.38a2.479,2.479,0,0,0-2.544,2.4V3.86a6.11,6.11,0,0,0-3.822,5.57,15.2,15.2,0,0,1-1.126,6.335,3.391,3.391,0,0,1-1.08,1.386.6.6,0,0,0-.358.7.676.676,0,0,0,.672.493h4.913a3.46,3.46,0,0,0,6.9,0H70.85a.676.676,0,0,0,.672-.493A.6.6,0,0,0,71.164,17.151ZM61.177,2.4a1.173,1.173,0,0,1,1.2-1.136h.211A1.173,1.173,0,0,1,63.8,2.4V3.45a6.884,6.884,0,0,0-2.619,0V2.4Zm1.309,17.886a2.06,2.06,0,0,1-2.11-1.944H64.6A2.06,2.06,0,0,1,62.486,20.287Zm2.7-3.209H55.65A6.527,6.527,0,0,0,56,16.5,15.181,15.181,0,0,0,57.355,9.43a5.139,5.139,0,0,1,10.262,0c0,.008,0,.016,0,.023A15.151,15.151,0,0,0,68.971,16.5a6.537,6.537,0,0,0,.351.581Z" transform="translate(-49.986 1.724)" fill="#fff"/>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Ellipse_9)">
+        <circle id="Ellipse_9-2" data-name="Ellipse 9" cx="0.5" cy="0.5" r="0.5" transform="translate(18 9)" fill="#01fe90" opacity="0"/>
+      </g>
+    </g>
+  </g>
+</svg>
