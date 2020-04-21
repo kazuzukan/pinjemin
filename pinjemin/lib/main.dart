@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import './providers/products.dart';
+
 import './screens/login_page.dart';
 import './screens/home_page.dart';
 import './screens/register.dart';
@@ -6,8 +9,6 @@ import './screens/request_page.dart';
 import './screens/form_req.dart';
 import './screens/offer_page.dart';
 import './screens/form_offer.dart';
-
-
 
 void main() => runApp(MyApp());
 
@@ -20,20 +21,23 @@ class MyApp extends StatelessWidget {
     OfferPage.tag: (context) => OfferPage(),
     FormReq.tag: (context) => FormReq(),
     FormOffer.tag: (context) => FormOffer(),
-
   };
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pinjemin',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-        accentColor: Colors.white
+    return ChangeNotifierProvider(
+      create: (ctx) => Products(),
+      child: MaterialApp(
+        title: 'Pinjemin',
+        debugShowCheckedModeBanner: false,
+        theme:
+            ThemeData(
+              primarySwatch: Colors.orange, 
+              accentColor: Colors.white
+            ),
+        home: HomePage(),
+        routes: routes,
       ),
-      home: HomePage(),
-      routes: routes,
     );
   }
 }

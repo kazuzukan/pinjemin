@@ -27,6 +27,8 @@ dependencies:
   google_sign_in:
   cloud_firestore: ^0.12.11
   auto_size_text: ^2.1.0
+  
+  provider: ^4.0.5
 
 dev_dependencies:
   flutter_test:

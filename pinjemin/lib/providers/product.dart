@@ -11,10 +11,10 @@ class Product with ChangeNotifier {
 
   Product({
     @required this.name, 
-    this.desc = null,
-    this.method = null,
-    this.price = null,
-    this.duration = null,
-    this.image = null
+    this.desc,
+    this.method,
+    this.price ,
+    this.duration,
+    this.image
   });
 }

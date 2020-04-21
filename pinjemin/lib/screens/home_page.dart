@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/screens/request_page.dart';
-import 'package:pinjemin/screens/offer_page.dart';
+import '../components/products_grid.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -36,6 +35,7 @@ class _HomePageState extends State<HomePage> {
         ],
         elevation: 5,
       ),
+      body: ProductsGrid(),
     );
   }
 }
