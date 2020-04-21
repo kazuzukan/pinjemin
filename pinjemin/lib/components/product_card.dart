@@ -31,6 +31,10 @@ class ProductCard extends StatelessWidget {
             product.name,
             style: Theme.of(context).textTheme.body1,
           ),
+          subtitle: Text(
+            product.desc,
+            style: Theme.of(context).textTheme.caption
+          ),
         ),
       ),
     );
