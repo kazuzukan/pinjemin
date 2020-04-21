@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
       title: 'Pinjemin',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-        fontFamily: 'Nunito',
+        primarySwatch: Colors.orange,
+        accentColor: Colors.white
       ),
       home: HomePage(),
       routes: routes,
