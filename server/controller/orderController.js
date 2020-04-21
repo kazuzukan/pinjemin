@@ -1,9 +1,9 @@
 const db = require("../models");
-const User = db.request;
+const Order = db.order;
 // const Op = db.sequelize.Op;
 
-exports.findAllRequest = (req, res) => {
-  User.findAll()
+exports.findAllOrder = (req, res) => {
+  Order.findAll()
     .then((data) => {
       res.send(data);
     })
@@ -17,7 +17,7 @@ exports.findAllRequest = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  User.findByPk(id)
+  Order.findByPk(id)
     .then((data) => {
       res.send(data);
     })
@@ -28,18 +28,20 @@ exports.findOne = (req, res) => {
     });
 };
 
-exports.createRequest = (req, res) => {
+exports.createOrder = (req, res) => {
   //constructor
-  const user = {
+  const order = {
     name: req.body.name,
-    method: req.body.method,
-    desc: req.body.desc,
-    price: req.body.price,
-    image: req.body.image,
+    address: req.body.address,
+    starDate: req.body.starDate,
+    endDate: req.body.endDate,
+    point: req.body.point,
+    status: req.body.status,
     userId: req.body.userId,
+    productId: req.body.productId
   };
 
-  User.create(user)
+  Order.create(order)
     .then((data) => {
       res.send(data);
     })
@@ -50,20 +52,22 @@ exports.createRequest = (req, res) => {
     });
 };
 
-exports.updateRequest = (req, res) => {
+exports.updateOrder = (req, res) => {
   const id = req.params.id;
 
   //constructor
-  const user = {
+  const order = {
     name: req.body.name,
-    method: req.body.method,
-    desc: req.body.desc,
-    price: req.body.price,
-    image: req.body.image,
+    address: req.body.address,
+    starDate: req.body.starDate,
+    endDate: req.body.endDate,
+    point: req.body.point,
+    status: req.body.status,
     userId: req.body.userId,
+    productId: req.body.productId
   };
 
-  User.update(user, {
+  Order.update(order, {
     where: {
       id: id,
     },
@@ -80,10 +84,10 @@ exports.updateRequest = (req, res) => {
     });
 };
 
-exports.deleteRequest = (req, res) => {
+exports.deleteOrder = (req, res) => {
   const id = req.params.id;
 
-  User.destroy({
+  Order.destroy({
     where: {
       id: id,
     },

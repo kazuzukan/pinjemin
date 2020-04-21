@@ -14,42 +14,53 @@ exports.findAllUser = (req, res) => {
     });
 };
 
+exports.findUserProduct = (req, res) => {
+  const id = req.params.id;
+
+  User.findByPk(id, {
+    include: [
+      {
+        model: db.product,
+        include: [{
+          model: db.section
+        }]
+      },
+    ],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving User with id =" + id,
+      });
+    });
+};
+
+exports.findUserOrder = (req,res) => {
+  const id = req.params.id;
+  User.findByPk(id, {
+    include: [
+      {
+        model: db.order
+      },
+    ],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving User with id =" + id,
+      });
+    });
+
+}
+
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
   User.findByPk(id)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error retrieving User with id =" + id,
-      });
-    });
-};
-
-exports.findUserOffer = (req, res) => {
-  const id = req.params.id;
-
-  User.findByPk(id, {
-    include: [{ model: db.offer }],
-  })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error retrieving User with id =" + id,
-      });
-    });
-};
-
-exports.findUserRequest = (req, res) => {
-  const id = req.params.id;
-
-  User.findByPk(id, {
-    include: [{ model: db.request }],
-  })
     .then((data) => {
       res.send(data);
     })
