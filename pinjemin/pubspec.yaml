@@ -45,6 +45,16 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  
+  class MyFlutterApp {
+  MyFlutterApp._();
+
+  static const _kFontFam = 'MyFlutterApp';
+  static const _kFontPkg = null;
+
+  static const IconData icon_request = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+}
+
   assets:
     - assets/butterfly.png
     - assets/profil.jpg
@@ -57,10 +67,14 @@ flutter:
     - assets/request.png
     - assets/plusbutton.png
     - assets/backbutton.png
+  
   fonts:
-    - family: Nunito
+    - family: 
+      - Nunito
+      - request
       fonts:
-          - asset: assets/Nunito.ttf
+        - asset : pinjemin/lib/assets/fonts/ic_request.ttf
+      
 
   # To add assets to your application, add an assets section, like this:
   # assets:
