@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'sign_in.dart';
 
 class FormReq extends StatefulWidget {
   static String tag = 'form-req-page';

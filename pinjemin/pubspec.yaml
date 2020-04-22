@@ -46,14 +46,15 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   
-  class MyFlutterApp {
-  MyFlutterApp._();
+  # class MyFlutterApp
+  # MyFlutterApp._();
 
-  static const _kFontFam = 'MyFlutterApp';
-  static const _kFontPkg = null;
+  # static const _kFontFam = 'MyFlutterApp';
+  # static const _kFontPkg = null;
+  
 
-  static const IconData icon_request = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-}
+  # static const IconData icon_request = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+
 
   assets:
     - assets/butterfly.png
@@ -69,11 +70,9 @@ flutter:
     - assets/backbutton.png
   
   fonts:
-    - family: 
-      - Nunito
-      - request
+    - family: Nunito
       fonts:
-        - asset : pinjemin/lib/assets/fonts/ic_request.ttf
+        - asset : lib/assets/fonts/Nunito.ttf
       
 
   # To add assets to your application, add an assets section, like this:
