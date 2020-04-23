@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/login_page.dart';
+import 'package:pinjemin/screens/login_page.dart';
 
 class Register extends StatefulWidget {
   static String tag = 'register-page';
@@ -13,14 +13,14 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 48.0,
-        child: Image.asset(''),
-      ),
-    );
+    // final logo = Hero(
+    //   tag: 'hero',
+    //   child: CircleAvatar(
+    //     backgroundColor: Colors.transparent,
+    //     radius: 48.0,
+    //     child: Image.asset(''),
+    //   ),
+    // );
 
     final name = TextFormField(
       keyboardType: TextInputType.text,

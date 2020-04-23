@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'home_page.dart';
+import './request_screen.dart';
 import 'register.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -31,9 +31,9 @@ class _LoginPageState extends State<LoginPage> {
                 .signInWithEmailAndPassword(email: _email, password: _password))
             .user;
         print('Sign in : ${user.uid}');
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
-      } catch (e) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => RequestScreen()));
+      }
+      catch(e){
         print('Error : $e');
         setState(() {
           _error = "Incorrect Email or Password!";

@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -31,6 +31,8 @@ dependencies:
   carousel_slider: ^1.3.0
   carousel_pro: ^1.0.0
   flutter_statusbarcolor: ^0.2.3
+  
+  provider: ^4.0.5
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +49,17 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  
+  # class MyFlutterApp
+  # MyFlutterApp._();
+
+  # static const _kFontFam = 'MyFlutterApp';
+  # static const _kFontPkg = null;
+  
+
+  # static const IconData icon_request = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+
+
   assets:
     - assets/icon-google.svg
     - lib/assets/icons/icon-google.svg
@@ -67,10 +80,12 @@ flutter:
     - assets/request.png
     - assets/plusbutton.png
     - assets/backbutton.png
+  
   fonts:
     - family: Poppins
       fonts:
-          - asset: assets/font/Poppins-Regular.ttf
+        - asset : lib/assets/fonts/Poppins-Regular.ttf
+      
 
   # To add assets to your application, add an assets section, like this:
   # assets:
