@@ -27,6 +27,10 @@ dependencies:
   google_sign_in:
   cloud_firestore: ^0.12.11
   auto_size_text: ^2.1.0
+  flutter_svg: ^0.17.1
+  carousel_slider: ^1.3.0
+  carousel_pro: ^1.0.0
+  flutter_statusbarcolor: ^0.2.3
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +48,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - assets/icon-google.svg
+    - lib/assets/icons/icon-google.svg
+    - lib/assets/icons/welcome-screen-1.svg
+    - lib/assets/icons/welcome-screen-2.svg
+    - lib/assets/icons/welcome-screen-3.svg
+    - assets/welcome-screen-1.png
+    - assets/welcome-screen-2.png
+    - assets/welcome-screen-3.png
     - assets/butterfly.png
     - assets/profil.jpg
     - assets/qr-code.png
@@ -56,9 +68,9 @@ flutter:
     - assets/plusbutton.png
     - assets/backbutton.png
   fonts:
-    - family: Nunito
+    - family: Poppins
       fonts:
-          - asset: assets/Nunito.ttf
+          - asset: assets/font/Poppins-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
