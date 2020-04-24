@@ -13,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  static MediaQueryData _mediaQueryData;
+  // static MediaQueryData _mediaQueryData;
   bool isRegister = false;
   @override
   Widget build(BuildContext context) {
