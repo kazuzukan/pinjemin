@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Color(0xFFFF7700));
-    return ChangeNotifierProvider(
-      create: (ctx) => Products(),
+    return ChangeNotifierProvider.value(
+      value: Products(),
       child: MaterialApp(
         title: 'Pinjemin',
         debugShowCheckedModeBanner: false,
