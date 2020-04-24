@@ -63,6 +63,8 @@ flutter:
   assets:
     - assets/icon-google.svg
     - lib/assets/icons/icon-google.svg
+    - lib/assets/icons/icon-bg-title.svg
+    - lib/assets/icons/icon-email.svg
     - lib/assets/icons/welcome-screen-1.svg
     - lib/assets/icons/welcome-screen-2.svg
     - lib/assets/icons/welcome-screen-3.svg

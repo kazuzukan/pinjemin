@@ -4,56 +4,70 @@ import 'package:flutter_svg/svg.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:pinjemin/components/largeButton.dart';
 
-void main() => runApp(LoginScreen());
-
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   // static String google = '/assets/icons/icon-google.svg';
   static String tag = 'login-screen';
-  final String googleAssets = 'assets/icon-google.svg';
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  static MediaQueryData _mediaQueryData;
+  bool isRegister = false;
   @override
   Widget build(BuildContext context) {
     Widget welcome = Container(
-        padding: const EdgeInsets.only(left: 16, top: 32, right: 46),
-        child: Column(
-          children: <Widget>[
-            Text(
-              'Selamat Datang, Mau Pinjemin Apa Hari Ini ?',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              textAlign: TextAlign.justify,
-            )
-          ],
-        ));
+        padding: const EdgeInsets.only(top: 32, left: 13, right: 50),
+        child: Container(
+            child: Text(
+          'Selamat Datang, Mau Pinjem Apa Hari Ini ?',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+          textAlign: TextAlign.justify,
+        )));
 
     Widget syarat = Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
-        child: Column(
-          children: <Widget>[
-            Text(
-              'Syarat dan Ketentuan',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-              textAlign: TextAlign.right,
-            )
-          ],
+        padding: const EdgeInsets.only(right: 10, top: 35),
+        child: Text(
+          'Syarat dan Ketentuan',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white),
+          textAlign: TextAlign.right,
         ));
 
     Widget title = Container(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Expanded(
-          child: Column(
-            children: <Widget>[welcome],
-          ),
-        ),
-        syarat
-      ],
-    ));
+      child: Stack(
+        children: <Widget>[
+          Container(
+              // height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: SvgPicture.asset('lib/assets/icons/icon-bg-title.svg')),
+          Container(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                width: 250,
+                height: 120,
+                child: welcome,
+              ),
+              SizedBox(
+                width: 161,
+                height: 120,
+                child: syarat,
+              ),
+            ],
+          )),
+        ],
+      ),
+    );
 
     Widget carousel = Container(
       child: Column(
         children: <Widget>[
           SizedBox(
-              height: 420.0,
+              height: 350.0,
               width: 400.0,
               child: Carousel(
                 images: [
@@ -70,8 +84,7 @@ class LoginScreen extends StatelessWidget {
                 borderRadius: true,
                 moveIndicatorFromBottom: 180.0,
                 noRadiusForIndicator: true,
-              )
-            )
+              ))
         ],
       ),
     );
@@ -92,14 +105,37 @@ class LoginScreen extends StatelessWidget {
                       decoration: TextDecoration.underline),
                 ),
                 onTap: () {
+                  setState(() {
+                    isRegister = true;
+                  });
                   print('Register Clicked');
                 })
-            // Text(
-            //   'Register',
-            //   style: TextStyle(
-            //     decoration: TextDecoration.underline
-            //   )
-            // )
+          ],
+        ),
+      ),
+    );
+
+    Widget login = Container(
+      child: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Sudah Punya Akun ? ',
+                style: TextStyle(fontSize: 12, color: Colors.black)),
+            InkWell(
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                      decoration: TextDecoration.underline),
+                ),
+                onTap: () {
+                  setState(() {
+                    isRegister = false;
+                  });
+                  print('Register Clicked');
+                })
           ],
         ),
       ),
@@ -110,30 +146,98 @@ class LoginScreen extends StatelessWidget {
         body: SafeArea(
           child: Container(
             // color: Colors.yellow,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    height: 170,
-                    child: title,
-                  ),
-                  Container(
-                    // height: 30,
-                    child: Center(
-                      child: carousel,
+            child: Column(children: <Widget>[
+              Container(
+                // height: 170,
+                child: title,
+              ),
+              Container(
+                child: AnimatedCrossFade(
+                    firstChild: Column(
+                      children: <Widget>[
+                        Container(
+                          // height: 30,
+                          child: Center(
+                            child: carousel,
+                          ),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(top: 20),
+                            child: Center(
+                              child: LargeButton(
+                                widgetsList: <Widget>[
+                                  SizedBox(
+                                    width: 40,
+                                    child: SvgPicture.asset(
+                                      'lib/assets/icons/icon-google.svg',
+                                    ),
+                                  ),
+                                  Text(
+                                    'Daftar Dengan Google',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                            )),
+                        Container(
+                          margin: const EdgeInsets.only(top: 30),
+                          child: register,
+                        )
+                      ],
                     ),
-                  ),
-                  Container(
-                      margin: const EdgeInsets.only(top: 30),
-                      child: Center(
-                          child: LargeButton(),
-                      )),
-
-                    Container(
-                    margin: const EdgeInsets.only(top: 30),
-                    child: register,
-                  )
-                ]),
+                    secondChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: const EdgeInsets.only(top: 100),
+                          child: LargeButton(
+                            widgetsList: <Widget>[
+                              SizedBox(
+                                width: 40,
+                                child: SvgPicture.asset(
+                                  'lib/assets/icons/icon-google.svg',
+                                ),
+                              ),
+                              Text(
+                                'Daftar Dengan Google',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 14),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          // child: Center(
+                          child: LargeButton(
+                            widgetsList: <Widget>[
+                              SizedBox(
+                                width: 40,
+                                child: SvgPicture.asset(
+                                  'lib/assets/icons/icon-email.svg',
+                                ),
+                              ),
+                              Text(
+                                'Daftar Dengan Email',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 14),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 40),
+                          child: login,
+                        )
+                      ],
+                    ),
+                    crossFadeState: isRegister
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
+                    duration: Duration(milliseconds: 500)),
+              )
+            ]),
           ),
         ));
   }

@@ -24,18 +24,7 @@ class LargeButton extends StatelessWidget {
               side: BorderSide(color: Colors.grey, width: 1)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                width: 40,
-                child: SvgPicture.asset(
-                  'lib/assets/icons/icon-google.svg',
-                ),
-              ),
-              Text(
-                'Masuk Dengan Google',
-                style: TextStyle(color: Colors.black, fontSize: 14),
-              )
-            ],
+            children: widgetsList,
           ),
         ),
       ),
