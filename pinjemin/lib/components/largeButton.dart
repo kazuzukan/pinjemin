@@ -16,7 +16,7 @@ class LargeButton extends StatelessWidget {
         height: 60,
         child: RaisedButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(RequestScreen.tag);
+            Navigator.of(context).pushReplacementNamed(RequestScreen.tag);
           },
           padding: const EdgeInsets.all(18.0),
           color: Colors.white,
