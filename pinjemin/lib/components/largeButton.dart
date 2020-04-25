@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../screens/request_screen.dart';
-
-void main() => runApp(LargeButton());
+import '../providers/controller/autentikasi.dart';
 
 class LargeButton extends StatelessWidget {
   final List<Widget> widgetsList;
@@ -15,7 +13,8 @@ class LargeButton extends StatelessWidget {
         width: 320,
         height: 60,
         child: RaisedButton(
-          onPressed: () {
+          onPressed: (){
+            handleSignIn();
             Navigator.of(context).pushNamed(RequestScreen.tag);
           },
           padding: const EdgeInsets.all(18.0),

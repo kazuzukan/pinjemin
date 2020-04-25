@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:carousel_slider/carousel_slider.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:pinjemin/components/largeButton.dart';
+import '../components/largeButton.dart';
+import '../components/carousel.dart';
 
 class LoginScreen extends StatefulWidget {
   // static String google = '/assets/icons/icon-google.svg';
@@ -13,7 +12,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  static MediaQueryData _mediaQueryData;
   bool isRegister = false;
   @override
   Widget build(BuildContext context) {
@@ -59,32 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           )),
-        ],
-      ),
-    );
-
-    Widget carousel = Container(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-              height: 350.0,
-              width: 400.0,
-              child: Carousel(
-                images: [
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-1.svg'),
-                  // Image.asset('assets/welcome-screen-1.png'),
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-2.svg'),
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-3.svg')
-                ],
-                dotSize: 8.0,
-                dotSpacing: 15.0,
-                dotColor: Colors.grey,
-                indicatorBgPadding: 5.0,
-                dotBgColor: Colors.purple.withOpacity(0.0),
-                borderRadius: true,
-                moveIndicatorFromBottom: 180.0,
-                noRadiusForIndicator: true,
-              ))
         ],
       ),
     );
@@ -158,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           // height: 30,
                           child: Center(
-                            child: carousel,
+                            child: CarouselComponent(),
                           ),
                         ),
                         Container(
