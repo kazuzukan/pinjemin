@@ -35,7 +35,6 @@ class _RequestScreenState extends State<RequestScreen> {
           ],
         ),
         body: ProductsGrid(),
-        // bottomNavigationBar: BottomNavBar(), //kalo pake ini layout card nya ketutupan bottomnav, gatau why
         floatingActionButton: FloatingActionButton(
             onPressed: () {
               Navigator.of(context).pushNamed(FormReq.tag);

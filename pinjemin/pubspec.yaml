@@ -82,6 +82,7 @@ flutter:
     - assets/request.png
     - assets/plusbutton.png
     - assets/backbutton.png
+    - lib/assets/icons/icon-terms.svg
   
   fonts:
     - family: Poppins

@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Widget welcome = Container(
-        padding: const EdgeInsets.only(top: 32, left: 13, right: 50),
+        padding: const EdgeInsets.fromLTRB(0, 40.0, 20, 0.0),
         child: Container(
             child: Text(
           'Selamat Datang, Mau Pinjem Apa Hari Ini ?',
@@ -26,39 +26,49 @@ class _LoginScreenState extends State<LoginScreen> {
               fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
           textAlign: TextAlign.justify,
         )));
-
+    
     Widget syarat = Container(
-        padding: const EdgeInsets.only(right: 10, top: 35),
-        child: Text(
-          'Syarat dan Ketentuan',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white),
-          textAlign: TextAlign.right,
-        ));
+        padding: const EdgeInsets.fromLTRB(20, 0, 0, 17),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                'Syarat dan Ketentuan  ',
+                style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white),
+                textAlign: TextAlign.left,
+              ),
+              SvgPicture.asset('lib/assets/icons/icon-terms.svg')
+            ],
+        )            
+    );
 
     Widget title = Container(
       child: Stack(
         children: <Widget>[
           Container(
-              // height: MediaQuery.of(context).size.height,
+              //height:MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: SvgPicture.asset('lib/assets/icons/icon-bg-title.svg')),
+              child: SvgPicture.asset('lib/assets/icons/icon-bg-title.svg'),),
           Container(
-              child: Row(
+              child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                width: 250,
-                height: 120,
-                child: welcome,
-              ),
-              SizedBox(
-                width: 161,
-                height: 120,
-                child: syarat,
-              ),
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 200,
+                    child: welcome,
+                ),
+                  SizedBox(
+                    child: syarat,
+                  ),
+                ],
+              )
             ],
-          )),
+          )
+          ),
         ],
       ),
     );
@@ -67,22 +77,22 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         children: <Widget>[
           SizedBox(
-              height: 350.0,
+              height: 360.0,
               width: 400.0,
               child: Carousel(
                 images: [
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-1.svg'),
-                  // Image.asset('assets/welcome-screen-1.png'),
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-2.svg'),
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-3.svg')
+                  Image.asset('assets/welcome-screen-1.png'),
+                  Image.asset('assets/welcome-screen-2.png'),
+                  Image.asset('assets/welcome-screen-3.png')
                 ],
                 dotSize: 8.0,
                 dotSpacing: 15.0,
-                dotColor: Colors.grey,
+                dotColor: Colors.grey[200],
+                dotIncreasedColor: Colors.grey[400],
                 indicatorBgPadding: 5.0,
                 dotBgColor: Colors.purple.withOpacity(0.0),
                 borderRadius: true,
-                moveIndicatorFromBottom: 180.0,
+                moveIndicatorFromBottom: 140.0,
                 noRadiusForIndicator: true,
               ))
         ],
@@ -95,12 +105,12 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Belum Punya Akun ? ',
-                style: TextStyle(fontSize: 12, color: Colors.black)),
+                style: TextStyle(fontSize: 14, color: Colors.black)),
             InkWell(
                 child: Text(
                   'Register',
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       color: Colors.black,
                       decoration: TextDecoration.underline),
                 ),
