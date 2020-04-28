@@ -12,6 +12,7 @@ import './screens/form_req.dart';
 import './screens/offer_page.dart';
 import './screens/form_offer.dart';
 import './screens/product_detail_screen.dart';
+import './screens/akun_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           OfferPage.tag: (context) => OfferPage(),
           FormReq.tag: (context) => FormReq(),
           FormOffer.tag: (context) => FormOffer(),
-          ProductDetailScreen.tag: (context) => ProductDetailScreen()
+          ProductDetailScreen.tag: (context) => ProductDetailScreen(),
+          AkunScreen.tag: (context) => AkunScreen()
         },
       ),
     );
