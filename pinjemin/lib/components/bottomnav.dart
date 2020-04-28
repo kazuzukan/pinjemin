@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/assets/fonts/custom_icons.dart';
+
 class BottomNavBar extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return new Theme(
@@ -28,7 +30,8 @@ class BottomNavBar extends StatelessWidget {
           new BottomNavigationBarItem(
               icon: Icon(Icons.receipt), title: Text('Transaksi')),
           new BottomNavigationBarItem(
-              icon: Icon(Icons.person), title: Text('Akun'))
+              icon: Icon(Icons.person), title: Text('Akun'),
+              )
         ],
       ),
     );

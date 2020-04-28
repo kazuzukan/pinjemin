@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../components/products_grid.dart';
-import '../screens/form_req.dart';
+// import 'package:pinjemin/screens/form_offer.dart';
 
-class RequestScreen extends StatefulWidget {
-  static String tag = 'request-screen';
+
+class OfferScreen extends StatefulWidget {
+  static String tag = 'offer-screen';
 
   @override
-  _RequestScreenState createState() => _RequestScreenState();
+  _OfferScreenState createState() => _OfferScreenState();
 }
 
-class _RequestScreenState extends State<RequestScreen> {
+class _OfferScreenState extends State<OfferScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +28,12 @@ class _RequestScreenState extends State<RequestScreen> {
         floatingActionButton: new FloatingActionButton(
             heroTag: null,
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => FormReq()));
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (context) => FormOffer()));
             },
             child: Icon(Icons.add)),
-        body: ProductsGrid());
+        // body: 
+    );
+ 
   }
 }

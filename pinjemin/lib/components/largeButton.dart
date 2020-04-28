@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pinjemin/screens/main_screen.dart';
 // import 'package:flutter_svg/svg.dart';
-import '../screens/request_screen.dart';
+import '../screens/main_screen.dart';
 
 void main() => runApp(LargeButton());
 
@@ -16,7 +17,7 @@ class LargeButton extends StatelessWidget {
         height: 60,
         child: RaisedButton(
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(RequestScreen.tag);
+            Navigator.of(context).pushReplacementNamed(MainScreen.tag);
           },
           padding: const EdgeInsets.all(18.0),
           color: Colors.white,

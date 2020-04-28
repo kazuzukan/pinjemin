@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pinjemin/components/bottomnav.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 
 class AkunScreen extends StatefulWidget {
    static String tag = 'akun-screen';
@@ -300,7 +299,6 @@ class _AkunScreenState extends State<AkunScreen>{
           ),
           */
       ),
-      bottomNavigationBar: BottomNavBar()
     );
   }
 }
