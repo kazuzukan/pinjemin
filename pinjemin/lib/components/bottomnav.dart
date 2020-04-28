@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:pinjemin/assets/fonts/custom_icons.dart';
 class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,11 +18,11 @@ class BottomNavBar extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         items: [
           new BottomNavigationBarItem(
-            icon: Icon(Icons.thumb_up),
+            icon: Icon(Custom.iconrequest),
             title: Text('Permintaan'),
           ),
           new BottomNavigationBarItem(
-            icon: Icon(Icons.thumb_down),
+            icon: Icon(Custom.iconoffer),
             title: Text('Penawaran'),
           ),
           new BottomNavigationBarItem(

@@ -49,6 +49,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
   
   # class MyFlutterApp
   # MyFlutterApp._();
@@ -83,12 +84,17 @@ flutter:
     - assets/plusbutton.png
     - assets/backbutton.png
     - lib/assets/icons/icon-terms.svg
+    - lib/assets/icons/iconoffer.svg
+    - lib/assets/icons/iconrequest.svg
   
   fonts:
     - family: Poppins
       fonts:
         - asset : lib/assets/fonts/Poppins-Regular.ttf
-      
+    - family:  Custom
+      fonts:
+        - asset: fonts/Custom.ttf
+          weight: 400 
 
   # To add assets to your application, add an assets section, like this:
   # assets:
