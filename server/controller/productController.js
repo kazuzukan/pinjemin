@@ -48,7 +48,7 @@ exports.createProduct = (req, res) => {
     method: req.body.method,
     price: req.body.price,
     duration: req.body.duration,
-    email: req.body.email,
+    image: req.body.image,
     userId: req.body.userId,
   };
 

@@ -1,36 +1,41 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import './product.dart';
+import 'package:http/http.dart' as http;
 
 class Products with ChangeNotifier {
+  /* Change IP to your current Local Computer Ip Addres 
+     on the same network as your Android Device or Emulator */
+  final url = 'http://192.168.43.158:3000/product';
   List<Product> _items = [
-    Product(
-      name: 'Red Shirt',
-      desc: 'Mau minjem kaos merah dong minggu depan! hehe untuk keperluan kepanitiaan gue nic',
-      price: 29.99,
-      image:
-          'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-    ),
-    Product(
-      name: 'Trousers',
-      desc: 'Urgent! butuh celana chino warna krem buat pementasan seni Forsi 2020',
-      price: 59.99,
-      image:
-          'https://images.evo.com/imgp/700/159426/676754/brixton-aberdeen-trouser-pants-women-s-.jpg',
-    ),
-    Product(
-      name: 'Blue Scarf',
-      desc: 'Gaes ada yang punya syal yang bisa dipakai minggu ini ga?',
-      price: 19.99,
-      image:
-          'https://www.cleo.ca/on/demandware.static/-/Sites-product-catalog/default/dw8a0d56a9/images/cleo/accessories/9289fw17shmb_400_1.jpg',
-    ),
-    Product(
-      name: 'A Pan',
-      desc: 'Butuh panci stainless steel segera untuk makan-makan di puri indah',
-      price: 49.99,
-      image:
-          'https://cdn.shopify.com/s/files/1/2131/5111/products/carbon-steel-mobile-1_grande.jpg?v=1587166842',
-    ),
+    // Product(
+    //   name: 'Red Shirt',
+    //   desc: 'Mau minjem kaos merah dong minggu depan! hehe untuk keperluan kepanitiaan gue nic',
+    //   price: 29.99,
+    //   image:
+    //       'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+    // ),
+    // Product(
+    //   name: 'Trousers',
+    //   desc: 'Urgent! butuh celana chino warna krem buat pementasan seni Forsi 2020',
+    //   price: 59.99,
+    //   image:
+    //       'https://images.evo.com/imgp/700/159426/676754/brixton-aberdeen-trouser-pants-women-s-.jpg',
+    // ),
+    // Product(
+    //   name: 'Blue Scarf',
+    //   desc: 'Gaes ada yang punya syal yang bisa dipakai minggu ini ga?',
+    //   price: 19.99,
+    //   image:
+    //       'https://www.cleo.ca/on/demandware.static/-/Sites-product-catalog/default/dw8a0d56a9/images/cleo/accessories/9289fw17shmb_400_1.jpg',
+    // ),
+    // Product(
+    //   name: 'A Pan',
+    //   desc: 'Butuh panci stainless steel segera untuk makan-makan di puri indah',
+    //   price: 49.99,
+    //   image:
+    //       'https://cdn.shopify.com/s/files/1/2131/5111/products/carbon-steel-mobile-1_grande.jpg?v=1587166842',
+    // ),
   ];
 
   List<Product> get items {
@@ -41,8 +46,52 @@ class Products with ChangeNotifier {
     return _items.firstWhere((prod) => prod.name == name);
   }
 
-  void addProduct() {
-    // _items.add(value);
-    notifyListeners();
-  }  
+  Future<void> fetchProduct() async {
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body);
+      final List<Product> loadedProducts = [];
+      extractedData.forEach((prod) {
+        loadedProducts.add(Product(
+            id: prod['id'],
+            name: prod['name'],
+            desc: prod['desc'],
+            price: prod['price'],
+            image: prod['image']));
+      });
+      _items = loadedProducts;
+      // print(_items);
+    } catch (error) {
+      throw (error);
+    }
+  }
+
+  Future<void> addProduct(Product product) async {
+    try {
+      await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'name': product.name,
+          'desc': product.desc,
+          'image': product.image,
+          'price': product.price,
+        }),
+      );
+      print(product.image);
+      print(jsonEncode(<String, dynamic>{
+          'name': product.name,
+          'desc': product.desc,
+          'image': product.image,
+          'price': product.price
+        }));
+      fetchProduct();
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw (error);
+    }
+  }
 }
