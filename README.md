@@ -12,14 +12,14 @@ Pinjemin is an android-based application is a means of borrowing and borrowing a
 ```bash
 $ flutter packages get
 ```
-6. Run "flutter run" on your terminal or simply Run & Debug it on your IDE (Option: Visual Studio Code, Android Studio)
+7. Run "flutter run" on your terminal or simply Run & Debug it on your IDE (Option: Visual Studio Code, Android Studio)
 ```bash
 $ flutter run
 ```
 
 ## Development Progress
 - [x] Implementation of Provider & Listener State Management
-- [x] Spalsh Screen
+- [x] Splash Screen
 - [x] Login & Register UI
 - [x] Fetch and Post Product
 - [x] Account UI
@@ -29,10 +29,10 @@ $ flutter run
 ### Installation
 1. Download Node.js installer
 2. Install Node.js and NPM (see.. https://nodejs.org/en/docs/)
-3. Setup Mysql (Use: XAMPP, Install XAMPP)
+3. Install - Use XAMPP
 4. Start Apache and Mysql service on your xampp control panel
 5. Go to http://localhost/phpmyadmin/ in your browser 
-6. Create new database with name: "pinjemin_development"
+6. Create new database with the name of: "pinjemin_development"
 7. Clone https://github.com/kazuzukan/pinjemin.git into your directory
 8. Go to project folder: ".\pinjemin\server"
 9. Run NPM start on your terminal
