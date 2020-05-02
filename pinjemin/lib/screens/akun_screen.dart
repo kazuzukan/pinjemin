@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pinjemin/assets/fonts/custom1_icons.dart';
+import '../screens/profilsetting.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
+
 
 class AkunScreen extends StatefulWidget {
    static String tag = 'akun-screen';
@@ -17,18 +20,24 @@ class _AkunScreenState extends State<AkunScreen>{
         body: Container(
           child: Column(
             children: <Widget>[
-              Container(
+              Container( // setting profil
                 constraints: BoxConstraints(minHeight: 200, maxHeight: 280),
                 color : Color.fromARGB(255, 255, 119, 0),
                 child: Column(
                   children: <Widget>[
                     Padding(
                   padding: EdgeInsets.fromLTRB(310,30,0,0),
-                  child: IconButton(
-                    icon: Icon(Icons.settings, size: 30,color: Colors.white,),
+                  child: MaterialButton( 
                     onPressed: () {
-                      print("Notification Clicked");
-                    }),
+                      Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => SettingAkun()));
+                    },
+                    child: Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                      )
+                      
+                    ),
                   ),
                     Padding(
                   padding: EdgeInsets.fromLTRB(50,0,50,10),
@@ -70,7 +79,7 @@ class _AkunScreenState extends State<AkunScreen>{
                   ],
                 ),
               ),
-              Container(
+              Container( // poin topup
                 constraints: BoxConstraints(minHeight: 50, maxHeight: 120, minWidth: 500, maxWidth: 500),
                 color : Colors.white,
                 child: Column(
@@ -103,7 +112,7 @@ class _AkunScreenState extends State<AkunScreen>{
                               child: Row(children: <Widget>[
                                 Padding(padding: EdgeInsets.all(0),
                                 child: IconButton(
-                            icon: Icon(Icons.attach_money, size: 30,color: Colors.red,
+                            icon: Icon(Custom1.iconpoint, size: 30,color: Colors.red,
                             ),
                             onPressed: () {
                             print("Notification Clicked");
@@ -129,7 +138,7 @@ class _AkunScreenState extends State<AkunScreen>{
                               child: Row(children: <Widget>[
                                 Padding(padding: EdgeInsets.all(0),
                                 child: IconButton(
-                            icon: Icon(Icons.file_upload, size: 30,color: Colors.lightGreen,
+                            icon: Icon(Custom1.icontopup, size: 30,color: Colors.lightGreen,
                             ),
                             onPressed: () {
                             print("Notification Clicked");
@@ -152,7 +161,7 @@ class _AkunScreenState extends State<AkunScreen>{
                   ], 
                 ),
               ),
-               Container(
+              Container( // blank
                 constraints: BoxConstraints(minHeight: 10, maxHeight: 10, minWidth: 500, maxWidth: 500),
                 decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.1),
@@ -160,7 +169,7 @@ class _AkunScreenState extends State<AkunScreen>{
                           ),
                
               ),
-              Container(
+              Container( // faq
                 constraints: BoxConstraints(minHeight: 50, maxHeight: 60, minWidth: 500, maxWidth: 500),
                 decoration: BoxDecoration(
                           color: Colors.white,
@@ -176,13 +185,15 @@ class _AkunScreenState extends State<AkunScreen>{
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      
                       children:<Widget>[
                         Text('FAQ                                                                          '),
                         IconButton(
                         icon: Icon(Icons.keyboard_arrow_right, size: 20,color: Colors.black,),
                         onPressed: () {
-                      print("Notification Clicked");
-                    }),
+                          //Navigator.push(context, MaterialPageRoute(builder: (context) => SettingAkun()));
+                        }
+                      ),
                         
                       ]
                     ),
@@ -190,7 +201,7 @@ class _AkunScreenState extends State<AkunScreen>{
                   ]
                 ),
               ),
-              Container(
+              Container( // tentang app
                 constraints: BoxConstraints(minHeight: 50, maxHeight: 60, minWidth: 500, maxWidth: 500),
                 decoration: BoxDecoration(
                           color: Colors.white,
@@ -220,7 +231,7 @@ class _AkunScreenState extends State<AkunScreen>{
                   ]
                 ),
               ),
-              Container(
+              Container( // logout
                 constraints: BoxConstraints(minHeight: 60, maxHeight: 60, minWidth: 500, maxWidth: 500),
                 decoration: BoxDecoration(
                           color: Colors.white,
@@ -242,62 +253,6 @@ class _AkunScreenState extends State<AkunScreen>{
               )
             ],
           ),
-          
-         /* child : Container(
-            //constraints: BoxConstraints(minWidth: 100, maxWidth: 100),
-            constraints: BoxConstraints(minHeight: 200, maxHeight: 320),
-            color : Color.fromARGB(255, 255, 119, 0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(310,30,0,0),
-                  child: IconButton(
-                    icon: Icon(Icons.settings, size: 30,color: Colors.white,),
-                    onPressed: () {
-                      print("Notification Clicked");
-                    }),
-                  ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(50,0,50,10),
-                  child: FittedBox(
-                    fit: BoxFit.contain, // otherwise the logo will be tiny
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(100,75,100,0),
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage('assets/profil.jpg'),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(0),
-                  child: Text(
-                    'Muhammad Luthfiansyah',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    )
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(0),
-                  child: Text(
-                    'Mahasiswa, 21',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                    )
-                  ),
-                )
-              ],
-            ),
-          ),
-          */
       ),
     );
   }

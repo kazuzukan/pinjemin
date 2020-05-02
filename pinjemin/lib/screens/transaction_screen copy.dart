@@ -8,7 +8,7 @@ class TransactionScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Histori Transaksi",
-          style: new TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w800),
+          style: new TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );

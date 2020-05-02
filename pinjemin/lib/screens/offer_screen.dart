@@ -15,11 +15,31 @@ class _OfferScreenState extends State<OfferScreen> {
     return Scaffold(
         appBar: AppBar(
           title: TextField(
-            decoration: InputDecoration(hintText: 'Cari Barang. . .'),
+            controller: null,
+                autofocus: false,
+                style:
+                    new TextStyle(fontSize: 14.0, color: Colors.black, height: 1.5),
+                decoration: new InputDecoration(
+                  filled: true,
+                  
+                  fillColor: Colors.white,
+                  hintText: 'Cari barang . . .',
+                  contentPadding: const EdgeInsets.only(
+                      left: 14.0, bottom: 8.0, top: 8.0),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.white),
+                    borderRadius: new BorderRadius.circular(10),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.blue),
+                    borderRadius: new BorderRadius.circular(10),
+                    
+                  ),
+                ),
           ),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.settings_applications),
+                icon: Icon(Icons.notifications_none),
                 onPressed: () {
                   print("settings");
                 }),
