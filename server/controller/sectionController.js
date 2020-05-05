@@ -6,7 +6,7 @@ const Section = db.section;
 exports.createSection = (req, res) => {
   //constructor
   const section = {
-    starDate: req.body.starDate,
+    startDate: req.body.startDate,
     endDate: req.body.endDate,
     type: req.body.type,
     productId: req.body.productId
@@ -23,12 +23,24 @@ exports.createSection = (req, res) => {
     });
 };
 
+exports.findAllSection = (req, res) => {
+  Section.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Users.",
+      });
+    });
+};
+
 exports.updateSection = (req, res) => {
   const id = req.params.id;
 
   //constructor
   const section = {
-    starDate: req.body.starDate,
+    startDate: req.body.startDate,
     endDate: req.body.endDate,
     type: req.body.type,
     productId: req.body.productId

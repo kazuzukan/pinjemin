@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:pinjemin/providers/section.dart';
 import './product.dart';
 import 'package:http/http.dart' as http;
 
 class Products with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-  final url = 'http://192.168.43.158:3000/product';
+  final urlProduct = 'http://192.168.43.158:3000/product';
+  final urlSection = 'http://192.168.43.158:3000/section';
   List<Product> _items = [
     // Product(
     //   name: 'Red Shirt',
@@ -48,7 +50,7 @@ class Products with ChangeNotifier {
 
   Future<void> fetchProduct() async {
     try {
-      final response = await http.get(url);
+      final response = await http.get(urlProduct);
       final extractedData = json.decode(response.body);
       final List<Product> loadedProducts = [];
       extractedData.forEach((prod) {
@@ -60,16 +62,15 @@ class Products with ChangeNotifier {
             image: prod['image']));
       });
       _items = loadedProducts;
-      // print(_items);
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<void> addProduct(Product product) async {
+  Future<void> addProduct(Product product, Section section) async {
     try {
-      await http.post(
-        url,
+      final response = await http.post(
+        urlProduct,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -80,13 +81,30 @@ class Products with ChangeNotifier {
           'price': product.price,
         }),
       );
-      print(product.image);
+      print(json.decode(response.body)['id']);
+      var prodId = json.decode(response.body)['id'];
+      String startD = section.startDate.toString();
+      String endD = section.endDate.toString();
+      print(startD); print(endD);
+      final response2 = await http.post(
+        urlSection,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'startDate': startD,
+          'endDate': endD,
+          'type': section.type,
+          'productId': prodId,
+        }),
+      ); 
       print(jsonEncode(<String, dynamic>{
-          'name': product.name,
-          'desc': product.desc,
-          'image': product.image,
-          'price': product.price
+          'startDate': startD,
+          'endDate': endD,
+          'type': section.type,
+          'productId': prodId,
         }));
+      print(response2);
       fetchProduct();
       notifyListeners();
     } catch (error) {

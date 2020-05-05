@@ -48,6 +48,9 @@ module.exports = (app) => {
   app.delete("/product/:id", product.deleteProduct);
 
   // Section
+  // Find All Section
+  app.get("/section", section.findAllSection);
+
   // Create Product Section
   app.post("/section", section.createSection);
 

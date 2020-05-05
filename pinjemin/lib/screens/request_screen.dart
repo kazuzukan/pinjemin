@@ -20,6 +20,10 @@ class _RequestScreenState extends State<RequestScreen> {
     super.initState();
   }
 
+  Future<void> _refreshRequestProduct() async {
+    await Provider.of<Products>(context).fetchProduct();
+  }
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -42,27 +46,24 @@ class _RequestScreenState extends State<RequestScreen> {
         appBar: AppBar(
           title: TextField(
             controller: null,
-                autofocus: false,
-
-                style:
-                    new TextStyle(fontSize: 14.0, color: Colors.black, height: 1.5),
-                decoration: new InputDecoration(
-                  filled: true,
-                  
-                  fillColor: Colors.white,
-                  hintText: 'Cari barang . . .',
-                  contentPadding: const EdgeInsets.only(
-                      left: 14.0, bottom: 8.0, top: 8.0),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.white),
-                    borderRadius: new BorderRadius.circular(10),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.blue),
-                    borderRadius: new BorderRadius.circular(10),
-                    
-                  ),
-                ),
+            autofocus: false,
+            style:
+                new TextStyle(fontSize: 14.0, color: Colors.black, height: 1.5),
+            decoration: new InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              hintText: 'Cari barang . . .',
+              contentPadding:
+                  const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+              focusedBorder: OutlineInputBorder(
+                borderSide: new BorderSide(color: Colors.white),
+                borderRadius: new BorderRadius.circular(10),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: new BorderSide(color: Colors.blue),
+                borderRadius: new BorderRadius.circular(10),
+              ),
+            ),
           ),
           actions: <Widget>[
             IconButton(
@@ -83,6 +84,8 @@ class _RequestScreenState extends State<RequestScreen> {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : ProductsGrid());
+            : RefreshIndicator(
+              onRefresh: () => _refreshRequestProduct(),
+              child: ProductsGrid()));
   }
 }

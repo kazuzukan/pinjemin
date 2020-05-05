@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/assets/fonts/custom1_icons.dart';
-import '../screens/akun_screen.dart';
+// import 'package:pinjemin/assets/fonts/custom1_icons.dart';
+// import '../screens/akun_screen.dart';
 
 class SettingAkun extends StatefulWidget {
   static var tag;
