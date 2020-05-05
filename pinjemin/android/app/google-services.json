@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "990363651138-s5ln81pfafmlq5c703b1s99r1uijdsdu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unpad.pinjemin",
+            "certificate_hash": "b8ca068c01c66c50ab63bec02bec762e3817493d"
+          }
+        },
+        {
           "client_id": "990363651138-vgg6v6e0754vm3ei92fedaaulo9p0fel.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

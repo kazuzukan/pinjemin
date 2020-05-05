@@ -9,8 +9,8 @@ class CarouselComponent extends StatelessWidget {
       child: Column(
        children: <Widget>[
           SizedBox(
-            height: 350.0,
-            width: 400.0,
+            height: 400.0,
+            width: 380.0,
             child: Carousel(
                images: [
                   SvgPicture.asset('lib/assets/icons/welcome-screen-1.svg'),

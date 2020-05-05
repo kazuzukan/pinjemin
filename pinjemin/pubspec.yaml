@@ -24,7 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   firebase_auth: ^0.14.0+5
-  google_sign_in:
+  google_sign_in: ^4.4.4
   cloud_firestore: ^0.12.11
   auto_size_text: ^2.1.0
   flutter_svg: ^0.17.1
@@ -82,6 +82,7 @@ flutter:
     - assets/request.png
     - assets/plusbutton.png
     - assets/backbutton.png
+    - lib/assets/icons/icon-terms.svg
   
   fonts:
     - family: Poppins

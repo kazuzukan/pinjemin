@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import '../components/largeButton.dart';
 import '../components/carousel.dart';
 
+
 class LoginScreen extends StatefulWidget {
   // static String google = '/assets/icons/icon-google.svg';
   static String tag = 'login-screen';
@@ -11,12 +12,15 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
+
 class _LoginScreenState extends State<LoginScreen> {
+  // static MediaQueryData _mediaQueryData;
   bool isRegister = false;
+
   @override
   Widget build(BuildContext context) {
     Widget welcome = Container(
-        padding: const EdgeInsets.only(top: 32, left: 13, right: 50),
+        padding: const EdgeInsets.fromLTRB(0, 40.0, 20, 0.0),
         child: Container(
             child: Text(
           'Selamat Datang, Mau Pinjem Apa Hari Ini ?',
@@ -26,35 +30,46 @@ class _LoginScreenState extends State<LoginScreen> {
         )));
 
     Widget syarat = Container(
-        padding: const EdgeInsets.only(right: 10, top: 35),
-        child: Text(
-          'Syarat dan Ketentuan',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 12, color: Colors.white),
-          textAlign: TextAlign.right,
+        padding: const EdgeInsets.fromLTRB(20, 0, 0, 17),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              'Syarat dan Ketentuan  ',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: Colors.white),
+              textAlign: TextAlign.left,
+            ),
+            SvgPicture.asset('lib/assets/icons/icon-terms.svg')
+          ],
         ));
 
     Widget title = Container(
       child: Stack(
         children: <Widget>[
           Container(
-              // height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: SvgPicture.asset('lib/assets/icons/icon-bg-title.svg')),
+            // height: MediaQuery.of(context).size.height * 0.288,
+            width: MediaQuery.of(context).size.width,
+            child: SvgPicture.asset('lib/assets/icons/icon-bg-title.svg'),
+          ),
           Container(
-              child: Row(
+              child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                width: 250,
-                height: 120,
-                child: welcome,
-              ),
-              SizedBox(
-                width: 161,
-                height: 120,
-                child: syarat,
-              ),
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 200,
+                    child: welcome,
+                  ),
+                  SizedBox(
+                    child: syarat,
+                  ),
+                ],
+              )
             ],
           )),
         ],
@@ -67,12 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Belum Punya Akun ? ',
-                style: TextStyle(fontSize: 12, color: Colors.black)),
+                style: TextStyle(fontSize: 14, color: Colors.black)),
             InkWell(
                 child: Text(
                   'Register',
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       color: Colors.black,
                       decoration: TextDecoration.underline),
                 ),
@@ -153,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             )),
                         Container(
-                          margin: const EdgeInsets.only(top: 30),
+                          margin: const EdgeInsets.only(top: 50),
                           child: register,
                         )
                       ],
@@ -213,4 +228,5 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ));
   }
-}
+} 
+
