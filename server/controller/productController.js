@@ -20,6 +20,24 @@ exports.findAllProduct = (req, res) => {
     });
 };
 
+exports.findRequestProduct = (req, res) => {
+  Product.findAll({
+    include: [
+      {
+        model: db.section
+      },
+    ],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Users.",
+      });
+    });
+};
+
 exports.findOne = (req, res) => {
   const id = req.params.id;
 

@@ -35,6 +35,46 @@ exports.findAllSection = (req, res) => {
     });
 };
 
+exports.findRequestSection = (req, res) => {
+  Section.findAll({
+    where: {type: 0},
+    include: [
+      {
+        model: db.product,
+      },
+    ],
+  }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Users.",
+      });
+    });
+};
+
+exports.findOfferSection = (req, res) => {
+  Section.findAll({
+    where: {type: 1},
+    include: [
+      {
+        model: db.product,
+      },
+    ],
+  }
+  )
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Users.",
+      });
+    });
+};
+
 exports.updateSection = (req, res) => {
   const id = req.params.id;
 
