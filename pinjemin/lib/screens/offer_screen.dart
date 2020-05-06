@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:pinjemin/screens/form_offer.dart';
+import 'package:pinjemin/screens/form_offer.dart';
 
 
 class OfferScreen extends StatefulWidget {
@@ -48,8 +48,8 @@ class _OfferScreenState extends State<OfferScreen> {
         floatingActionButton: new FloatingActionButton(
             heroTag: null,
             onPressed: () {
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (context) => FormOffer()));
+              Navigator.push(
+                   context, MaterialPageRoute(builder: (context) => FormOffer()));
             },
             child: Icon(Icons.add)),
         // body: 
