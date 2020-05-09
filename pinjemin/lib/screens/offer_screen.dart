@@ -1,41 +1,15 @@
 import 'package:flutter/material.dart';
-import '../components/products_grid.dart';
-import '../screens/form_req.dart';
-import '../providers/products.dart';
-import 'package:provider/provider.dart';
+// import 'package:pinjemin/screens/form_offer.dart';
 
-class RequestScreen extends StatefulWidget {
-  static String tag = 'request-screen';
+
+class OfferScreen extends StatefulWidget {
+  static String tag = 'offer-screen';
 
   @override
-  _RequestScreenState createState() => _RequestScreenState();
+  _OfferScreenState createState() => _OfferScreenState();
 }
 
-class _RequestScreenState extends State<RequestScreen> {
-  var _isInit = true;
-  var _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      Provider.of<Products>(context).fetchProduct().then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
-
+class _OfferScreenState extends State<OfferScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +17,6 @@ class _RequestScreenState extends State<RequestScreen> {
           title: TextField(
             controller: null,
                 autofocus: false,
-
                 style:
                     new TextStyle(fontSize: 14.0, color: Colors.black, height: 1.5),
                 decoration: new InputDecoration(
@@ -75,14 +48,12 @@ class _RequestScreenState extends State<RequestScreen> {
         floatingActionButton: new FloatingActionButton(
             heroTag: null,
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => FormReq()));
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (context) => FormOffer()));
             },
             child: Icon(Icons.add)),
-        body: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : ProductsGrid());
+        // body: 
+    );
+ 
   }
 }

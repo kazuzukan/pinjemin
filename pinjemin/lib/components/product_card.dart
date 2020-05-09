@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../screens/product_detail_screen.dart';
 import '../providers/product.dart';
 
@@ -15,10 +14,9 @@ class ProductCard extends StatelessWidget {
       child: GridTile(
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(
-              ProductDetailScreen.tag,
-              arguments: product.name,
-            );
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => ProductDetailScreen()
+              ));
           },
           child: Image.network(
             product.image,

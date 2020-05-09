@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-// import '../screens/request_screen.dart';
-// import '../providers/controller/autentikasi.dart';
+import 'package:pinjemin/screens/main_screen.dart';
+// import 'package:flutter_svg/svg.dart';
+import '../screens/main_screen.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -42,8 +43,7 @@ class _LargeButtonState extends State<LargeButton> {
         height: 60,
         child: RaisedButton(
           onPressed: () {
-           _login();
-           _isLoggedIn ? print('Masuuuk') : print('Masuuuk');
+            Navigator.of(context).pushReplacementNamed(MainScreen.tag);
           },
           padding: const EdgeInsets.all(18.0),
           color: Colors.white,
