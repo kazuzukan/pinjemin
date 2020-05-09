@@ -67,11 +67,11 @@ class Products with ChangeNotifier {
         product.forEach((key, value) {
           if (key == 'product') {
             loadedProducts.add(Product(
-              id: value['id'],
-              name: value['name'],
-              desc: value['desc'],
-              price: value['price'],
-              image: value['image']));
+                id: value['id'],
+                name: value['name'],
+                desc: value['desc'],
+                price: value['price'],
+                image: value['image']));
           }
         });
       });
@@ -82,7 +82,7 @@ class Products with ChangeNotifier {
     }
   }
 
-    Future<void> fetchOfferProduct() async {
+  Future<void> fetchOfferProduct() async {
     try {
       final response = await http.get(urlOfferSection);
       final extractedData = json.decode(response.body);
@@ -92,11 +92,11 @@ class Products with ChangeNotifier {
         product.forEach((key, value) {
           if (key == 'product') {
             loadedProducts.add(Product(
-              id: value['id'],
-              name: value['name'],
-              desc: value['desc'],
-              price: value['price'],
-              image: value['image']));
+                id: value['id'],
+                name: value['name'],
+                desc: value['desc'],
+                price: value['price'],
+                image: value['image']));
           }
         });
       });
@@ -123,11 +123,11 @@ class Products with ChangeNotifier {
       );
       print(json.decode(response.body)['id']);
       var prodId = json.decode(response.body)['id'];
+
       String startD = section.startDate.toString();
       String endD = section.endDate.toString();
-      print(startD);
-      print(endD);
-      final response2 = await http.post(
+
+      await http.post(
         urlSection,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -139,14 +139,9 @@ class Products with ChangeNotifier {
           'productId': prodId,
         }),
       );
-      print(jsonEncode(<String, dynamic>{
-        'startDate': startD,
-        'endDate': endD,
-        'type': section.type,
-        'productId': prodId,
-      }));
-      print(response2);
+
       fetchRequestProduct();
+      fetchOfferProduct();
       notifyListeners();
     } catch (error) {
       print(error);

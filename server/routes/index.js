@@ -35,6 +35,9 @@ module.exports = (app) => {
   // All product
   app.get("/product", product.findAllProduct);
 
+  // Product with section information
+  app.get("/product-section", product.findwithSection);
+
   // All Request product
   app.get("/request-product", product.findRequestProduct);
 
@@ -56,7 +59,7 @@ module.exports = (app) => {
 
   // Find All Request product in section
   app.get("/request-section", section.findRequestSection);
-  
+
   // Find All Request product in section
   app.get("/offer-section", section.findOfferSection);
 

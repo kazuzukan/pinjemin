@@ -85,7 +85,7 @@ class _RequestScreenState extends State<RequestScreen> {
                 child: CircularProgressIndicator(),
               )
             : RefreshIndicator(
-              onRefresh: () => _refreshRequestProduct(),
-              child: ProductsGrid(type: false)));
+                onRefresh: () => _refreshRequestProduct(),
+                child: ProductsGrid(type: false)));
   }
 }

@@ -120,7 +120,7 @@ class _FormReqState extends State<FormReq> {
     }
   }
 
- Future<void> _selectEndDate(BuildContext context) async {
+  Future<void> _selectEndDate(BuildContext context) async {
     final DateTime picked = await showRoundedDatePicker(
         context: context,
         initialDate: selectedEndDate,
@@ -209,8 +209,20 @@ class _FormReqState extends State<FormReq> {
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();
-    var startDate = new DateTime(selectedStartDate.year, selectedStartDate.month, selectedStartDate.day, selectedStartTime.hour, selectedStartTime.minute, selectedStartDate.second);
-    var endDate = new DateTime(selectedEndDate.year, selectedEndDate.month, selectedEndDate.day, selectedEndTime.hour, selectedEndTime.minute, selectedEndDate.second);
+    var startDate = new DateTime(
+        selectedStartDate.year,
+        selectedStartDate.month,
+        selectedStartDate.day,
+        selectedStartTime.hour,
+        selectedStartTime.minute,
+        selectedStartDate.second);
+    var endDate = new DateTime(
+        selectedEndDate.year,
+        selectedEndDate.month,
+        selectedEndDate.day,
+        selectedEndTime.hour,
+        selectedEndTime.minute,
+        selectedEndDate.second);
     var reqSection = Section(startDate: startDate, endDate: endDate, type: 0);
     if (!isValid) {
       return;
@@ -280,6 +292,7 @@ class _FormReqState extends State<FormReq> {
                 key: _form,
                 child: ListView(
                   children: <Widget>[
+                    // TITLE FORM FIELD
                     TextFormField(
                       // initialValue: _initValues['title'],
                       decoration: InputDecoration(
@@ -306,41 +319,9 @@ class _FormReqState extends State<FormReq> {
                             id: _editedProduct.id);
                       },
                     ),
-                    TextFormField(
-                      // initialValue: _initValues['price'],
-                      decoration: InputDecoration(
-                        labelText: 'Price',
-                        labelStyle: TextStyle(color: Colors.black54),
-                      ),
-                      cursorColor: Colors.black12,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      focusNode: _priceFocusNode,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context)
-                            .requestFocus(_descriptionFocusNode);
-                      },
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a price.';
-                        }
-                        if (double.tryParse(value) == null) {
-                          return 'Please enter a valid number.';
-                        }
-                        if (double.parse(value) <= 0) {
-                          return 'Please enter a number greater than zero.';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _editedProduct = Product(
-                            name: _editedProduct.name,
-                            price: int.parse(value),
-                            desc: _editedProduct.desc,
-                            image: _editedProduct.image,
-                            id: _editedProduct.id);
-                      },
-                    ),
+                    // -- TITLE FORM FIELD
+
+                    // DESCRIPTION FORM FIELD
                     TextFormField(
                       // initialValue: _initValues['description'],
                       decoration: InputDecoration(
@@ -352,8 +333,7 @@ class _FormReqState extends State<FormReq> {
                       keyboardType: TextInputType.multiline,
                       focusNode: _descriptionFocusNode,
                       textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) {
-                      },
+                      onFieldSubmitted: (_) {},
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter a description.';
@@ -372,6 +352,9 @@ class _FormReqState extends State<FormReq> {
                             id: _editedProduct.id);
                       },
                     ),
+                    // -- DESCRIPTION FORM FIELD
+
+                    // START DATE FORM FIELD
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
@@ -399,6 +382,9 @@ class _FormReqState extends State<FormReq> {
                         ),
                       ],
                     ),
+                    // -- START DATE FORM FIELD
+
+                    // END DATE FORM FIELD
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
@@ -426,32 +412,9 @@ class _FormReqState extends State<FormReq> {
                         ),
                       ],
                     ),
-                    // DateTimePickerFormField(
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Tanggal Pinjam',
-                    //     labelStyle: TextStyle(color: Colors.black54),
-                    //   ),
-                    //   cursorColor: Colors.black12,
-                    //   textInputAction: TextInputAction.next,
-                    //   focusNode: _startDate,
-                    //   onFieldSubmitted: (_) {
-                    //     FocusScope.of(context).requestFocus(_endDate);
-                    //   },
-                    //   validator: (value) {
-                    //     if (value.isEmpty) {
-                    //       return 'Please enter a date.';
-                    //     }
-                    //     return null;
-                    //   },
-                    //   onSaved: (value) {
-                    //     _editedProduct = Product(
-                    //         name: _editedProduct.name,
-                    //         price: int.parse(value),
-                    //         desc: _editedProduct.desc,
-                    //         image: _editedProduct.image,
-                    //         id: _editedProduct.id);
-                    //   },
-                    // ),
+                    // -- END DATE FORM FIELD
+
+                    // IMAGE FORM FIELD
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
