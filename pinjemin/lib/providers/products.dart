@@ -7,9 +7,12 @@ import 'package:http/http.dart' as http;
 class Products with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-  final urlProduct = 'http://192.168.43.158:3000/product';
-  final urlSection = 'http://192.168.43.158:3000/section';
-  List<Product> _items = [
+  static final ip = "192.168.43.158:3000";
+  final urlProduct = 'http://${ip.toString()}/product';
+  final urlSection = 'http://${ip.toString()}/section';
+  final urlRequestSection = 'http://${ip.toString()}/request-section';
+  final urlOfferSection = 'http://${ip.toString()}/offer-section';
+  List<Product> _requestItems = [
     // Product(
     //   name: 'Red Shirt',
     //   desc: 'Mau minjem kaos merah dong minggu depan! hehe untuk keperluan kepanitiaan gue nic',
@@ -40,28 +43,65 @@ class Products with ChangeNotifier {
     // ),
   ];
 
-  List<Product> get items {
-    return [..._items];
+  List<Product> _offerItems = [];
+
+  List<Product> get offerItems {
+    return [..._offerItems];
+  }
+
+  List<Product> get requestItems {
+    return [..._requestItems];
   }
 
   Product findByName(String name) {
-    return _items.firstWhere((prod) => prod.name == name);
+    return _requestItems.firstWhere((prod) => prod.name == name);
   }
 
-  Future<void> fetchProduct() async {
+  Future<void> fetchRequestProduct() async {
     try {
-      final response = await http.get(urlProduct);
+      final response = await http.get(urlRequestSection);
       final extractedData = json.decode(response.body);
       final List<Product> loadedProducts = [];
       extractedData.forEach((prod) {
-        loadedProducts.add(Product(
-            id: prod['id'],
-            name: prod['name'],
-            desc: prod['desc'],
-            price: prod['price'],
-            image: prod['image']));
+        final product = prod as Map<String, dynamic>;
+        product.forEach((key, value) {
+          if (key == 'product') {
+            loadedProducts.add(Product(
+              id: value['id'],
+              name: value['name'],
+              desc: value['desc'],
+              price: value['price'],
+              image: value['image']));
+          }
+        });
       });
-      _items = loadedProducts;
+      _requestItems = loadedProducts;
+      notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+  }
+
+    Future<void> fetchOfferProduct() async {
+    try {
+      final response = await http.get(urlOfferSection);
+      final extractedData = json.decode(response.body);
+      final List<Product> loadedProducts = [];
+      extractedData.forEach((prod) {
+        final product = prod as Map<String, dynamic>;
+        product.forEach((key, value) {
+          if (key == 'product') {
+            loadedProducts.add(Product(
+              id: value['id'],
+              name: value['name'],
+              desc: value['desc'],
+              price: value['price'],
+              image: value['image']));
+          }
+        });
+      });
+      _offerItems = loadedProducts;
+      notifyListeners();
     } catch (error) {
       throw (error);
     }
@@ -85,7 +125,8 @@ class Products with ChangeNotifier {
       var prodId = json.decode(response.body)['id'];
       String startD = section.startDate.toString();
       String endD = section.endDate.toString();
-      print(startD); print(endD);
+      print(startD);
+      print(endD);
       final response2 = await http.post(
         urlSection,
         headers: <String, String>{
@@ -97,15 +138,15 @@ class Products with ChangeNotifier {
           'type': section.type,
           'productId': prodId,
         }),
-      ); 
+      );
       print(jsonEncode(<String, dynamic>{
-          'startDate': startD,
-          'endDate': endD,
-          'type': section.type,
-          'productId': prodId,
-        }));
+        'startDate': startD,
+        'endDate': endD,
+        'type': section.type,
+        'productId': prodId,
+      }));
       print(response2);
-      fetchProduct();
+      fetchRequestProduct();
       notifyListeners();
     } catch (error) {
       print(error);

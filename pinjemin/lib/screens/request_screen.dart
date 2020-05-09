@@ -21,7 +21,7 @@ class _RequestScreenState extends State<RequestScreen> {
   }
 
   Future<void> _refreshRequestProduct() async {
-    await Provider.of<Products>(context).fetchProduct();
+    await Provider.of<Products>(context).fetchRequestProduct();
   }
 
   @override
@@ -30,7 +30,7 @@ class _RequestScreenState extends State<RequestScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Products>(context).fetchProduct().then((_) {
+      Provider.of<Products>(context).fetchRequestProduct().then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -86,6 +86,6 @@ class _RequestScreenState extends State<RequestScreen> {
               )
             : RefreshIndicator(
               onRefresh: () => _refreshRequestProduct(),
-              child: ProductsGrid()));
+              child: ProductsGrid(type: false)));
   }
 }
