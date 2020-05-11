@@ -30,9 +30,9 @@ class AppTheme {
   );
   
   static final TextTheme _lightTextTheme = TextTheme(
-    headline1: _lightScreenHeadingStyle,
-    bodyText1: _heading1,
-    bodyText2: _heading3,
+    headline: _lightScreenHeadingStyle,
+    body1: _heading1,
+    body2: _heading3,
     caption: _heading3,
     overline: _heading4
   );
