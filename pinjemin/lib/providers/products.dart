@@ -53,8 +53,14 @@ class Products with ChangeNotifier {
     return [..._requestItems];
   }
 
-  Product findByName(String name) {
-    return _requestItems.firstWhere((prod) => prod.name == name);
+  Product findById(int id, bool type) {
+    //bool  true: offer, false: request
+    if (type) {
+      return _offerItems.firstWhere((prod) => prod.id == id);
+    }
+    else {
+      return _requestItems.firstWhere((prod) => prod.id == id);
+    }
   }
 
   Future<void> fetchRequestProduct() async {

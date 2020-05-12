@@ -4,6 +4,12 @@ import '../screens/product_detail_screen.dart';
 import '../providers/product.dart';
 
 class ProductCard extends StatelessWidget {
+  //bool  true: offer, false: request
+  final bool type;
+
+  ProductCard({
+    this.type
+  });
 
 
   @override
@@ -15,7 +21,7 @@ class ProductCard extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(
-                builder: (context) => ProductDetailScreen()
+                builder: (context) => ProductDetailScreen(type: this.type, prodId: product.id)
               ));
           },
           child: Image.network(
