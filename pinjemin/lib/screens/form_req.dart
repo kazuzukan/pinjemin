@@ -1,7 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/product.dart';
+import '../providers/section.dart';
 import '../providers/products.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
+
+class _InputDropdown extends StatelessWidget {
+  const _InputDropdown(
+      {Key key,
+      this.child,
+      this.labelText,
+      this.valueText,
+      this.valueStyle,
+      this.onPressed})
+      : super(key: key);
+
+  final String labelText;
+  final String valueText;
+  final TextStyle valueStyle;
+  final VoidCallback onPressed;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return new InkWell(
+      onTap: onPressed,
+      child: new InputDecorator(
+        decoration: new InputDecoration(
+          labelText: labelText,
+        ),
+        baseStyle: valueStyle,
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            new Text(valueText, style: valueStyle),
+            new Icon(Icons.arrow_drop_down,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.grey.shade700
+                    : Colors.white70),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class FormReq extends StatefulWidget {
   static String tag = 'form-req-page';
@@ -12,6 +55,8 @@ class FormReq extends StatefulWidget {
 
 class _FormReqState extends State<FormReq> {
   final _priceFocusNode = FocusNode();
+  // final _startDate = FocusNode();
+  // final _endDate = FocusNode();
   final _descriptionFocusNode = FocusNode();
   final _imageUrlController = TextEditingController();
   final _imageUrlFocusNode = FocusNode();
@@ -31,38 +76,79 @@ class _FormReqState extends State<FormReq> {
   // };
   // var _isInit = true;
   var _isLoading = false;
-  DateTime tglAmbil = new DateTime.now();
-  String tglAmbilText = '';
+  DateTime selectedStartDate = new DateTime.now();
+  TimeOfDay selectedStartTime = new TimeOfDay.now();
+  DateTime selectedEndDate = new DateTime.now();
+  TimeOfDay selectedEndTime = new TimeOfDay.now();
 
-  DateTime tglKembali = new DateTime.now();
-  String tglKembaliText = '';
+  _onOnFocusNodeEvent() {
+    setState(() {
+      // Re-renders
+    });
+  }
 
-  Future<Null> selectTglAmbil(BuildContext context) async {
-    final picked = await showDatePicker(
+  Future<void> _selectStartDate(BuildContext context) async {
+    final DateTime picked = await showRoundedDatePicker(
         context: context,
-        initialDate: tglAmbil,
-        firstDate: DateTime(2019),
-        lastDate: DateTime(2050));
-
+        initialDate: selectedStartDate,
+        firstDate: DateTime(DateTime.now().year - 1),
+        lastDate: DateTime(DateTime.now().year + 1),
+        theme: ThemeData(
+            primaryColor: Colors.white,
+            accentColor: Color.fromARGB(255, 255, 119, 0),
+            primarySwatch: Colors.orange));
     if (picked != null) {
       setState(() {
-        tglAmbil = picked;
-        tglAmbilText = "${picked.day}/${picked.month}/${picked.year}";
+        selectedStartDate = picked;
       });
     }
   }
 
-  Future<Null> selectTglKembali(BuildContext context) async {
-    final picked = await showDatePicker(
-        context: context,
-        initialDate: tglKembali,
-        firstDate: DateTime(2019),
-        lastDate: DateTime(2050));
-
+  Future<void> _selectStartTime(BuildContext context) async {
+    final TimeOfDay picked = await showRoundedTimePicker(
+      context: context,
+      initialTime: selectedStartTime,
+      theme: ThemeData(
+          primaryColor: Colors.white,
+          accentColor: Color.fromARGB(255, 255, 119, 0),
+          primarySwatch: Colors.orange),
+    );
     if (picked != null) {
       setState(() {
-        tglKembali = picked;
-        tglKembaliText = "${picked.day}/${picked.month}/${picked.year}";
+        selectedStartTime = picked;
+      });
+    }
+  }
+
+  Future<void> _selectEndDate(BuildContext context) async {
+    final DateTime picked = await showRoundedDatePicker(
+        context: context,
+        initialDate: selectedEndDate,
+        firstDate: DateTime(DateTime.now().year - 1),
+        lastDate: DateTime(DateTime.now().year + 1),
+        theme: ThemeData(
+            primaryColor: Colors.white,
+            accentColor: Color.fromARGB(255, 255, 119, 0),
+            primarySwatch: Colors.orange));
+    if (picked != null) {
+      setState(() {
+        selectedEndDate = picked;
+      });
+    }
+  }
+
+  Future<void> _selectEndTime(BuildContext context) async {
+    final TimeOfDay picked = await showRoundedTimePicker(
+      context: context,
+      initialTime: selectedEndTime,
+      theme: ThemeData(
+          primaryColor: Colors.white,
+          accentColor: Color.fromARGB(255, 255, 119, 0),
+          primarySwatch: Colors.orange),
+    );
+    if (picked != null) {
+      setState(() {
+        selectedEndTime = picked;
       });
     }
   }
@@ -71,9 +157,10 @@ class _FormReqState extends State<FormReq> {
   void initState() {
     // implement initState
     super.initState();
-    tglAmbilText = "${tglAmbil.day}/${tglAmbil.month}/${tglAmbil.year}";
-    tglKembaliText = "${tglKembali.day}/${tglKembali.month}/${tglKembali.year}";
+    // tglAmbilText = "${tglAmbil.day}/${tglAmbil.month}/${tglAmbil.year}";
+    // tglKembaliText = "${tglKembali.day}/${tglKembali.month}/${tglKembali.year}";
     _imageUrlFocusNode.addListener(_updateImageUrl);
+    _priceFocusNode.addListener(_onOnFocusNodeEvent);
   }
 
   @override
@@ -122,6 +209,21 @@ class _FormReqState extends State<FormReq> {
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();
+    var startDate = new DateTime(
+        selectedStartDate.year,
+        selectedStartDate.month,
+        selectedStartDate.day,
+        selectedStartTime.hour,
+        selectedStartTime.minute,
+        selectedStartDate.second);
+    var endDate = new DateTime(
+        selectedEndDate.year,
+        selectedEndDate.month,
+        selectedEndDate.day,
+        selectedEndTime.hour,
+        selectedEndTime.minute,
+        selectedEndDate.second);
+    var reqSection = Section(startDate: startDate, endDate: endDate, type: 0);
     if (!isValid) {
       return;
     }
@@ -135,7 +237,7 @@ class _FormReqState extends State<FormReq> {
     } else {
       try {
         await Provider.of<Products>(context, listen: false)
-            .addProduct(_editedProduct);
+            .addProduct(_editedProduct, reqSection);
       } catch (error) {
         await showDialog(
           context: context,
@@ -190,9 +292,14 @@ class _FormReqState extends State<FormReq> {
                 key: _form,
                 child: ListView(
                   children: <Widget>[
+                    // TITLE FORM FIELD
                     TextFormField(
                       // initialValue: _initValues['title'],
-                      decoration: InputDecoration(labelText: 'Title'),
+                      decoration: InputDecoration(
+                        labelText: 'Title',
+                        labelStyle: TextStyle(color: Colors.black54),
+                      ),
+                      cursorColor: Colors.black12,
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) {
                         FocusScope.of(context).requestFocus(_priceFocusNode);
@@ -212,43 +319,21 @@ class _FormReqState extends State<FormReq> {
                             id: _editedProduct.id);
                       },
                     ),
-                    TextFormField(
-                      // initialValue: _initValues['price'],
-                      decoration: InputDecoration(labelText: 'Price'),
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      focusNode: _priceFocusNode,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context)
-                            .requestFocus(_descriptionFocusNode);
-                      },
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a price.';
-                        }
-                        if (double.tryParse(value) == null) {
-                          return 'Please enter a valid number.';
-                        }
-                        if (double.parse(value) <= 0) {
-                          return 'Please enter a number greater than zero.';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _editedProduct = Product(
-                            name: _editedProduct.name,
-                            price: int.parse(value),
-                            desc: _editedProduct.desc,
-                            image: _editedProduct.image,
-                            id: _editedProduct.id);
-                      },
-                    ),
+                    // -- TITLE FORM FIELD
+
+                    // DESCRIPTION FORM FIELD
                     TextFormField(
                       // initialValue: _initValues['description'],
-                      decoration: InputDecoration(labelText: 'Description'),
+                      decoration: InputDecoration(
+                        labelText: 'Description',
+                        labelStyle: TextStyle(color: Colors.black54),
+                      ),
+                      cursorColor: Colors.black12,
                       maxLines: 3,
                       keyboardType: TextInputType.multiline,
                       focusNode: _descriptionFocusNode,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) {},
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter a description.';
@@ -260,14 +345,76 @@ class _FormReqState extends State<FormReq> {
                       },
                       onSaved: (value) {
                         _editedProduct = Product(
-                          name: _editedProduct.name,
-                          price: _editedProduct.price,
-                          desc: value,
-                          image: _editedProduct.image,
-                          id: _editedProduct.id
-                        );
+                            name: _editedProduct.name,
+                            price: _editedProduct.price,
+                            desc: value,
+                            image: _editedProduct.image,
+                            id: _editedProduct.id);
                       },
                     ),
+                    // -- DESCRIPTION FORM FIELD
+
+                    // START DATE FORM FIELD
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        new Expanded(
+                          flex: 4,
+                          child: new _InputDropdown(
+                            labelText: "Start Date",
+                            valueText:
+                                "${selectedStartDate.day}/${selectedStartDate.month}/${selectedStartDate.year}",
+                            onPressed: () {
+                              _selectStartDate(context);
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 12.0),
+                        new Expanded(
+                          flex: 3,
+                          child: new _InputDropdown(
+                            valueText:
+                                "${selectedStartTime.hour}:${selectedStartTime.minute}",
+                            onPressed: () {
+                              _selectStartTime(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    // -- START DATE FORM FIELD
+
+                    // END DATE FORM FIELD
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        new Expanded(
+                          flex: 4,
+                          child: new _InputDropdown(
+                            labelText: "End Date",
+                            valueText:
+                                "${selectedEndDate.day}/${selectedEndDate.month}/${selectedEndDate.year}",
+                            onPressed: () {
+                              _selectEndDate(context);
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 12.0),
+                        new Expanded(
+                          flex: 3,
+                          child: new _InputDropdown(
+                            valueText:
+                                "${selectedEndTime.hour}:${selectedEndTime.minute}",
+                            onPressed: () {
+                              _selectEndTime(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    // -- END DATE FORM FIELD
+
+                    // IMAGE FORM FIELD
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
@@ -295,7 +442,11 @@ class _FormReqState extends State<FormReq> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            decoration: InputDecoration(labelText: 'Image URL'),
+                            decoration: InputDecoration(
+                              labelText: 'Image URL',
+                              labelStyle: TextStyle(color: Colors.black54),
+                            ),
+                            cursorColor: Colors.black12,
                             keyboardType: TextInputType.url,
                             textInputAction: TextInputAction.done,
                             controller: _imageUrlController,
@@ -320,12 +471,11 @@ class _FormReqState extends State<FormReq> {
                             },
                             onSaved: (value) {
                               _editedProduct = Product(
-                                name: _editedProduct.name,
-                                price: _editedProduct.price,
-                                desc: _editedProduct.desc,
-                                image: value,
-                                id: _editedProduct.id
-                              );
+                                  name: _editedProduct.name,
+                                  price: _editedProduct.price,
+                                  desc: _editedProduct.desc,
+                                  image: value,
+                                  id: _editedProduct.id);
                             },
                           ),
                         ),

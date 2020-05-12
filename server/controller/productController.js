@@ -2,11 +2,41 @@ const db = require("../models");
 const Product = db.product;
 // const Op = db.sequelize.Op;
 
-exports.findAllProduct = (req, res) => {
+exports.findwithSection = (req, res) => {
   Product.findAll({
     include: [
       {
         model: db.section,
+      },
+    ],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Users.",
+      });
+    });
+};
+
+exports.findAllProduct = (req, res) => {
+  Product.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Users.",
+      });
+    });
+};
+
+exports.findRequestProduct = (req, res) => {
+  Product.findAll({
+    include: [
+      {
+        model: db.section
       },
     ],
   })

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pinjemin/providers/product.dart';
 import 'package:pinjemin/screens/main_screen.dart';
 import 'app_theme.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:provider/provider.dart';
 import './providers/products.dart';
+import './providers/users.dart';
 
 import './screens/loginPage.dart';
 import './screens/request_screen.dart';
@@ -23,8 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Color(0xFFFF7700));
-    return ChangeNotifierProvider.value(
-      value: Products(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: Products()),
+        ChangeNotifierProvider.value(value: Users())
+      ],
       child: MaterialApp(
         title: 'Pinjemin',
         debugShowCheckedModeBanner: false,

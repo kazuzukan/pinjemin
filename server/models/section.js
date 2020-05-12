@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   section.associate = function(models) {
     // associations can be defined here
+    section.belongsTo(models.product);
   };
   return section;
 };

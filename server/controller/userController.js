@@ -85,16 +85,34 @@ exports.createUser = (req, res) => {
     isambassador: req.body.isambassador,
   };
 
-  User.create(user)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Error udpate User with id =" + id,
-      });
+  User.findOrCreate({
+    where: { 
+      firstname: user.firstname,
+      email: user.email
+    },
+    // default: {
+    //   email: user.email,
+    // }
+  }) .then((data) => {
+    res.send(data);
+  }) .catch((err) => {
+    res.status(500).send({
+      message: err.message || "Error udpate User with id =" + id,
     });
+  });
+  console.log(firstname);
 };
+
+//   User.create(user)
+//     .then((data) => {
+//       res.send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: err.message || "Error udpate User with id =" + id,
+//       });
+//     });
+// };
 
 exports.updateUser = (req, res) => {
   const id = req.params.id;

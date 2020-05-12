@@ -35,6 +35,12 @@ module.exports = (app) => {
   // All product
   app.get("/product", product.findAllProduct);
 
+  // Product with section information
+  app.get("/product-section", product.findwithSection);
+
+  // All Request product
+  app.get("/request-product", product.findRequestProduct);
+
   // Find One product
   app.get("/product/:id", product.findOne);
 
@@ -48,6 +54,15 @@ module.exports = (app) => {
   app.delete("/product/:id", product.deleteProduct);
 
   // Section
+  // Find All Section
+  app.get("/section", section.findAllSection);
+
+  // Find All Request product in section
+  app.get("/request-section", section.findRequestSection);
+
+  // Find All Request product in section
+  app.get("/offer-section", section.findOfferSection);
+
   // Create Product Section
   app.post("/section", section.createSection);
 
