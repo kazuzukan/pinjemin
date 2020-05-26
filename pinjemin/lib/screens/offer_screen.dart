@@ -75,6 +75,7 @@ class _OfferScreenState extends State<OfferScreen> {
         ),
         floatingActionButton: new FloatingActionButton(
             heroTag: null,
+            foregroundColor: Colors.white,
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => FormOffer()));

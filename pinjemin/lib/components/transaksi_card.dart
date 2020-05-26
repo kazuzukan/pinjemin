@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pinjemin/assets/fonts/custom_icons.dart';
 import 'package:pinjemin/assets/fonts/custom2_icons.dart';
 
 class TransaksiCard extends StatelessWidget {
@@ -37,7 +38,7 @@ class TransaksiCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Custom2.iconberi, size: 20,color: Color.fromARGB(255,223, 3, 93)),
+                  icon: Icon(Custom.iconrequest, size: 20,color: Color.fromARGB(255,223, 3, 93)),
                   onPressed: (){
                   print("Notification Clicked");
                   }
@@ -54,7 +55,7 @@ class TransaksiCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Custom2.iconberi, size: 20,color: Color.fromARGB(255,54, 57, 164)),
+                  icon: Icon(Custom.iconoffer, size: 20,color: Color.fromARGB(255,54, 57, 164)),
                   onPressed: (){
                   print("Notification Clicked");
                   }
@@ -94,19 +95,11 @@ class TransaksiCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(10,0,40,0),
-                        child: RaisedButton(
-                          textColor: Colors.white,
-                          color : Color.fromARGB(255, 255, 119, 0),
-                          padding: const EdgeInsets.all(8.0),
-                          child: new Text(
+                        padding: const EdgeInsets.fromLTRB(10,0,55,0),
+                         child: Text(
                             "Peminjaman Berlangsung",
                             style: TextStyle(fontSize: 12),
                           ),
-                          onPressed: () {
-                           
-                          },
-                        )
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(10,0,10,0),

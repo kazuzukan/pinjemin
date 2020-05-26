@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class Users with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-  static final ip = "192.168.43.123:3000";
+  static final ip = "192.168.43.220:3000";
   final urlUser = 'http://${ip.toString()}/user';
 
   Future<void> addUser(User user) async {

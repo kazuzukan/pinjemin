@@ -275,172 +275,192 @@ class _FormReqState extends State<FormReq> {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("Form Permintaan"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: _saveForm,
-          ),
-        ],
+        
       ),
       body: _isLoading
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _form,
-                child: ListView(
-                  children: <Widget>[
-                    // TITLE FORM FIELD
-                    TextFormField(
-                      // initialValue: _initValues['title'],
-                      decoration: InputDecoration(
-                        labelText: 'Title',
-                        labelStyle: TextStyle(color: Colors.black54),
+          : Container(
+            color: Colors.white,
+            child: Padding(
+              
+                padding: const EdgeInsets.all(10.0),
+                child: Form(
+                  key: _form,
+                  child: ListView(
+                    children: <Widget>[
+                      // TITLE FORM FIELD
+                      TextFormField(
+                        // initialValue: _initValues['title'],
+                        decoration: InputDecoration(
+                          labelText: 'Title',
+                          labelStyle: TextStyle(color: Colors.black54),
+                        ),
+                        cursorColor: Colors.black12,
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) {
+                          FocusScope.of(context).requestFocus(_priceFocusNode);
+                        },
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please provide a value.';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          _editedProduct = Product(
+                              name: value,
+                              price: _editedProduct.price,
+                              desc: _editedProduct.desc,
+                              image: _editedProduct.image,
+                              id: _editedProduct.id);
+                        },
                       ),
-                      cursorColor: Colors.black12,
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_priceFocusNode);
-                      },
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please provide a value.';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _editedProduct = Product(
-                            name: value,
-                            price: _editedProduct.price,
-                            desc: _editedProduct.desc,
-                            image: _editedProduct.image,
-                            id: _editedProduct.id);
-                      },
-                    ),
-                    // -- TITLE FORM FIELD
+                      // -- TITLE FORM FIELD
 
-                    // DESCRIPTION FORM FIELD
-                    TextFormField(
-                      // initialValue: _initValues['description'],
-                      decoration: InputDecoration(
-                        labelText: 'Description',
-                        labelStyle: TextStyle(color: Colors.black54),
+                      // DESCRIPTION FORM FIELD
+                      TextFormField(
+                        // initialValue: _initValues['description'],
+                        decoration: InputDecoration(
+                          labelText: 'Description',
+                          labelStyle: TextStyle(color: Colors.black54),
+                        ),
+                        cursorColor: Colors.black12,
+                        maxLines: 3,
+                        keyboardType: TextInputType.multiline,
+                        focusNode: _descriptionFocusNode,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) {},
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter a description.';
+                          }
+                          if (value.length < 10) {
+                            return 'Should be at least 10 characters long.';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          _editedProduct = Product(
+                              name: _editedProduct.name,
+                              price: _editedProduct.price,
+                              desc: value,
+                              image: _editedProduct.image,
+                              id: _editedProduct.id);
+                        },
                       ),
-                      cursorColor: Colors.black12,
-                      maxLines: 3,
-                      keyboardType: TextInputType.multiline,
-                      focusNode: _descriptionFocusNode,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) {},
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a description.';
-                        }
-                        if (value.length < 10) {
-                          return 'Should be at least 10 characters long.';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _editedProduct = Product(
-                            name: _editedProduct.name,
-                            price: _editedProduct.price,
-                            desc: value,
-                            image: _editedProduct.image,
-                            id: _editedProduct.id);
-                      },
-                    ),
-                    // -- DESCRIPTION FORM FIELD
+                      // -- DESCRIPTION FORM FIELD
 
-                    // START DATE FORM FIELD
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        new Expanded(
-                          flex: 4,
-                          child: new _InputDropdown(
-                            labelText: "Start Date",
-                            valueText:
-                                "${selectedStartDate.day}/${selectedStartDate.month}/${selectedStartDate.year}",
-                            onPressed: () {
-                              _selectStartDate(context);
-                            },
+                      // START DATE FORM FIELD
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          new Expanded(
+                            flex: 4,
+                            child: new _InputDropdown(
+                              labelText: "Start Date",
+                              valueText:
+                                  "${selectedStartDate.day}/${selectedStartDate.month}/${selectedStartDate.year}",
+                              onPressed: () {
+                                _selectStartDate(context);
+                              },
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 12.0),
-                        new Expanded(
-                          flex: 3,
-                          child: new _InputDropdown(
-                            valueText:
-                                "${selectedStartTime.hour}:${selectedStartTime.minute}",
-                            onPressed: () {
-                              _selectStartTime(context);
-                            },
+                          const SizedBox(width: 12.0),
+                          new Expanded(
+                            flex: 3,
+                            child: new _InputDropdown(
+                              valueText:
+                                  "${selectedStartTime.hour}:${selectedStartTime.minute}",
+                              onPressed: () {
+                                _selectStartTime(context);
+                              },
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // -- START DATE FORM FIELD
+                        ],
+                      ),
+                      // -- START DATE FORM FIELD
 
-                    // END DATE FORM FIELD
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        new Expanded(
-                          flex: 4,
-                          child: new _InputDropdown(
-                            labelText: "End Date",
-                            valueText:
-                                "${selectedEndDate.day}/${selectedEndDate.month}/${selectedEndDate.year}",
-                            onPressed: () {
-                              _selectEndDate(context);
-                            },
+                      // END DATE FORM FIELD
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          new Expanded(
+                            flex: 4,
+                            child: new _InputDropdown(
+                              labelText: "End Date",
+                              valueText:
+                                  "${selectedEndDate.day}/${selectedEndDate.month}/${selectedEndDate.year}",
+                              onPressed: () {
+                                _selectEndDate(context);
+                              },
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 12.0),
-                        new Expanded(
-                          flex: 3,
-                          child: new _InputDropdown(
-                            valueText:
-                                "${selectedEndTime.hour}:${selectedEndTime.minute}",
-                            onPressed: () {
-                              _selectEndTime(context);
-                            },
+                          const SizedBox(width: 12.0),
+                          new Expanded(
+                            flex: 3,
+                            child: new _InputDropdown(
+                              valueText:
+                                  "${selectedEndTime.hour}:${selectedEndTime.minute}",
+                              onPressed: () {
+                                _selectEndTime(context);
+                              },
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // -- END DATE FORM FIELD
+                        ],
+                      ),
+                      // -- END DATE FORM FIELD
 
-                    // IMAGE FORM FIELD
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      // IMAGE FORM FIELD
+                       Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
-                          width: 100,
-                          height: 100,
+                          width: 200,
+                          height: 200,
                           margin: EdgeInsets.only(
-                            top: 8,
-                            right: 10,
+                            top: 30,
                           ),
+                          
                           decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.3),
                             border: Border.all(
                               width: 1,
                               color: Colors.grey,
                             ),
+                            borderRadius: BorderRadius.circular(10)
                           ),
-                          child: _imageUrlController.text.isEmpty
-                              ? Text('Enter a URL')
-                              : FittedBox(
-                                  child: Image.network(
-                                    _imageUrlController.text,
-                                    fit: BoxFit.cover,
+                          child: Column(
+                            children:<Widget>[
+                              Container(
+                                margin: EdgeInsets.only(
+                                  top: 65,
+                                ),
+                                child: Icon(Icons.photo_camera, color: Colors.grey, size: 50,),
+                              ),
+                              Container(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(0,0,0,0),
+                                  child: _imageUrlController.text.isEmpty
+                                  ? Text(
+                                    'Upload Image',
+                                    style: TextStyle(fontSize: 12, color: Colors.black54),
+                                  )
+                                  : FittedBox(
+                                    child: Image.network(
+                                      _imageUrlController.text,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
+                              )
+                            ]
+                          ),
                         ),
-                        Expanded(
+                        Container(
+                          margin: EdgeInsets.only(bottom: 20),
                           child: TextFormField(
                             decoration: InputDecoration(
                               labelText: 'Image URL',
@@ -479,12 +499,27 @@ class _FormReqState extends State<FormReq> {
                             },
                           ),
                         ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                            child: RaisedButton(
+                              child: Text(
+                                'Simpan',
+                                style: TextStyle(color: Colors.white),
+                                ),
+                                color: Color.fromARGB(255, 255, 119, 0),
+                                onPressed: () {
+                                  _saveForm;
+                                },
+                              ),
+                        ),
                       ],
                     ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+          ),
     );
   }
 }

@@ -10,19 +10,22 @@ class CarouselComponent extends StatelessWidget {
        children: <Widget>[
           SizedBox(
             height: 400.0,
-            width: 380.0,
+            width: 360.0,
             child: Carousel(
                images: [
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-1.svg'),
-                  // Image.asset('assets/welcome-screen-1.png'),
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-2.svg'),
-                  SvgPicture.asset('lib/assets/icons/welcome-screen-3.svg')
+                  Image.asset('assets/welcome-screen-1.png'),
+                  Image.asset('assets/welcome-screen-2.png'),
+                  Image.asset('assets/welcome-screen-3.png'),
+                  //SvgPicture.asset('lib/assets/icons/welcome-screen-1.svg'),
+                  //SvgPicture.asset('lib/assets/icons/welcome-screen-2.svg'),
+                  //SvgPicture.asset('lib/assets/icons/welcome-screen-3.svg')
                 ],
                 dotSize: 8.0,
                 dotSpacing: 15.0,
-                dotColor: Colors.grey,
+                dotColor: Colors.black.withOpacity(0.2),
+                dotIncreasedColor: Colors.black.withOpacity(0.5),
                 indicatorBgPadding: 5.0,
-                dotBgColor: Colors.purple.withOpacity(0.0),
+                dotBgColor: Colors.white.withOpacity(0.0),
                 borderRadius: true,
                 moveIndicatorFromBottom: 180.0,
                 noRadiusForIndicator: true,
