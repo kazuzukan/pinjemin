@@ -276,7 +276,7 @@ class _FormOfferState extends State<FormOffer> {
                           ),
                           
                           decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.3),
+                            color: Colors.grey.withOpacity(0.2),
                             border: Border.all(
                               width: 1,
                               color: Colors.grey,
@@ -289,23 +289,23 @@ class _FormOfferState extends State<FormOffer> {
                                 margin: EdgeInsets.only(
                                   top: 65,
                                 ),
-                                child: Icon(Icons.photo_camera, color: Colors.grey, size: 50,),
+                                child: Icon(Icons.photo_camera, color: Colors.grey.withOpacity(0.5), size: 50,),
                               ),
                               Container(
                                 child: Padding(
-                            padding: EdgeInsets.fromLTRB(0,0,0,0),
-                            child: _imageUrlController.text.isEmpty
-                              ? Text(
-                                'Upload Image',
-                                style: TextStyle(fontSize: 12, color: Colors.black54),
-                              )
-                              : FittedBox(
-                                  child: Image.network(
-                                    _imageUrlController.text,
-                                    fit: BoxFit.cover,
+                                  padding: EdgeInsets.fromLTRB(0,0,0,0),
+                                  child: _imageUrlController.text.isEmpty
+                                  ? Text(
+                                    'Image URL',
+                                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                                  )
+                                  : FittedBox(
+                                    child: Image.network(
+                                      _imageUrlController.text,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                            ),
                               )
                             ]
                           ),
@@ -314,7 +314,7 @@ class _FormOfferState extends State<FormOffer> {
                           margin: EdgeInsets.only(bottom: 20),
                           child: TextFormField(
                             decoration: InputDecoration(
-                              labelText: 'Image URL',
+                              labelText: 'Drop Image URL here',
                               labelStyle: TextStyle(color: Colors.black54),
                             ),
                             cursorColor: Colors.black12,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/assets/fonts/custom_icons.dart';
 
-class BottomButtonBar extends StatelessWidget {
+class BottomButtonOffer extends StatelessWidget {
 
   
 
@@ -25,20 +25,26 @@ class BottomButtonBar extends StatelessWidget {
         height: 55,
         width: double.infinity,
         color: Colors.blue,
-        child: SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                            child: RaisedButton(
-                              child: Text(
-                                'Pinjemin',
-                                style: TextStyle(color: Colors.white),
-                                ),
-                                color :Color.fromARGB(255,54, 57, 164),
-                                onPressed: () {
-                                  null;
-                                },
-                              ),
-                        ),
+        child: Column(
+          //padding: EdgeInsets.all(0),
+          children:<Widget>[
+            SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: RaisedButton(
+                    child: Text(
+                      'Pinjem Barang',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    color :Color.fromARGB(255,54, 57, 164),
+                    onPressed: () {
+                      null; //_saveForm
+                    },
+                  ),
+                ),
+            
+          ]
+        ),
       ),
       )
     );

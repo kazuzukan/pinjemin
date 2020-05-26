@@ -4,7 +4,8 @@ import '../screens/form_req.dart';
 import '../providers/products.dart';
 import 'package:provider/provider.dart';
 import '../screens/product_detail_screen.dart';
-import '../screens/productdetailtemp.dart';
+import '../screens/productdetailoffer.dart';
+import '../screens/productdetailreq.dart';
 import '../components/bottomnav.dart';
 
 class RequestScreen extends StatefulWidget {

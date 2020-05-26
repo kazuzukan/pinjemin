@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/providers/product.dart';
 import 'package:pinjemin/screens/main_screen.dart';
+import 'package:pinjemin/screens/productdetailreq.dart';
 import 'app_theme.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ import './screens/transaction_screen.dart';
 import './screens/product_detail_screen.dart';
 import './screens/akun_screen.dart';
 import './screens/profilsetting.dart';
-import './screens/productdetailtemp.dart';
+import './screens/productdetailoffer.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
           ProductDetailScreen.tag: (context) => ProductDetailScreen(),
           AkunScreen.tag: (context) => AkunScreen(),
           SettingAkun.tag: (context) => SettingAkun(),
-          ProductDetailTemp.tag: (context) => ProductDetailTemp()
+          ProductDetailOffer.tag: (context) => ProductDetailOffer(),
+          ProductDetailReq.tag: (context) => ProductDetailReq()
         },
       ),
     );

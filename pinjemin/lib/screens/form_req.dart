@@ -425,7 +425,7 @@ class _FormReqState extends State<FormReq> {
                           ),
                           
                           decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.3),
+                            color: Colors.grey.withOpacity(0.2),
                             border: Border.all(
                               width: 1,
                               color: Colors.grey,
@@ -438,15 +438,15 @@ class _FormReqState extends State<FormReq> {
                                 margin: EdgeInsets.only(
                                   top: 65,
                                 ),
-                                child: Icon(Icons.photo_camera, color: Colors.grey, size: 50,),
+                                child: Icon(Icons.photo_camera, color: Colors.grey.withOpacity(0.5), size: 50,),
                               ),
                               Container(
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(0,0,0,0),
                                   child: _imageUrlController.text.isEmpty
                                   ? Text(
-                                    'Upload Image',
-                                    style: TextStyle(fontSize: 12, color: Colors.black54),
+                                    'Image URl',
+                                    style: TextStyle(fontSize: 12, color: Colors.grey),
                                   )
                                   : FittedBox(
                                     child: Image.network(
