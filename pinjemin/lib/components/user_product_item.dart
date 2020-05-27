@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pinjemin/screens/form_offer.dart';
 import 'package:provider/provider.dart';
 
 // import '../screens/edit_product_screen.dart';
 import '../screens/form_req.dart';
 import '../providers/products.dart';
 
-class UserRequestProductItem extends StatelessWidget {
+class UserProductItem extends StatelessWidget {
   final int id;
   final String name;
   final String image;
+  final bool type;
 
-  UserRequestProductItem(this.id, this.name, this.image);
+  UserProductItem({this.id, this.name, this.image, this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,21 @@ class UserRequestProductItem extends StatelessWidget {
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.edit),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FormReq(),
-                     settings: RouteSettings(arguments: id)));
-                // Navigator.of(context).pushNamed(FormReq.tag, arguments: id);
-              },
+              onPressed: type
+                  ? () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FormOffer(),
+                              settings: RouteSettings(arguments: id)));
+                    }
+                  : () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FormReq(),
+                              settings: RouteSettings(arguments: id)));
+                    },
               color: Theme.of(context).primaryColor,
             ),
             IconButton(
@@ -39,7 +50,7 @@ class UserRequestProductItem extends StatelessWidget {
               onPressed: () async {
                 try {
                   await Provider.of<Products>(context, listen: false)
-                      .deleteRequestProduct(id);
+                      .deleteProduct(id: id, type: this.type);
                 } catch (error) {
                   scaffold.showSnackBar(
                     SnackBar(

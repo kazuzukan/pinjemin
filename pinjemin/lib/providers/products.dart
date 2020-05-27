@@ -54,7 +54,7 @@ class Products with ChangeNotifier {
     return [..._requestItems];
   }
 
-  Product findById(int id, bool type) {
+  Product findById({int id, bool type}) {
     //bool  true: offer, false: request
     if (type) {
       return _offerItems.firstWhere((prod) => prod.id == id);
@@ -171,9 +171,14 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<void> updateRequestProduct(
+  Future<void> updateProduct(
       int id, Product newProduct, Section newSection) async {
-    final prodIndex = _requestItems.indexWhere((prod) => prod.id == id);
+    var prodIndex;
+    if (newSection.type == 1) {
+      prodIndex = _offerItems.indexWhere((prod) => prod.id == id);
+    } else {
+      prodIndex = _requestItems.indexWhere((prod) => prod.id == id);
+    }
     if (prodIndex >= 0) {
       final urlNewProduct = '$urlProduct/$id';
       final urlNewSection = '$urlSection/$id';
@@ -196,7 +201,7 @@ class Products with ChangeNotifier {
             'endDate': newSection.endDate.toString(),
             'type': newSection.type,
           }));
-      _requestItems[prodIndex] = new Product(
+      newProduct = new Product(
           id: newProduct.id,
           name: newProduct.name,
           desc: newProduct.desc,
@@ -205,28 +210,41 @@ class Products with ChangeNotifier {
           startDate: newSection.startDate,
           endDate: newSection.endDate,
           type: newSection.type);
+      if (newSection.type == 1) {
+        _offerItems[prodIndex] = newProduct;
+      } else {
+        _requestItems[prodIndex] = newProduct;
+      }
       notifyListeners();
     } else {
       print('...');
     }
   }
 
-  Future<void> deleteRequestProduct(int id) async {
+  Future<void> deleteProduct({int id, bool type}) async {
     final urlDeleteSection = '$urlSection/$id';
     final urlDeleteProduct = '$urlProduct/$id';
-    final existingProductIndex =
-        _requestItems.indexWhere((prod) => prod.id == id);
-    var existingProduct = _requestItems[existingProductIndex];
-    _requestItems.removeAt(existingProductIndex);
+    var existingProductIndex;
+    var existingProduct;
+    if (type) {
+      existingProductIndex = _offerItems.indexWhere((prod) => prod.id == id);
+      existingProduct = _offerItems[existingProductIndex];
+      _offerItems.removeAt(existingProductIndex);
+    } else {
+      existingProductIndex = _requestItems.indexWhere((prod) => prod.id == id);
+      existingProduct = _requestItems[existingProductIndex];
+      _requestItems.removeAt(existingProductIndex);
+    }
     notifyListeners();
     final response = await http.delete(urlDeleteSection);
     final response2 = await http.delete(urlDeleteProduct);
+    print('Respon Delete Section $response.statusCode');
+    print('Respon Delete product $response2.statusCode');
     if (response.statusCode >= 400 || response2.statusCode >= 400) {
       _requestItems.insert(existingProductIndex, existingProduct);
       notifyListeners();
       throw HttpException('Could not delete product.');
     }
-    
     existingProduct = null;
   }
 }

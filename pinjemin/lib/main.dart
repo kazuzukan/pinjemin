@@ -18,7 +18,7 @@ import './screens/transaction_screen.dart';
 import './screens/product_detail_screen.dart';
 import './screens/akun_screen.dart';
 import './screens/profilsetting.dart';
-import './screens/user_request_product_screen.dart';
+import './screens/user_product_screen.dart';
 import './screens/productdetailoffer.dart';
 
 void main() => runApp(MyApp());
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           ProductDetailScreen.tag: (context) => ProductDetailScreen(),
           AkunScreen.tag: (context) => AkunScreen(),
           SettingAkun.tag: (context) => SettingAkun(),
-          UserRequestProductsScreen.tag: (context) => UserRequestProductsScreen(),
+          UserProductsScreen.tag: (context) => UserProductsScreen(),
           ProductDetailOffer.tag: (context) => ProductDetailOffer(),
           ProductDetailReq.tag: (context) => ProductDetailReq()
         },

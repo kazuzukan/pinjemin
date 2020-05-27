@@ -19,7 +19,7 @@ class ProductDetailScreen extends StatelessWidget {
     final loadedProduct = Provider.of<Products>(
       context,
       listen: false,
-    ).findById(this.prodId, this.type);
+    ).findById(id: this.prodId, type: this.type);
     String type;
     if (this.type) {
       type = 'Penawaran';

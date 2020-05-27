@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/assets/fonts/custom1_icons.dart';
-import 'package:pinjemin/screens/productdetailreq.dart';
+// import 'package:pinjemin/screens/productdetailreq.dart';
 // import 'package:pinjemin/screens/productdetailoffer.dart';
 // import 'package:pinjemin/screens/loginPage.dart';
 import '../screens/profilsetting.dart';
 // import '../screens/loginPage.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
-import '../screens/user_request_product_screen.dart';
+import '../screens/user_product_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
@@ -210,7 +210,7 @@ class _AkunScreenState extends State<AkunScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UserRequestProductsScreen()));
+                        builder: (context) => UserProductsScreen(type: false)));
               },
               child: Container(
                 constraints: BoxConstraints(
@@ -246,12 +246,12 @@ class _AkunScreenState extends State<AkunScreen> {
               ),
             ),
             GestureDetector(
-              // FAQ
+              // My Offer Product
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProductDetailReq()));
+                        builder: (context) => UserProductsScreen(type: true)));
               },
               child: Container(
                 constraints: BoxConstraints(
@@ -271,7 +271,7 @@ class _AkunScreenState extends State<AkunScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Text(
-                              'FAQ'),
+                              'My Offer Products'),
                           IconButton(
                               icon: Icon(
                                 Icons.keyboard_arrow_right,

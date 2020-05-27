@@ -170,7 +170,7 @@ class _FormReqState extends State<FormReq> {
       final productId = ModalRoute.of(context).settings.arguments as int;
       if (productId != null) {
         _editedProduct =
-            Provider.of<Products>(context, listen: false).findById(productId, false);
+            Provider.of<Products>(context, listen: false).findById(id: productId, type: false);
         _initValues = {
           'name': _editedProduct.name,
           'desc': _editedProduct.desc,
@@ -238,7 +238,7 @@ class _FormReqState extends State<FormReq> {
     });
     if (_editedProduct.id != null) {
       await Provider.of<Products>(context, listen: false)
-          .updateRequestProduct(_editedProduct.id, _editedProduct, reqSection);
+          .updateProduct(_editedProduct.id, _editedProduct, reqSection);
     } else {
       try {
         await Provider.of<Products>(context, listen: false)
