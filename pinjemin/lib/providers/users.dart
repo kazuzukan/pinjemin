@@ -9,7 +9,7 @@ class Users with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
   static final ip = 'pinjemin-app.herokuapp.com';
-  final urlUser = 'http://$ip/user';
+  final urlUser = 'http://${ip.toString()}/user';
 
   Future<void> addUser(User user) async {
     try{
