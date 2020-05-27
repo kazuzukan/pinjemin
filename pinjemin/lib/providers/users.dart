@@ -8,14 +8,13 @@ import 'package:http/http.dart' as http;
 class Users with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-  static final ip = " pinjemin-app.herokuapp.com";
+  static final ip = "pinjemin-app.herokuapp.com";
   final urlUser = 'http://${ip.toString()}/user';
-
   Future<void> addUser(User user) async {
-    try{
+    try {
       await http.post(
         urlUser,
-         headers: <String, String>{
+        headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
