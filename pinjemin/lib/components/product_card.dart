@@ -33,7 +33,7 @@ class ProductCard extends StatelessWidget {
           backgroundColor: Colors.white,
           title: Text(
             product.name,
-            style: Theme.of(context).textTheme.body1,
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           subtitle: Text(
             product.desc,

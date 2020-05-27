@@ -48,6 +48,7 @@ class _InputDropdown extends StatelessWidget {
 
 class FormReq extends StatefulWidget {
   static String tag = 'form-req-page';
+  
 
   @override
   _FormReqState createState() => _FormReqState();
@@ -68,13 +69,13 @@ class _FormReqState extends State<FormReq> {
     desc: '',
     image: '',
   );
-  //  var _initValues = {
-  //   'title': '',
-  //   'description': '',
-  //   'price': '',
-  //   'imageUrl': '',
-  // };
-  // var _isInit = true;
+   var _initValues = {
+    'name': '',
+    'desc': '',
+    'price': '',
+    'image': '',
+  };
+  var _isInit = true;
   var _isLoading = false;
   DateTime selectedStartDate = new DateTime.now();
   TimeOfDay selectedStartTime = new TimeOfDay.now();
@@ -165,22 +166,22 @@ class _FormReqState extends State<FormReq> {
 
   @override
   void didChangeDependencies() {
-    // if (_isInit) {
-    //   final productId = ModalRoute.of(context).settings.arguments as String;
-    //   if (productId != null) {
-    //     _editedProduct =
-    //         Provider.of<Products>(context, listen: false).findById(productId);
-    //     _initValues = {
-    //       'title': _editedProduct.title,
-    //       'description': _editedProduct.description,
-    //       'price': _editedProduct.price.toString(),
-    //       // 'imageUrl': _editedProduct.imageUrl,
-    //       'imageUrl': '',
-    //     };
-    //     _imageUrlController.text = _editedProduct.imageUrl;
-    //   }
-    // }
-    // var _isInit = false;
+    if (_isInit) {
+      final productId = ModalRoute.of(context).settings.arguments as int;
+      if (productId != null) {
+        _editedProduct =
+            Provider.of<Products>(context, listen: false).findById(productId, false);
+        _initValues = {
+          'name': _editedProduct.name,
+          'desc': _editedProduct.desc,
+          'price': _editedProduct.price.toString(),
+          // 'imageUrl': _editedProduct.imageUrl,
+          'image': '',
+        };
+        _imageUrlController.text = _editedProduct.image;
+      }
+    }
+    _isInit = false;
     super.didChangeDependencies();
   }
 
@@ -232,8 +233,8 @@ class _FormReqState extends State<FormReq> {
       _isLoading = true;
     });
     if (_editedProduct.id != null) {
-      // await Provider.of<Products>(context, listen: false)
-      //     .updateProduct(_editedProduct.id, _editedProduct);
+      await Provider.of<Products>(context, listen: false)
+          .updateRequestProduct(_editedProduct.id, _editedProduct);
     } else {
       try {
         await Provider.of<Products>(context, listen: false)
@@ -294,7 +295,7 @@ class _FormReqState extends State<FormReq> {
                   children: <Widget>[
                     // TITLE FORM FIELD
                     TextFormField(
-                      // initialValue: _initValues['title'],
+                      initialValue: _initValues['name'],
                       decoration: InputDecoration(
                         labelText: 'Title',
                         labelStyle: TextStyle(color: Colors.black54),
@@ -323,7 +324,7 @@ class _FormReqState extends State<FormReq> {
 
                     // DESCRIPTION FORM FIELD
                     TextFormField(
-                      // initialValue: _initValues['description'],
+                      initialValue: _initValues['desc'],
                       decoration: InputDecoration(
                         labelText: 'Description',
                         labelStyle: TextStyle(color: Colors.black54),
