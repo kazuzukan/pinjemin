@@ -48,6 +48,16 @@ class ProductDetailScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
+             Text(
+              '\$${loadedProduct.startDate.toString()}',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,

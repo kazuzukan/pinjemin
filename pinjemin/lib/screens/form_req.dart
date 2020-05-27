@@ -179,6 +179,10 @@ class _FormReqState extends State<FormReq> {
           'image': '',
         };
         _imageUrlController.text = _editedProduct.image;
+        selectedStartDate = _editedProduct.startDate;
+        selectedStartTime = new TimeOfDay(hour: _editedProduct.startDate.hour, minute: _editedProduct.startDate.minute);
+        selectedEndDate = _editedProduct.endDate;
+        selectedEndTime = new TimeOfDay(hour: _editedProduct.endDate.hour, minute: _editedProduct.endDate.minute);
       }
     }
     _isInit = false;
@@ -234,7 +238,7 @@ class _FormReqState extends State<FormReq> {
     });
     if (_editedProduct.id != null) {
       await Provider.of<Products>(context, listen: false)
-          .updateRequestProduct(_editedProduct.id, _editedProduct);
+          .updateRequestProduct(_editedProduct.id, _editedProduct, reqSection);
     } else {
       try {
         await Provider.of<Products>(context, listen: false)

@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../models/http_exception.dart';
-import 'package:pinjemin/providers/section.dart';
 import './product.dart';
+import 'package:pinjemin/providers/section.dart';
 import 'package:http/http.dart' as http;
 
 class Products with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-  static final ip = "192.168.43.158:3000";
+  static final ip = "192.168.1.101:3000";
   final urlProduct = 'http://${ip.toString()}/product';
   final urlSection = 'http://${ip.toString()}/section';
   final urlRequestSection = 'http://${ip.toString()}/request-section';
@@ -58,8 +58,7 @@ class Products with ChangeNotifier {
     //bool  true: offer, false: request
     if (type) {
       return _offerItems.firstWhere((prod) => prod.id == id);
-    }
-    else {
+    } else {
       return _requestItems.firstWhere((prod) => prod.id == id);
     }
   }
@@ -71,14 +70,29 @@ class Products with ChangeNotifier {
       final List<Product> loadedProducts = [];
       extractedData.forEach((prod) {
         final product = prod as Map<String, dynamic>;
+        DateTime startDateValue;
+        DateTime endDateValue;
+        int typeValue;
         product.forEach((key, value) {
+          if (key == 'startDate') {
+            startDateValue = DateTime.parse(value);
+          }
+          if (key == 'endDate') {
+            endDateValue = DateTime.parse(value);
+          }
+          if (key == 'type') {
+            typeValue = value;
+          }
           if (key == 'product') {
             loadedProducts.add(Product(
                 id: value['id'],
                 name: value['name'],
                 desc: value['desc'],
                 price: value['price'],
-                image: value['image']));
+                image: value['image'],
+                startDate: startDateValue,
+                endDate: endDateValue,
+                type: typeValue));
           }
         });
       });
@@ -128,7 +142,7 @@ class Products with ChangeNotifier {
           'price': product.price,
         }),
       );
-      print(json.decode(response.body)['id']);
+      // print(json.decode(response.body)['id']);
       var prodId = json.decode(response.body)['id'];
 
       String startD = section.startDate.toString();
@@ -140,6 +154,7 @@ class Products with ChangeNotifier {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
+          'id': prodId,
           'startDate': startD,
           'endDate': endD,
           'type': section.type,
@@ -156,18 +171,40 @@ class Products with ChangeNotifier {
     }
   }
 
-    Future<void> updateRequestProduct(int id, Product newProduct) async {
+  Future<void> updateRequestProduct(
+      int id, Product newProduct, Section newSection) async {
     final prodIndex = _requestItems.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
-      final url = 'https://flutter-update.firebaseio.com/products/$id.json';
-      await http.patch(url,
-          body: json.encode({
+      final urlNewProduct = '$urlProduct/$id';
+      final urlNewSection = '$urlSection/$id';
+      await http.put(urlNewProduct,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: json.encode(<String, dynamic>{
             'name': newProduct.name,
             'desc': newProduct.desc,
             'image': newProduct.image,
             'price': newProduct.price
           }));
-      _requestItems[prodIndex] = newProduct;
+      await http.put(urlNewSection,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: json.encode(<String, dynamic>{
+            'startDate': newSection.startDate.toString(),
+            'endDate': newSection.endDate.toString(),
+            'type': newSection.type,
+          }));
+      _requestItems[prodIndex] = new Product(
+          id: newProduct.id,
+          name: newProduct.name,
+          desc: newProduct.desc,
+          price: newProduct.price,
+          image: newProduct.image,
+          startDate: newSection.startDate,
+          endDate: newSection.endDate,
+          type: newSection.type);
       notifyListeners();
     } else {
       print('...');
@@ -175,17 +212,21 @@ class Products with ChangeNotifier {
   }
 
   Future<void> deleteRequestProduct(int id) async {
-    final url = 'https://flutter-update.firebaseio.com/products/$id.json';
-    final existingProductIndex = _requestItems.indexWhere((prod) => prod.id == id);
+    final urlDeleteSection = '$urlSection/$id';
+    final urlDeleteProduct = '$urlProduct/$id';
+    final existingProductIndex =
+        _requestItems.indexWhere((prod) => prod.id == id);
     var existingProduct = _requestItems[existingProductIndex];
     _requestItems.removeAt(existingProductIndex);
     notifyListeners();
-    final response = await http.delete(url);
+    final response = await http.delete(urlDeleteSection);
+    final response2 = await http.delete(urlDeleteProduct);
     if (response.statusCode >= 400) {
       _requestItems.insert(existingProductIndex, existingProduct);
       notifyListeners();
       throw HttpException('Could not delete product.');
     }
+    
     existingProduct = null;
   }
 }

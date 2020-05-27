@@ -8,6 +8,9 @@ class Product with ChangeNotifier {
   final int price;
   final String duration;
   final String image;
+  final DateTime startDate;
+  final DateTime endDate;
+  final int type;
   
 
   Product({
@@ -17,6 +20,9 @@ class Product with ChangeNotifier {
     this.method,
     this.price ,
     this.duration,
-    this.image
+    this.image,
+    this.startDate,
+    this.endDate,
+    this.type
   });
 }
