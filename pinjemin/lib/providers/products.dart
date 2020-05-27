@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class Products with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-  static final ip = "192.168.1.101:3000";
+  static final ip = "192.168.43.158:3000";
   final urlProduct = 'http://${ip.toString()}/product';
   final urlSection = 'http://${ip.toString()}/section';
   final urlRequestSection = 'http://${ip.toString()}/request-section';

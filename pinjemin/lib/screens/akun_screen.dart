@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/assets/fonts/custom1_icons.dart';
-import 'package:pinjemin/screens/loginPage.dart';
+import 'package:pinjemin/screens/productdetailreq.dart';
+// import 'package:pinjemin/screens/productdetailoffer.dart';
+// import 'package:pinjemin/screens/loginPage.dart';
 import '../screens/profilsetting.dart';
-import '../screens/loginPage.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import '../screens/loginPage.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import '../screens/user_request_product_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -245,6 +247,12 @@ class _AkunScreenState extends State<AkunScreen> {
             ),
             GestureDetector(
               // FAQ
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetailReq()));
+              },
               child: Container(
                 constraints: BoxConstraints(
                     minHeight: 50, maxHeight: 60, minWidth: 500, maxWidth: 500),

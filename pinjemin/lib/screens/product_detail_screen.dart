@@ -1,6 +1,9 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/products.dart';
+import 'package:pinjemin/components/bottombuttonreq.dart';
+import 'package:pinjemin/components/bottombuttonoffer.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const tag = '/product-detail';
@@ -13,63 +16,101 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loadedProduct = Provider.of<Products>(context, listen: false,)
-    .findById(this.prodId, this.type);
+    final loadedProduct = Provider.of<Products>(
+      context,
+      listen: false,
+    ).findById(this.prodId, this.type);
     String type;
     if (this.type) {
       type = 'Penawaran';
-    } 
-    else {
+    } else {
       type = 'Permintaan';
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Detail $type"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                loadedProduct.image,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              '\$${loadedProduct.price}',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-             Text(
-              '\$${loadedProduct.startDate.toString()}',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              width: double.infinity,
-              child: Text(
-                loadedProduct.desc,
-                textAlign: TextAlign.center,
-                softWrap: true,
-              ),
-            )
-          ],
+        appBar: AppBar(
+          title: Text("Detail $type"),
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                  height: 400,
+                  color: Colors.white,
+                  width: double.infinity,
+                  child: Image.network(
+                    loadedProduct.image,
+                    fit: BoxFit.fill,
+                  )),
+              Container(
+                constraints: BoxConstraints(
+                    minHeight: 60,
+                    maxHeight: double.infinity,
+                    minWidth: double.infinity,
+                    maxWidth: double.infinity),
+                width: double.infinity,
+                color: Colors.white,
+                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '${loadedProduct.name}',
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ), //load product name
+                      (() {
+                        if (this.type) {
+                          return Text('${loadedProduct.price} poin',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 223, 3, 93),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold));
+                        } else {
+                          String startDate = DateFormat("d MMMM y")
+                              .format(loadedProduct.startDate);
+                          String endDate = DateFormat("d MMMM y")
+                              .format(loadedProduct.endDate);
+                          return Text('$startDate - $endDate',
+                              style: TextStyle(
+                                  color: Colors.amber[700],
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold));
+                        }
+                      }()),
+                    ]),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                constraints: BoxConstraints(
+                    minHeight: 80,
+                    maxHeight: double.infinity,
+                    minWidth: double.infinity,
+                    maxWidth: double.infinity),
+                width: double.infinity,
+                color: Colors.white,
+                padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Rincian produk',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14)),
+                    Text(
+                      '${loadedProduct.desc}',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.justify,
+                      softWrap: true,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar:
+            this.type ? BottomButtonOffer() : BottomButtonReq());
   }
 }

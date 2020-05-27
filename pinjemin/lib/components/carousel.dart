@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+// import 'package:flutter_svg/svg.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
 class CarouselComponent extends StatelessWidget {
