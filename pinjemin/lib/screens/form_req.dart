@@ -462,7 +462,8 @@ class _FormReqState extends State<FormReq> {
                                   : FittedBox(
                                     child: Image.network(
                                       _imageUrlController.text,
-                                      fit: BoxFit.cover,
+                                      height: 198,
+                                      fit: BoxFit.contain,
                                     ),
                                   ),
                                 ),
