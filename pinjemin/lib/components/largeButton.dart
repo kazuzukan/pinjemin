@@ -17,7 +17,7 @@ class _LargeButtonState extends State<LargeButton> {
   bool _isLoggedIn = false;
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
-   /*_login() async{
+   _login() async{
     try{
       await _googleSignIn.signIn();
       _saveUser();
@@ -28,7 +28,7 @@ class _LargeButtonState extends State<LargeButton> {
     } catch (err){
       print(err);
     }
-  }*/
+  }
 
   Future<void> _saveUser() async {
     var inputUser = User(
@@ -58,8 +58,7 @@ class _LargeButtonState extends State<LargeButton> {
         height: 60,
         child: RaisedButton(
           onPressed: () {
-            //_login();
-            Navigator.of(context).pushReplacementNamed(MainScreen.tag);
+            _login();
           },
           padding: const EdgeInsets.all(18.0),
           color: Colors.white,

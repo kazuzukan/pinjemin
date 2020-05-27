@@ -8,8 +8,8 @@ import 'package:http/http.dart' as http;
 class Users with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-  static final ip = "192.168.1.101:3000";
-  final urlUser = 'http://${ip.toString()}/user';
+  static final ip = 'pinjemin-app.herokuapp.com';
+  final urlUser = 'http://$ip/user';
 
   Future<void> addUser(User user) async {
     try{
