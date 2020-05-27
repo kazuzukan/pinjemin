@@ -297,7 +297,7 @@ class _FormReqState extends State<FormReq> {
                     children: <Widget>[
                       // TITLE FORM FIELD
                       TextFormField(
-                        initialValue: _initValues['title'],
+                        initialValue: _initValues['name'],
                         decoration: InputDecoration(
                           labelText: 'Title',
                           labelStyle: TextStyle(color: Colors.black54),
@@ -326,7 +326,7 @@ class _FormReqState extends State<FormReq> {
 
                       // DESCRIPTION FORM FIELD
                       TextFormField(
-                        initialValue: _initValues['description'],
+                        initialValue: _initValues['desc'],
                         decoration: InputDecoration(
                           labelText: 'Description',
                           labelStyle: TextStyle(color: Colors.black54),
