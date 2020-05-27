@@ -149,20 +149,22 @@ class _FormOfferState extends State<FormOffer> {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("Form Penawaran"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: _saveForm,
-          ),
-        ],
       ),
       body: _isLoading
           ? Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
+              padding: const EdgeInsets.all(0),
+              child: Container(
+                
+                decoration: BoxDecoration(
+                  //borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Form(
                 key: _form,
                 child: ListView(
                   children: <Widget>[
@@ -262,37 +264,57 @@ class _FormOfferState extends State<FormOffer> {
                             id: _editedProduct.id);
                       },
                     ),
-                    // -- DESCRIPTION FORM FIELD
-                    // IMAGE FORM FIELD
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
-                          width: 100,
-                          height: 100,
+                          width: 200,
+                          height: 200,
                           margin: EdgeInsets.only(
-                            top: 8,
-                            right: 10,
+                            top: 30,
                           ),
+                          
                           decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.2),
                             border: Border.all(
                               width: 1,
                               color: Colors.grey,
                             ),
+                            borderRadius: BorderRadius.circular(10)
                           ),
-                          child: _imageUrlController.text.isEmpty
-                              ? Text('Enter a URL')
-                              : FittedBox(
-                                  child: Image.network(
-                                    _imageUrlController.text,
-                                    fit: BoxFit.cover,
+                          child: Column(
+                            children:<Widget>[
+                              Container(
+                                margin: EdgeInsets.only(
+                                  top: 65,
+                                ),
+                                child: Icon(Icons.photo_camera, color: Colors.grey.withOpacity(0.5), size: 50,),
+                              ),
+                              Container(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(0,0,0,0),
+                                  child: _imageUrlController.text.isEmpty
+                                  ? Text(
+                                    'Image URL',
+                                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                                  )
+                                  : FittedBox(
+                                    child: Image.network(
+                                      _imageUrlController.text,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
+                              )
+                            ]
+                          ),
                         ),
-                        Expanded(
+                        Container(
+                          margin: EdgeInsets.only(bottom: 20),
                           child: TextFormField(
                             decoration: InputDecoration(
-                              labelText: 'Image URL',
+                              labelText: 'Drop Image URL here',
                               labelStyle: TextStyle(color: Colors.black54),
                             ),
                             cursorColor: Colors.black12,
@@ -328,10 +350,26 @@ class _FormOfferState extends State<FormOffer> {
                             },
                           ),
                         ),
-                        // -- IMAGE FORM FIELD
+                        SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                            child: RaisedButton(
+                              child: Text(
+                                'Simpan',
+                                style: TextStyle(color: Colors.white),
+                                ),
+                                color: Color.fromARGB(255, 255, 119, 0),
+                                onPressed: () {
+                                  _saveForm;
+                                },
+                              ),
+                        ),
                       ],
                     ),
                   ],
+                ),
+              ),
+                
                 ),
               ),
             ),

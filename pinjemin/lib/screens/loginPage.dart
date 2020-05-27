@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Container(
-                            margin: const EdgeInsets.only(top: 20),
+                            margin: const EdgeInsets.only(top: 10),
                             child: Center(
                               child: LargeButton(
                                 widgetsList: <Widget>[
@@ -160,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   Text(
-                                    'Daftar Dengan Google',
+                                    'Masuk Dengan Google',
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 14),
                                   )
@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             )),
                         Container(
-                          margin: const EdgeInsets.only(top: 50),
+                          margin: const EdgeInsets.only(top: 10),
                           child: register,
                         )
                       ],
@@ -177,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          margin: const EdgeInsets.only(top: 100),
+                          margin: const EdgeInsets.only(top: 10),
                           child: LargeButton(
                             widgetsList: <Widget>[
                               SizedBox(
