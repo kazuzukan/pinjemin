@@ -199,6 +199,7 @@ class _FormOfferState extends State<FormOffer> {
                             labelText: 'Price',
                             labelStyle: TextStyle(color: Colors.black54),
                           ),
+<<<<<<< Updated upstream
                           cursorColor: Colors.black12,
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
@@ -286,6 +287,35 @@ class _FormOfferState extends State<FormOffer> {
                                     Icons.photo_camera,
                                     color: Colors.grey.withOpacity(0.5),
                                     size: 50,
+=======
+                          child: Column(
+                            children:<Widget>[
+                              
+                              Container(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(0,0,0,0),
+                                  child: _imageUrlController.text.isEmpty
+                                  ? Container(                                 
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          margin: EdgeInsets.only(top: 65),
+                                          child: Icon(
+                                            Icons.photo_camera, color: Colors.grey.withOpacity(0.5), size: 50,),
+                                        ),
+                                        Text(
+                                          'Image URl',
+                                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                  : FittedBox(
+                                    child: Image.network(
+                                      _imageUrlController.text,
+                                      fit: BoxFit.cover,
+                                    ),
+>>>>>>> Stashed changes
                                   ),
                                 ),
                                 Container(

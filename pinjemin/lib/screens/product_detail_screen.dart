@@ -56,7 +56,7 @@ class ProductDetailScreen extends StatelessWidget {
                       Text(
                         '${loadedProduct.name}',
                         textAlign: TextAlign.justify,
-                        style: TextStyle(color: Colors.black, fontSize: 18),
+                        style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
                       ), //load product name
                       (() {
                         if (this.type) {
@@ -72,9 +72,9 @@ class ProductDetailScreen extends StatelessWidget {
                               .format(loadedProduct.endDate);
                           return Text('$startDate - $endDate',
                               style: TextStyle(
-                                  color: Colors.amber[700],
+                                  color: Color.fromARGB(255, 255, 119, 0),
                                   fontSize: 16,
-                                  fontWeight: FontWeight.bold));
+                                  fontWeight: FontWeight.w700));
                         }
                       }()),
                     ]),
@@ -96,11 +96,11 @@ class ProductDetailScreen extends StatelessWidget {
                   children: <Widget>[
                     Text('Rincian produk',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14)),
+                            fontWeight: FontWeight.w700, fontSize: 14, color: Colors.black.withOpacity(0.8))),
                     Text(
                       '${loadedProduct.desc}',
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black.withOpacity(0.6)),
                       textAlign: TextAlign.justify,
                       softWrap: true,
                     ),

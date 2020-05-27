@@ -8,11 +8,19 @@ import 'package:http/http.dart' as http;
 class Products with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
+<<<<<<< Updated upstream
   static final ip = 'pinjemin-app.herokuapp.com';
   final urlProduct = 'http://$ip/product';
   final urlSection = 'http://$ip/section';
   final urlRequestSection = 'http://$ip/request-section';
   final urlOfferSection = 'http://$ip/offer-section';
+=======
+  static final ip = "pinjemin-app.herokuapp.com";
+  final urlProduct = 'http://${ip.toString()}/product';
+  final urlSection = 'http://${ip.toString()}/section';
+  final urlRequestSection = 'http://${ip.toString()}/request-section';
+  final urlOfferSection = 'http://${ip.toString()}/offer-section';
+>>>>>>> Stashed changes
   List<Product> _requestItems = [
     // Product(
     //   name: 'Red Shirt',
