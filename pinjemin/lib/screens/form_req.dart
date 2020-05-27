@@ -439,19 +439,25 @@ class _FormReqState extends State<FormReq> {
                           ),
                           child: Column(
                             children:<Widget>[
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: 65,
-                                ),
-                                child: Icon(Icons.photo_camera, color: Colors.grey.withOpacity(0.5), size: 50,),
-                              ),
+                              
                               Container(
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(0,0,0,0),
                                   child: _imageUrlController.text.isEmpty
-                                  ? Text(
-                                    'Image URl',
-                                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                                  ? Container(                                 
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          margin: EdgeInsets.only(top: 65),
+                                          child: Icon(
+                                            Icons.photo_camera, color: Colors.grey.withOpacity(0.5), size: 50,),
+                                        ),
+                                        Text(
+                                          'Image URl',
+                                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                                        ),
+                                      ],
+                                    ),
                                   )
                                   : FittedBox(
                                     child: Image.network(

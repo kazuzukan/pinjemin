@@ -83,11 +83,11 @@ class _RequestScreenState extends State<RequestScreen> {
         floatingActionButton: new FloatingActionButton(
           heroTag: null,
           foregroundColor: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => FormReq()));
+          onPressed: () {
+            Navigator.push(
+              context, MaterialPageRoute(builder: (context) => FormReq()));
             },
-            child: Icon(Icons.add)
+          child: Icon(Icons.add)
         ),
         body: _isLoading
             ? Center(
@@ -97,7 +97,6 @@ class _RequestScreenState extends State<RequestScreen> {
                 onRefresh: () => _refreshRequestProduct(),
                 child: ProductsGrid(type: false)
       ),
-      
     );
   }
 }
