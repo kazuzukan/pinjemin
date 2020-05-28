@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:pinjemin/providers/section.dart';
-import './product.dart';
+// import 'package:pinjemin/providers/section.dart';
+// import './product.dart';
 import './user.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,12 +10,11 @@ class Users with ChangeNotifier {
      on the same network as your Android Device or Emulator */
   static final ip = "pinjemin-app.herokuapp.com";
   final urlUser = 'http://${ip.toString()}/user';
-
   Future<void> addUser(User user) async {
-    try{
+    try {
       await http.post(
         urlUser,
-         headers: <String, String>{
+        headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/assets/fonts/custom1_icons.dart';
-import 'package:pinjemin/screens/loginPage.dart';
+// import 'package:pinjemin/screens/productdetailreq.dart';
+// import 'package:pinjemin/screens/productdetailoffer.dart';
+// import 'package:pinjemin/screens/loginPage.dart';
 import '../screens/profilsetting.dart';
-import '../screens/loginPage.dart';
+// import '../screens/loginPage.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
+import '../screens/user_product_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
@@ -19,9 +22,9 @@ class _AkunScreenState extends State<AkunScreen> {
   GoogleSignInAccount _currentUser;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account){
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
       });
@@ -203,38 +206,87 @@ class _AkunScreenState extends State<AkunScreen> {
                 shape: BoxShape.rectangle,
               ),
             ),
-            Container(
-              // faq
-              constraints: BoxConstraints(
-                  minHeight: 50, maxHeight: 60, minWidth: 500, maxWidth: 500),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.rectangle,
-                  border: Border(
-                    top: BorderSide(width: 1.0, color: Colors.black12),
-                  )),
-              child: Row(children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(
-                    10,
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                            'FAQ                                                                          '),
-                        IconButton(
-                            icon: Icon(
-                              Icons.keyboard_arrow_right,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              //Navigator.push(context, MaterialPageRoute(builder: (context) => SettingAkun()));
-                            }),
-                      ]),
-                )
-              ]),
+            GestureDetector(
+              // My Request Products
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProductsScreen(type: false)));
+              },
+              child: Container(
+                constraints: BoxConstraints(
+                    minHeight: 50, maxHeight: 60, minWidth: 500, maxWidth: 500),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border(
+                      top: BorderSide(width: 1.0, color: Colors.black12),
+                    )),
+                child: Row(children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(
+                      10,
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                              'My Request Products'),
+                          IconButton(
+                              icon: Icon(
+                                Icons.keyboard_arrow_right,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                //Navigator.push(context, MaterialPageRoute(builder: (context) => SettingAkun()));
+                              }),
+                        ]),
+                  )
+                ]),
+              ),
+            ),
+            GestureDetector(
+              // My Offer Product
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProductsScreen(type: true)));
+              },
+              child: Container(
+                constraints: BoxConstraints(
+                    minHeight: 50, maxHeight: 60, minWidth: 500, maxWidth: 500),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    border: Border(
+                      top: BorderSide(width: 1.0, color: Colors.black12),
+                    )),
+                child: Row(children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(
+                      10,
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                              'My Offer Products'),
+                          IconButton(
+                              icon: Icon(
+                                Icons.keyboard_arrow_right,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                //Navigator.push(context, MaterialPageRoute(builder: (context) => SettingAkun()));
+                              }),
+                        ]),
+                  )
+                ]),
+              ),
             ),
             Container(
               // tentang app
@@ -255,7 +307,7 @@ class _AkunScreenState extends State<AkunScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Text(
-                            'Tentang Aplikasi                                                 '),
+                            'Tentang Aplikasi'),
                         IconButton(
                             icon: Icon(
                               Icons.keyboard_arrow_right,
@@ -285,9 +337,7 @@ class _AkunScreenState extends State<AkunScreen> {
                   child: Text('Logout', textAlign: TextAlign.center),
                   onPressed: () {
                     _logout();
-                   AlertDialog(
-                     content: Text('LogedOut!')
-                   );
+                    AlertDialog(content: Text('LogedOut!'));
                   },
                   padding: const EdgeInsets.all(18.0),
                   color: Colors.white,

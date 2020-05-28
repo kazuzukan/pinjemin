@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:pinjemin/providers/section.dart';
+import '../models/http_exception.dart';
 import './product.dart';
+import 'package:pinjemin/providers/section.dart';
 import 'package:http/http.dart' as http;
 
 class Products with ChangeNotifier {
@@ -53,12 +54,11 @@ class Products with ChangeNotifier {
     return [..._requestItems];
   }
 
-  Product findById(int id, bool type) {
+  Product findById({int id, bool type}) {
     //bool  true: offer, false: request
     if (type) {
       return _offerItems.firstWhere((prod) => prod.id == id);
-    }
-    else {
+    } else {
       return _requestItems.firstWhere((prod) => prod.id == id);
     }
   }
@@ -70,14 +70,29 @@ class Products with ChangeNotifier {
       final List<Product> loadedProducts = [];
       extractedData.forEach((prod) {
         final product = prod as Map<String, dynamic>;
+        DateTime startDateValue;
+        DateTime endDateValue;
+        int typeValue;
         product.forEach((key, value) {
+          if (key == 'startDate') {
+            startDateValue = DateTime.parse(value);
+          }
+          if (key == 'endDate') {
+            endDateValue = DateTime.parse(value);
+          }
+          if (key == 'type') {
+            typeValue = value;
+          }
           if (key == 'product') {
             loadedProducts.add(Product(
                 id: value['id'],
                 name: value['name'],
                 desc: value['desc'],
                 price: value['price'],
-                image: value['image']));
+                image: value['image'],
+                startDate: startDateValue,
+                endDate: endDateValue,
+                type: typeValue));
           }
         });
       });
@@ -127,7 +142,7 @@ class Products with ChangeNotifier {
           'price': product.price,
         }),
       );
-      print(json.decode(response.body)['id']);
+      // print(json.decode(response.body)['id']);
       var prodId = json.decode(response.body)['id'];
 
       String startD = section.startDate.toString();
@@ -139,6 +154,7 @@ class Products with ChangeNotifier {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
+          'id': prodId,
           'startDate': startD,
           'endDate': endD,
           'type': section.type,
@@ -153,5 +169,82 @@ class Products with ChangeNotifier {
       print(error);
       throw (error);
     }
+  }
+
+  Future<void> updateProduct(
+      int id, Product newProduct, Section newSection) async {
+    var prodIndex;
+    if (newSection.type == 1) {
+      prodIndex = _offerItems.indexWhere((prod) => prod.id == id);
+    } else {
+      prodIndex = _requestItems.indexWhere((prod) => prod.id == id);
+    }
+    if (prodIndex >= 0) {
+      final urlNewProduct = '$urlProduct/$id';
+      final urlNewSection = '$urlSection/$id';
+      await http.put(urlNewProduct,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: json.encode(<String, dynamic>{
+            'name': newProduct.name,
+            'desc': newProduct.desc,
+            'image': newProduct.image,
+            'price': newProduct.price
+          }));
+      await http.put(urlNewSection,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: json.encode(<String, dynamic>{
+            'startDate': newSection.startDate.toString(),
+            'endDate': newSection.endDate.toString(),
+            'type': newSection.type,
+          }));
+      newProduct = new Product(
+          id: newProduct.id,
+          name: newProduct.name,
+          desc: newProduct.desc,
+          price: newProduct.price,
+          image: newProduct.image,
+          startDate: newSection.startDate,
+          endDate: newSection.endDate,
+          type: newSection.type);
+      if (newSection.type == 1) {
+        _offerItems[prodIndex] = newProduct;
+      } else {
+        _requestItems[prodIndex] = newProduct;
+      }
+      notifyListeners();
+    } else {
+      print('...');
+    }
+  }
+
+  Future<void> deleteProduct({int id, bool type}) async {
+    final urlDeleteSection = '$urlSection/$id';
+    final urlDeleteProduct = '$urlProduct/$id';
+    var existingProductIndex;
+    var existingProduct;
+    if (type) {
+      existingProductIndex = _offerItems.indexWhere((prod) => prod.id == id);
+      existingProduct = _offerItems[existingProductIndex];
+      _offerItems.removeAt(existingProductIndex);
+    } else {
+      existingProductIndex = _requestItems.indexWhere((prod) => prod.id == id);
+      existingProduct = _requestItems[existingProductIndex];
+      _requestItems.removeAt(existingProductIndex);
+    }
+    notifyListeners();
+    final response = await http.delete(urlDeleteSection);
+    final response2 = await http.delete(urlDeleteProduct);
+    print('Respon Delete Section $response.statusCode');
+    print('Respon Delete product $response2.statusCode');
+    if (response.statusCode >= 400 || response2.statusCode >= 400) {
+      _requestItems.insert(existingProductIndex, existingProduct);
+      notifyListeners();
+      throw HttpException('Could not delete product.');
+    }
+    existingProduct = null;
   }
 }
