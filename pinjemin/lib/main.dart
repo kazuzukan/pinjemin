@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         home: LoginScreen(),
         routes: {
+          '/login': (BuildContext context) => new LoginScreen(),
           LoginScreen.tag: (context) => LoginScreen(),
           MainScreen.tag: (context) => MainScreen(),
           RequestScreen.tag: (context) => RequestScreen(),

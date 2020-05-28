@@ -31,9 +31,11 @@ class _AkunScreenState extends State<AkunScreen> {
 
   _logout() {
     _googleSignIn.signOut();
-    // _isLogout
-    //     ? Navigator.of(context).pushReplacementNamed(LoginScreen.tag)
-    //     : print("hahahah");
+    Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (context) => LoginScreen()),
+  (Route<dynamic> route) => false,
+);
   }
 
   @override

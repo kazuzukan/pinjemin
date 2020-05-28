@@ -21,7 +21,7 @@ class _RequestScreenState extends State<RequestScreen> {
   }
 
   Future<void> _refreshRequestProduct() async {
-    await Provider.of<Products>(context).fetchRequestProduct();
+    await Provider.of<Products>(context, listen: false).fetchRequestProduct();
   }
 
   @override
@@ -30,7 +30,7 @@ class _RequestScreenState extends State<RequestScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Products>(context).fetchRequestProduct().then((_) {
+      Provider.of<Products>(context, listen: false).fetchRequestProduct().then((_) {
         setState(() {
           _isLoading = false;
         });
