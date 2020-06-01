@@ -37,9 +37,12 @@ class ProductDetailScreen extends StatelessWidget {
                   height: 400,
                   color: Colors.white,
                   width: double.infinity,
-                  child: Image.network(
-                    loadedProduct.image,
-                    fit: BoxFit.fill,
+                  child: Hero(
+                    tag: 'imgProduct',
+                    child: Image.network(
+                      loadedProduct.image,
+                      fit: BoxFit.fill,
+                    ),
                   )),
               Container(
                 constraints: BoxConstraints(
@@ -56,7 +59,10 @@ class ProductDetailScreen extends StatelessWidget {
                       Text(
                         '${loadedProduct.name}',
                         textAlign: TextAlign.justify,
-                        style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
                       ), //load product name
                       (() {
                         if (this.type) {
@@ -96,11 +102,15 @@ class ProductDetailScreen extends StatelessWidget {
                   children: <Widget>[
                     Text('Rincian produk',
                         style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 14, color: Colors.black.withOpacity(0.8))),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            color: Colors.black.withOpacity(0.8))),
                     Text(
                       '${loadedProduct.desc}',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black.withOpacity(0.6)),
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black.withOpacity(0.6)),
                       textAlign: TextAlign.justify,
                       softWrap: true,
                     ),
