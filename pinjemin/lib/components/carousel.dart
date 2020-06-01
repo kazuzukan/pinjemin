@@ -20,7 +20,7 @@ class CarouselComponent extends StatelessWidget {
                   //SvgPicture.asset('lib/assets/icons/welcome-screen-2.svg'),
                   //SvgPicture.asset('lib/assets/icons/welcome-screen-3.svg')
                 ],
-                dotSize: 8.0,
+                dotSize: 4.0,
                 dotSpacing: 15.0,
                 dotColor: Colors.black.withOpacity(0.2),
                 dotIncreasedColor: Colors.black.withOpacity(0.5),

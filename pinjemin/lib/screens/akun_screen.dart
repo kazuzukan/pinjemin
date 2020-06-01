@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/assets/fonts/custom1_icons.dart';
+import 'package:provider/provider.dart';
 // import 'package:pinjemin/screens/productdetailreq.dart';
 // import 'package:pinjemin/screens/productdetailoffer.dart';
 // import 'package:pinjemin/screens/loginPage.dart';
 import '../screens/profilsetting.dart';
-// import '../screens/loginPage.dart';
+import '../screens/loginPage.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import '../screens/user_product_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+// import '../providers/user.dart';
+import '../providers/users.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
@@ -28,6 +31,7 @@ class _AkunScreenState extends State<AkunScreen> {
       setState(() {
         _currentUser = account;
       });
+      _getUser();
     });
     _googleSignIn.signInSilently();
   }
@@ -35,14 +39,28 @@ class _AkunScreenState extends State<AkunScreen> {
   _logout() {
     _googleSignIn.signOut();
     Navigator.pushAndRemoveUntil(
-  context,
-  MaterialPageRoute(builder: (context) => LoginScreen()),
-  (Route<dynamic> route) => false,
-);
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  Future<void> _getUser() async {
+    try {
+      await Provider.of<Users>(context, listen: false)
+          .getUser(_currentUser.email);
+    } catch (error) {
+      print(error);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    // final userConstructor = Provider.of<User>(context);
+    final user = Provider.of<Users>(context, listen: false);
+    final userExist = user.userDetail;
+    String name = userExist[0].firstname;
+    int point = userExist[0].point;
     return Scaffold(
       body: Container(
         child: Column(
@@ -57,10 +75,11 @@ class _AkunScreenState extends State<AkunScreen> {
                     padding: EdgeInsets.fromLTRB(310, 30, 0, 0),
                     child: MaterialButton(
                         onPressed: () {
+                          String email = userExist[0].email;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SettingAkun()));
+                                  builder: (context) => SettingAkun(email)));
                         },
                         child: Icon(
                           Icons.settings,
@@ -73,13 +92,17 @@ class _AkunScreenState extends State<AkunScreen> {
                       fit: BoxFit.contain, // otherwise the logo will be tiny
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
-                        child: GoogleUserCircleAvatar(identity: _currentUser),
+                        child: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: GoogleUserCircleAvatar(identity: _currentUser),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(0),
-                    child: Text(_currentUser.displayName ?? '',
+                    child: Text(name,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,
@@ -147,7 +170,7 @@ class _AkunScreenState extends State<AkunScreen> {
                                           color: Colors.red,
                                         ),
                                         onPressed: () {
-                                          print("Notification Clicked");
+                                          print(userExist[0].firstname);
                                         }),
                                   ),
                                   Padding(
@@ -158,10 +181,17 @@ class _AkunScreenState extends State<AkunScreen> {
                                               style: TextStyle(
                                                   color: Colors.black54,
                                                   fontSize: 12)),
+                                          if (point == null)
+                                            Text(
+                                              "0",
+                                              style: TextStyle(fontSize: 12),
+                                            ),
+                                          
+                                          if(point != null)
                                           Text(
-                                            '3000',
-                                            style: TextStyle(fontSize: 12),
-                                          ),
+                                              point.toString(),
+                                              style: TextStyle(fontSize: 12),
+                                            ),
                                         ],
                                       ))
                                 ],
@@ -231,8 +261,7 @@ class _AkunScreenState extends State<AkunScreen> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Text(
-                              'My Request Products'),
+                          Text('My Request Products'),
                           IconButton(
                               icon: Icon(
                                 Icons.keyboard_arrow_right,
@@ -272,8 +301,7 @@ class _AkunScreenState extends State<AkunScreen> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Text(
-                              'My Offer Products'),
+                          Text('My Offer Products'),
                           IconButton(
                               icon: Icon(
                                 Icons.keyboard_arrow_right,
@@ -306,8 +334,7 @@ class _AkunScreenState extends State<AkunScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text(
-                            'Tentang Aplikasi'),
+                        Text('Tentang Aplikasi'),
                         IconButton(
                             icon: Icon(
                               Icons.keyboard_arrow_right,

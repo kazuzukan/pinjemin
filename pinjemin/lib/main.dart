@@ -6,6 +6,7 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:provider/provider.dart';
 import './providers/products.dart';
 import './providers/users.dart';
+import './providers/user.dart';
 
 import './screens/loginPage.dart';
 import './screens/request_screen.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: Products()),
-        ChangeNotifierProvider.value(value: Users())
+        ChangeNotifierProvider.value(value: Users()),
+        ChangeNotifierProvider.value(value: User())
       ],
       child: MaterialApp(
         title: 'Pinjemin',
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
           TransactionScreen.tag: (context) => TransactionScreen(),
           ProductDetailScreen.tag: (context) => ProductDetailScreen(),
           AkunScreen.tag: (context) => AkunScreen(),
-          SettingAkun.tag: (context) => SettingAkun(),
+          // SettingAkun.tag: (context) => SettingAkun(email),
           UserProductsScreen.tag: (context) => UserProductsScreen(),
           ProductDetailOffer.tag: (context) => ProductDetailOffer(),
           ProductDetailReq.tag: (context) => ProductDetailReq()

@@ -14,12 +14,13 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context, listen: false);
+    final product = Provider.of<Product>(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         child: GestureDetector(
           onTap: () {
+            print(product.name);
             Navigator.push(context, MaterialPageRoute(
                 builder: (context) => ProductDetailScreen(type: this.type, prodId: product.id)
               ));
