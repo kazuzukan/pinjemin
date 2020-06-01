@@ -10,7 +10,6 @@ import './providers/user.dart';
 
 import './screens/loginPage.dart';
 import './screens/request_screen.dart';
-import './screens/register.dart';
 import './screens/request_page.dart';
 import './screens/form_req.dart';
 import './screens/offer_screen.dart';
@@ -44,7 +43,6 @@ class MyApp extends StatelessWidget {
           LoginScreen.tag: (context) => LoginScreen(),
           MainScreen.tag: (context) => MainScreen(),
           RequestScreen.tag: (context) => RequestScreen(),
-          Register.tag: (context) => Register(),
           RequestPage.tag: (context) => RequestPage(),
           OfferScreen.tag: (context) => OfferScreen(),
           FormReq.tag: (context) => FormReq(),

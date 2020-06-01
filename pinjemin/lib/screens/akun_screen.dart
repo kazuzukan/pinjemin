@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/assets/fonts/custom1_icons.dart';
+// import 'package:pinjemin/assets/fonts/custom1_icons.dart';
 import 'package:provider/provider.dart';
 // import 'package:pinjemin/screens/productdetailreq.dart';
 // import 'package:pinjemin/screens/productdetailoffer.dart';
@@ -165,7 +165,8 @@ class _AkunScreenState extends State<AkunScreen> {
                                     padding: EdgeInsets.all(0),
                                     child: IconButton(
                                         icon: Icon(
-                                          Custom1.iconpoint,
+                                          // Custom1.iconpoint,
+                                          Icons.monetization_on,
                                           size: 30,
                                           color: Colors.red,
                                         ),
@@ -186,9 +187,8 @@ class _AkunScreenState extends State<AkunScreen> {
                                               "0",
                                               style: TextStyle(fontSize: 12),
                                             ),
-                                          
-                                          if(point != null)
-                                          Text(
+                                          if (point != null)
+                                            Text(
                                               point.toString(),
                                               style: TextStyle(fontSize: 12),
                                             ),
@@ -206,7 +206,8 @@ class _AkunScreenState extends State<AkunScreen> {
                                     padding: EdgeInsets.all(0),
                                     child: IconButton(
                                         icon: Icon(
-                                          Custom1.icontopup,
+                                          // Custom1.icontopup,
+                                          Icons.arrow_upward,
                                           size: 30,
                                           color: Colors.lightGreen,
                                         ),
