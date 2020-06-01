@@ -24,9 +24,8 @@ class _RequestScreenState extends State<RequestScreen> {
     super.initState();
   }
 
-  Future<void> _refreshRequestProduct() {
-    return Provider.of<Products>(context).fetchRequestProduct().then((_) {
-    });
+  Future<void> _refreshRequestProduct() async {
+    await Provider.of<Products>(context).fetchRequestProduct();
   }
 
   @override
