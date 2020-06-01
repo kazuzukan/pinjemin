@@ -14,7 +14,6 @@ class LargeButton extends StatefulWidget {
 }
 
 class _LargeButtonState extends State<LargeButton> {
-  bool _isLoggedIn = false;
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
    _login() async{
@@ -22,7 +21,6 @@ class _LargeButtonState extends State<LargeButton> {
       await _googleSignIn.signIn();
       _saveUser();
       setState(() {
-        _isLoggedIn = true;
         Navigator.of(context).pushReplacementNamed(MainScreen.tag);
       });
     } catch (err){

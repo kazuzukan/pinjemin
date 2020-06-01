@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/users.dart';
+import '../providers/user.dart';
 // import 'package:pinjemin/assets/fonts/custom1_icons.dart';
 // import '../screens/akun_screen.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
 class SettingAkun extends StatefulWidget {
   static var tag;
-
+  final String email;
+  SettingAkun(this.email);
   @override
-  _SettingAkunState createState() => _SettingAkunState();
+  _SettingAkunState createState() => _SettingAkunState(email);
 }
 
 class _SettingAkunState extends State<SettingAkun> {
   final _formKey = GlobalKey<FormState>();
-  GoogleSignInAccount _currentUser;
 
   bool _isHidePassword = true;
+  String email;
+  List<User> _userData = new List();
+  
+
+  _SettingAkunState(this.email);
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -27,12 +32,18 @@ class _SettingAkunState extends State<SettingAkun> {
   @override
   void initState() {
     super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      setState(() {
-        _currentUser = account;
-      });
+  }
+
+  @override
+  void didChangeDependencies() {
+    Provider.of<Users>(context, listen: false).getUser(email);
+    final user = Provider.of<Users>(context, listen: false).userDetail;
+    final userExist = Provider.of<User>(context);
+    setState(() {
+      _userData = <User>[user[0]];
     });
-    _googleSignIn.signInSilently();
+    print(userExist.firstname);
+    super.didChangeDependencies();
   }
 
   @override
@@ -71,7 +82,7 @@ class _SettingAkunState extends State<SettingAkun> {
                   Row(
                     children: <Widget>[
                       Text(
-                        _currentUser.displayName ?? '',
+                        _userData[0].firstname,
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       IconButton(
@@ -329,7 +340,7 @@ class _SettingAkunState extends State<SettingAkun> {
                   Row(
                     children: <Widget>[
                       Text(
-                        _currentUser.email ?? '',
+                        _userData[0].email,
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       IconButton(

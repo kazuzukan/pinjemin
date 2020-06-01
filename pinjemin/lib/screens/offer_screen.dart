@@ -21,7 +21,7 @@ class _OfferScreenState extends State<OfferScreen> {
   }
 
   Future<void> _refreshOfferProduct() async {
-    await Provider.of<Products>(context).fetchOfferProduct();
+    await Provider.of<Products>(context, listen: false).fetchOfferProduct();
   }
 
   @override
@@ -30,7 +30,7 @@ class _OfferScreenState extends State<OfferScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Products>(context).fetchOfferProduct().then((_) {
+      Provider.of<Products>(context, listen: false).fetchOfferProduct().then((_) {
         setState(() {
           _isLoading = false;
         });
