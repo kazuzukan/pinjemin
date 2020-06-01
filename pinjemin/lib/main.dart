@@ -18,7 +18,7 @@ import './screens/form_offer.dart';
 import './screens/transaction_screen.dart';
 import './screens/product_detail_screen.dart';
 import './screens/akun_screen.dart';
-import './screens/profilsetting.dart';
+// import './screens/profilsetting.dart';
 import './screens/user_product_screen.dart';
 import './screens/productdetailoffer.dart';
 

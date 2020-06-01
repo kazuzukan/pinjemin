@@ -253,27 +253,23 @@ class _AkunScreenState extends State<AkunScreen> {
                     border: Border(
                       top: BorderSide(width: 1.0, color: Colors.black12),
                     )),
-                child: Row(children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(
-                      10,
-                    ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Text('My Request Products'),
-                          IconButton(
-                              icon: Icon(
-                                Icons.keyboard_arrow_right,
-                                size: 20,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                //Navigator.push(context, MaterialPageRoute(builder: (context) => SettingAkun()));
-                              }),
-                        ]),
-                  )
-                ]),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('My Request Products'),
+                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.keyboard_arrow_right,
+                            size: 20,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => SettingAkun()));
+                          }),
+                    ]),
               ),
             ),
             GestureDetector(
@@ -293,27 +289,23 @@ class _AkunScreenState extends State<AkunScreen> {
                     border: Border(
                       top: BorderSide(width: 1.0, color: Colors.black12),
                     )),
-                child: Row(children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(
-                      10,
-                    ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Text('My Offer Products'),
-                          IconButton(
-                              icon: Icon(
-                                Icons.keyboard_arrow_right,
-                                size: 20,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                //Navigator.push(context, MaterialPageRoute(builder: (context) => SettingAkun()));
-                              }),
-                        ]),
-                  )
-                ]),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('My Offer Products'),
+                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.keyboard_arrow_right,
+                            size: 20,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => SettingAkun()));
+                          }),
+                    ]),
               ),
             ),
             Container(
@@ -326,27 +318,23 @@ class _AkunScreenState extends State<AkunScreen> {
                   border: Border(
                     top: BorderSide(width: 1.0, color: Colors.black12),
                   )),
-              child: Row(children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(
-                    10,
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text('Tentang Aplikasi'),
-                        IconButton(
-                            icon: Icon(
-                              Icons.keyboard_arrow_right,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              print("Notification Clicked");
-                            }),
-                      ]),
-                )
-              ]),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Tentang Aplikasi'),
+                    ),
+                    IconButton(
+                        icon: Icon(
+                          Icons.keyboard_arrow_right,
+                          size: 20,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          print("Notification Clicked");
+                        }),
+                  ]),
             ),
             Container(
               // logout
