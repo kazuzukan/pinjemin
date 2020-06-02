@@ -19,7 +19,6 @@ class _SettingAkunState extends State<SettingAkun> {
   bool _isHidePassword = true;
   String email;
   List<User> _userData = new List();
-  
 
   _SettingAkunState(this.email);
 
@@ -210,7 +209,7 @@ class _SettingAkunState extends State<SettingAkun> {
                   Row(
                     children: <Widget>[
                       Text(
-                        'Gang Mawar 2 lanta... ',
+                        'Gang Mawar 2 lantai...',
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       IconButton(
@@ -457,16 +456,18 @@ class _SettingAkunState extends State<SettingAkun> {
                 bottom: BorderSide(width: 1.0, color: Colors.black12),
               ),
             ),
-            child: Row(children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Tanggal Lahir',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                  Row(
                     children: <Widget>[
-                      Text(
-                        'Tanggal Lahir                                               ',
-                        style: TextStyle(fontSize: 14),
-                      ),
                       Text(
                         '15 / 11 / 1998',
                         style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -480,9 +481,9 @@ class _SettingAkunState extends State<SettingAkun> {
                           onPressed: () {
                             // ini harusnya kalender
                           }),
-                    ]),
-              )
-            ]),
+                    ],
+                  ),
+                ]),
           ),
           Container(
             constraints: BoxConstraints(
@@ -495,16 +496,18 @@ class _SettingAkunState extends State<SettingAkun> {
                 bottom: BorderSide(width: 1.0, color: Colors.black12),
               ),
             ),
-            child: Row(children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Jenis Kelamin',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                  Row(
                     children: <Widget>[
-                      Text(
-                        'Jenis Kelamin                                                  ',
-                        style: TextStyle(fontSize: 14),
-                      ),
                       Text(
                         'Laki - laki',
                         style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -518,9 +521,9 @@ class _SettingAkunState extends State<SettingAkun> {
                           onPressed: () {
                             //radio
                           }),
-                    ]),
-              )
-            ]),
+                    ],
+                  ),
+                ]),
           ),
           Container(
             constraints: BoxConstraints(
@@ -533,138 +536,122 @@ class _SettingAkunState extends State<SettingAkun> {
                 bottom: BorderSide(width: 1.0, color: Colors.black12),
               ),
             ),
-            child: Row(children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Text(
-                        'Ubah Kata Sandi                                                          ',
-                        style: TextStyle(fontSize: 14),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Ubah Kata Sandi',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                  IconButton(
+                      icon: Icon(
+                        Icons.keyboard_arrow_right,
+                        size: 20,
+                        color: Colors.grey,
                       ),
-                      Text(
-                        '  ',
-                        style: TextStyle(color: Colors.grey, fontSize: 10),
-                      ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.keyboard_arrow_right,
-                            size: 20,
-                            color: Colors.grey,
-                          ),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    content: Stack(
-                                      overflow: Overflow.visible,
-                                      children: <Widget>[
-                                        Form(
-                                          key: _formKey,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: TextFormField(
-                                                  obscureText: _isHidePassword,
-                                                  autofocus: false,
-                                                  initialValue: '',
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  8.0)),
-                                                    ),
-                                                    labelText: 'Password Baru',
-                                                    suffixIcon: GestureDetector(
-                                                      onTap: () {
-                                                        _togglePasswordVisibility();
-                                                      },
-                                                      child: Icon(
-                                                        _isHidePassword
-                                                            ? Icons
-                                                                .visibility_off
-                                                            : Icons.visibility,
-                                                        color: _isHidePassword
-                                                            ? Colors.grey
-                                                            : Colors.blue,
-                                                      ),
-                                                    ),
-                                                    isDense: true,
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: Stack(
+                                  overflow: Overflow.visible,
+                                  children: <Widget>[
+                                    Form(
+                                      key: _formKey,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: TextFormField(
+                                              obscureText: _isHidePassword,
+                                              autofocus: false,
+                                              initialValue: '',
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(8.0)),
+                                                ),
+                                                labelText: 'Password Baru',
+                                                suffixIcon: GestureDetector(
+                                                  onTap: () {
+                                                    _togglePasswordVisibility();
+                                                  },
+                                                  child: Icon(
+                                                    _isHidePassword
+                                                        ? Icons.visibility_off
+                                                        : Icons.visibility,
+                                                    color: _isHidePassword
+                                                        ? Colors.grey
+                                                        : Colors.blue,
                                                   ),
                                                 ),
+                                                isDense: true,
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                10, 0, 10, 0),
-                                                        child: RaisedButton(
-                                                          textColor:
-                                                              Colors.grey,
-                                                          color: Colors.white,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: new Text(
-                                                            "Batal",
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                        )),
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                              .fromLTRB(
-                                                          10, 0, 10, 0),
-                                                      child: RaisedButton(
-                                                        textColor: Colors.white,
-                                                        color: Color.fromARGB(
-                                                            255, 255, 119, 0),
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: new Text(
-                                                          "Simpan",
-                                                        ),
-                                                        onPressed: () {
-                                                          if (_formKey
-                                                              .currentState
-                                                              .validate()) {
-                                                            _formKey
-                                                                .currentState
-                                                                .save();
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(10, 0, 10, 0),
+                                                    child: RaisedButton(
+                                                      textColor: Colors.grey,
+                                                      color: Colors.white,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: new Text(
+                                                        "Batal",
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    )),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          10, 0, 10, 0),
+                                                  child: RaisedButton(
+                                                    textColor: Colors.white,
+                                                    color: Color.fromARGB(
+                                                        255, 255, 119, 0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: new Text(
+                                                      "Simpan",
+                                                    ),
+                                                    onPressed: () {
+                                                      if (_formKey.currentState
+                                                          .validate()) {
+                                                        _formKey.currentState
+                                                            .save();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  );
-                                });
-                          }),
-                    ]),
-              )
-            ]),
+                                  ],
+                                ),
+                              );
+                            });
+                      }),
+                ]),
           )
         ]),
       ),
