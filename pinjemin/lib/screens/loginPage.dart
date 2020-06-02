@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        body: SafeArea(
+        body: SingleChildScrollView(
           child: Container(
             // color: Colors.yellow,
             child: Column(children: <Widget>[
