@@ -24,6 +24,8 @@ class Users with ChangeNotifier {
         body: jsonEncode(<String, dynamic>{
           'email': user.email,
           'firstname': user.firstname,
+          'lastname': user.lastname,
+          'password': user.password
         }),
       );
 
@@ -44,30 +46,26 @@ class Users with ChangeNotifier {
       String typeEmail;
       int typePoint;
       print(extractedData);
-      extractedData.forEach((val){
+      extractedData.forEach((val) {
         final user = val as Map<String, dynamic>;
         user.forEach((key, value) {
           // print({ key, value});
           // print(value);
-          if(key == 'firstname'){
+          if (key == 'firstname') {
             typeName = value;
           }
 
-          if(key == 'point'){
+          if (key == 'point') {
             typePoint = value;
           }
-          if(key == 'email'){
+          if (key == 'email') {
             typeEmail = value;
-            loadedUser.add(User(
-            firstname: typeName,
-            email: typeEmail,
-            point: typePoint
-          ));
+            loadedUser.add(
+                User(firstname: typeName, email: typeEmail, point: typePoint));
           }
-          
         });
       });
-      _userDetail= loadedUser;
+      _userDetail = loadedUser;
       print(typePoint);
       notifyListeners();
     } catch (error) {
