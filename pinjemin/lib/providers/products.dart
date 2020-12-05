@@ -8,12 +8,14 @@ import 'package:http/http.dart' as http;
 class Products with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-     
+
+  // static final ip = "192.168.55.21:3000";
   static final ip = "pinjemin-app.herokuapp.com";
-  final urlProduct = 'https://${ip.toString()}/product';
-  final urlSection = 'https://${ip.toString()}/section';
-  final urlRequestSection = 'https://${ip.toString()}/request-section';
-  final urlOfferSection = 'https://${ip.toString()}/offer-section';
+  static final urls = 'https://${ip.toString()}/';
+  final urlProduct = urls + 'product';
+  final urlSection = urls + 'section';
+  final urlRequestSection = urls + 'request-section';
+  final urlOfferSection = urls + 'offer-section';
   List<Product> _requestItems = [
     // Product(
     //   name: 'Red Shirt',
@@ -150,22 +152,23 @@ class Products with ChangeNotifier {
       String startD = section.startDate.toString();
       String endD = section.endDate.toString();
 
-      await http.post(
-        urlSection,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, dynamic>{
-          'id': prodId,
-          'startDate': startD,
-          'endDate': endD,
-          'type': section.type,
-          'productId': prodId,
-        }),
-      ).then((_) => 
-      fetchRequestProduct() ).then((_) => 
-      fetchOfferProduct() ).then((_) => 
-      notifyListeners() );
+      await http
+          .post(
+            urlSection,
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(<String, dynamic>{
+              'id': prodId,
+              'startDate': startD,
+              'endDate': endD,
+              'type': section.type,
+              'productId': prodId,
+            }),
+          )
+          .then((_) => fetchRequestProduct())
+          .then((_) => fetchOfferProduct())
+          .then((_) => notifyListeners());
     } catch (error) {
       print(error);
       throw (error);

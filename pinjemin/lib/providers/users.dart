@@ -3,17 +3,103 @@ import 'package:flutter/material.dart';
 // import 'package:pinjemin/providers/section.dart';
 // import './product.dart';
 import './user.dart';
+import 'package:http_middleware/http_middleware.dart';
+import 'package:http_logger/http_logger.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
+import 'dart:developer';
 
 class Users with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
+  // static final ip = "192.168.55.21:3000";
   static final ip = "pinjemin-app.herokuapp.com";
-  final urlUser = 'https://${ip.toString()}/user';
+  static final urls = 'https://${ip.toString()}/';
+  final urlUser = urls + 'user';
+
+  HttpWithMiddleware httpClient = HttpWithMiddleware.build(middlewares: [
+    // to Log http request
+    // HttpLogger(logLevel: LogLevel.BODY),
+  ]);
+
+  String token = '';
+  User currentUser;
+
   List<User> _userDetail = [];
   List<User> get userDetail {
     return [..._userDetail];
   }
+
+  Future<dynamic> login(User user) async {
+    final url = urls + 'auth/login';
+    try {
+      final http.Response response = await httpClient.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+            <String, dynamic>{'email': user.email, 'password': user.password}),
+      );
+
+      var res = json.decode(response.body);
+
+      if (res['status']) {
+        token = res['token'];
+        var user = res['results'];
+        currentUser = User(
+            id: user['id'],
+            firstname: user['firstname'],
+            lastname: user['lastname'],
+            email: user['email'],
+            phone: user['phone'],
+            address: user['address'],
+            gender: user['gender'],
+            point: user['point'],
+            isambassador: user['isambassador']);
+      }
+
+      notifyListeners();
+
+      return res;
+    } catch (error) {
+      print(error);
+      throw (error);
+    }
+  }
+
+  Future<dynamic> register(User user) async {
+    final url = urls + 'auth/register';
+    try {
+      final http.Response response = await httpClient.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'email': user.email,
+          'firstname': user.firstname,
+          'lastname': user.lastname,
+          'password': user.password,
+          'address': user.address,
+          'phone': user.phone,
+          'gender': user.gender,
+          'point': 0,
+          'isambassador': false
+        }),
+      );
+
+      var res = json.decode(response.body);
+
+      notifyListeners();
+
+      return res;
+    } catch (error) {
+      print(error);
+      throw (error);
+    }
+  }
+
   Future<void> addUser(User user) async {
     try {
       await http.post(

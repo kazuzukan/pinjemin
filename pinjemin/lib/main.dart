@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           TransactionScreen.tag: (context) => TransactionScreen(),
           ProductDetailScreen.tag: (context) => ProductDetailScreen(),
           AkunScreen.tag: (context) => AkunScreen(),
-          // SettingAkun.tag: (context) => SettingAkun(email),
+          // SettingAkun.tag: (context) => SettingAkun(),
           UserProductsScreen.tag: (context) => UserProductsScreen(),
           ProductDetailOffer.tag: (context) => ProductDetailOffer(),
           ProductDetailReq.tag: (context) => ProductDetailReq()

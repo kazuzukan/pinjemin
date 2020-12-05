@@ -8,11 +8,11 @@ import '../screens/profilsetting.dart';
 import '../screens/loginPage.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import '../screens/user_product_screen.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 // import '../providers/user.dart';
 import '../providers/users.dart';
 
-GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+// GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
 class AkunScreen extends StatefulWidget {
   static String tag = 'akun-screen';
@@ -22,45 +22,63 @@ class AkunScreen extends StatefulWidget {
 }
 
 class _AkunScreenState extends State<AkunScreen> {
-  GoogleSignInAccount _currentUser;
+  // GoogleSignInAccount _currentUser;
+  var _currentUser;
 
   @override
   void initState() {
     super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      setState(() {
-        _currentUser = account;
-      });
-      _getUser();
+
+    setState(() {
+      _currentUser = Provider.of<Users>(context, listen: false).currentUser;
     });
-    _googleSignIn.signInSilently();
+
+    // _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+    //   setState(() {
+    //     _currentUser = account;
+    //   });
+    //   _getUser();
+    // });
+    // _googleSignIn.signInSilently();
+  }
+
+  @override
+  void didChangeDependencies() {
+    setState(() {
+      _currentUser = Provider.of<Users>(context, listen: false).currentUser;
+    });
+    super.didChangeDependencies();
   }
 
   _logout() {
-    _googleSignIn.signOut();
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-      (Route<dynamic> route) => false,
-    );
+    // _googleSignIn.signOut();
+    // Navigator.pushAndRemoveUntil(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => LoginScreen()),
+    //   (Route<dynamic> route) => false,
+    // );
   }
 
-  Future<void> _getUser() async {
-    try {
-      await Provider.of<Users>(context, listen: false)
-          .getUser(_currentUser.email);
-    } catch (error) {
-      print(error);
-    }
-  }
+  // Future<void> _getUser() async {
+  //   try {
+  //     // await Provider.of<Users>(context, listen: false)
+  //     //     .getUser(_currentUser.email);
+  //   } catch (error) {
+  //     print(error);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     // final userConstructor = Provider.of<User>(context);
-    final user = Provider.of<Users>(context, listen: false);
-    final userExist = user.userDetail;
-    String name = userExist[0].firstname;
-    int point = userExist[0].point;
+    // final user = Provider.of<Users>(context, listen: false);
+    // final userExist = user.userDetail;
+    // String name = userExist[0].firstname;
+    // int point = userExist[0].point;
+
+    String inisial =
+        (_currentUser.firstname[0] + _currentUser.lastname[0]).toUpperCase();
+
     return Scaffold(
       body: Container(
         child: Column(
@@ -75,17 +93,30 @@ class _AkunScreenState extends State<AkunScreen> {
                     padding: EdgeInsets.fromLTRB(310, 30, 0, 0),
                     child: MaterialButton(
                         onPressed: () {
-                          String email = userExist[0].email;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SettingAkun(email)));
+                                  builder: (context) => SettingAkun()));
                         },
                         child: Icon(
                           Icons.settings,
                           color: Colors.white,
                         )),
                   ),
+                  // Padding(
+                  //   padding: EdgeInsets.fromLTRB(50, 0, 50, 10),
+                  //   child: FittedBox(
+                  //     fit: BoxFit.contain, // otherwise the logo will be tiny
+                  //     child: Padding(
+                  //       padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
+                  //       child: SizedBox(
+                  //         width: 100,
+                  //         height: 100,
+                  //         child: GoogleUserCircleAvatar(identity: _currentUser),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(50, 0, 50, 10),
                     child: FittedBox(
@@ -95,14 +126,22 @@ class _AkunScreenState extends State<AkunScreen> {
                         child: SizedBox(
                           width: 100,
                           height: 100,
-                          child: GoogleUserCircleAvatar(identity: _currentUser),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.brown.shade800,
+                            child: Text(inisial,
+                                style: TextStyle(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          ),
                         ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(0),
-                    child: Text(name,
+                    child: Text(
+                        _currentUser.firstname + ' ' + _currentUser.lastname,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,
@@ -110,15 +149,15 @@ class _AkunScreenState extends State<AkunScreen> {
                           color: Colors.white,
                         )),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(0),
-                    child: Text('Mahasiswa, 21',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                        )),
-                  )
+                  // Padding(
+                  //   padding: EdgeInsets.all(0),
+                  //   child: Text('Mahasiswa, 21',
+                  //       textAlign: TextAlign.center,
+                  //       style: TextStyle(
+                  //         fontSize: 14,
+                  //         color: Colors.white,
+                  //       )),
+                  // )
                 ],
               ),
             ),
@@ -171,7 +210,7 @@ class _AkunScreenState extends State<AkunScreen> {
                                           color: Colors.red,
                                         ),
                                         onPressed: () {
-                                          print(userExist[0].firstname);
+                                          print(_currentUser.firstname);
                                         }),
                                   ),
                                   Padding(
@@ -182,16 +221,10 @@ class _AkunScreenState extends State<AkunScreen> {
                                               style: TextStyle(
                                                   color: Colors.black54,
                                                   fontSize: 12)),
-                                          if (point == null)
-                                            Text(
-                                              "0",
-                                              style: TextStyle(fontSize: 12),
-                                            ),
-                                          if (point != null)
-                                            Text(
-                                              point.toString(),
-                                              style: TextStyle(fontSize: 12),
-                                            ),
+                                          Text(
+                                            _currentUser.point.toString(),
+                                            style: TextStyle(fontSize: 12),
+                                          ),
                                         ],
                                       ))
                                 ],
@@ -212,7 +245,7 @@ class _AkunScreenState extends State<AkunScreen> {
                                           color: Colors.lightGreen,
                                         ),
                                         onPressed: () {
-                                          // print(_currentUser.displayName ?? '');
+                                          print(_currentUser.firstname);
                                         }),
                                   ),
                                   Text('Top Up Poin',

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
-import '../components/largeButton.dart';
+// import '../components/largeButton.dart';
+import '../components/radio_choice.dart';
 import '../components/carousel.dart';
 import 'package:provider/provider.dart';
+import 'package:pinjemin/screens/main_screen.dart';
 import '../providers/user.dart';
 import '../providers/users.dart';
 
@@ -21,19 +24,125 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  var emailLogin = TextEditingController();
+  var passLogin = TextEditingController();
+
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final addressController = TextEditingController();
+  final phoneController = TextEditingController();
+
+  static final Map<String, String> genderMap = {
+    'male': 'Male',
+    'female': 'Female',
+  };
+
+  String _selectedGender = genderMap.keys.first;
+
+  void onGenderSelected(String genderKey) {
+    setState(() {
+      _selectedGender = genderKey;
+    });
+    print(_selectedGender);
+  }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
+    emailLogin.dispose();
+    passLogin.dispose();
+
     firstNameController.dispose();
     lastNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    addressController.dispose();
+    phoneController.dispose();
     super.dispose();
+  }
+
+  Future<void> _onLogin() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    var user = User(email: emailLogin.text, password: passLogin.text);
+
+    try {
+      var res = await Provider.of<Users>(context, listen: false).login(user);
+
+      var currentUser = Provider.of<Users>(context, listen: false).currentUser;
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (res['status']) {
+        setState(() {
+          Navigator.of(context).pushReplacementNamed(MainScreen.tag);
+        });
+
+        await showDialog(
+            context: context,
+            builder: (ctx) {
+              Future.delayed(Duration(seconds: 5), () {
+                Navigator.of(ctx).pop(true);
+              });
+
+              return AlertDialog(
+                  content: Text(
+                    'Success, Welcome ${currentUser.firstname}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w300, color: Colors.white),
+                  ),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24)),
+                  backgroundColor: Color.fromRGBO(76, 175, 80, 1));
+            });
+      } else {
+        await showDialog(
+            context: context,
+            builder: (ctx) {
+              Future.delayed(Duration(seconds: 5), () {
+                Navigator.of(ctx).pop(true);
+              });
+
+              return AlertDialog(
+                  content: Text(
+                    res['messages'],
+                    style: TextStyle(
+                        fontWeight: FontWeight.w300, color: Colors.white),
+                  ),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24)),
+                  backgroundColor: Colors.redAccent);
+            });
+      }
+    } catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
+
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('An error occurred!'),
+          content: Text('Something went wrong.'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Okay'),
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+            )
+          ],
+        ),
+      );
+    }
   }
 
   Future<void> _onRegister() async {
@@ -41,14 +150,57 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
 
+    var gender;
+
+    if (_selectedGender == 'male') {
+      gender = true;
+    } else {
+      gender = false;
+    }
+
     var user = User(
         email: emailController.text,
         firstname: firstNameController.text,
         lastname: lastNameController.text,
-        password: passwordController.text);
+        password: passwordController.text,
+        gender: gender,
+        address: addressController.text,
+        phone: phoneController.text);
 
     try {
-      await Provider.of<Users>(context, listen: false).addUser(user);
+      var res = await Provider.of<Users>(context, listen: false).register(user);
+
+      print(res);
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (res['status']) {
+        emailLogin = emailController;
+        passLogin = passwordController;
+
+        _onLogin();
+      } else {
+        await showDialog(
+            context: context,
+            builder: (ctx) {
+              Future.delayed(Duration(seconds: 5), () {
+                Navigator.of(ctx).pop(true);
+              });
+
+              return AlertDialog(
+                  content: Text(
+                    res['messages'],
+                    style: TextStyle(
+                        fontWeight: FontWeight.w300, color: Colors.white),
+                  ),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24)),
+                  backgroundColor: Colors.redAccent);
+            });
+      }
     } catch (error) {
       await showDialog(
         context: context,
@@ -131,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
 
-    Widget register = Container(
+    Widget goToRegister = Container(
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -157,18 +309,18 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
 
-    Widget login = Container(
+    Widget backToLogin = Container(
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Sudah Punya Akun ? ',
-                style: TextStyle(fontSize: 12, color: Colors.black)),
+            Text('Kembali ke ',
+                style: TextStyle(fontSize: 14, color: Colors.black)),
             InkWell(
                 child: Text(
                   'Login',
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       color: Colors.black,
                       decoration: TextDecoration.underline),
                 ),
@@ -176,12 +328,38 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() {
                     isRegister = false;
                   });
-                  print('Register Clicked');
+                  print('Login Clicked');
                 })
           ],
         ),
       ),
     );
+
+    // Widget login = Container(
+    //   child: Container(
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: <Widget>[
+    //         Text('Sudah Punya Akun ? ',
+    //             style: TextStyle(fontSize: 12, color: Colors.black)),
+    //         InkWell(
+    //             child: Text(
+    //               'Login',
+    //               style: TextStyle(
+    //                   fontSize: 12,
+    //                   color: Colors.black,
+    //                   decoration: TextDecoration.underline),
+    //             ),
+    //             onTap: () {
+    //               setState(() {
+    //                 isRegister = false;
+    //               });
+    //               print('Register Clicked');
+    //             })
+    //       ],
+    //     ),
+    //   ),
+    // );
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -195,81 +373,100 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Container(
                 child: AnimatedCrossFade(
-                    firstChild: Column(
-                      children: <Widget>[
-                        Container(
-                          // height: 30,
-                          child: Center(
-                            child: CarouselComponent(),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
-                          margin: EdgeInsets.all(8),
-                          child: TextFormField(
-                            obscureText: false,
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                hintText: "Email",
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.orange),
-                                    borderRadius: BorderRadius.circular(16.0)),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16.0))),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
-                          margin: EdgeInsets.all(8),
-                          child: TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                hintText: "password",
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.orange),
-                                    borderRadius: BorderRadius.circular(16.0)),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16.0))),
-                          ),
-                        ),
-                        Container(
-                          child: FlatButton(
-                              onPressed: () {}, child: Text("LOGIN")),
-                        ),
-                        Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Center(
-                              child: LargeButton(
-                                widgetsList: <Widget>[
-                                  SizedBox(
-                                    width: 40,
-                                    child: SvgPicture.asset(
-                                      'lib/assets/icons/icon-google.svg',
-                                    ),
-                                  ),
-                                  Text(
-                                    'Masuk Dengan Google',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 14),
-                                  )
-                                ],
+                    firstChild: _isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Column(
+                            children: <Widget>[
+                              Container(
+                                // height: 30,
+                                child: Center(
+                                  child: CarouselComponent(),
+                                ),
                               ),
-                            )),
-                        Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          child: register,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(24),
-                          margin: EdgeInsets.all(24),
-                        )
-                      ],
-                    ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(24, 16, 24, 0),
+                                margin: EdgeInsets.all(8),
+                                child: TextFormField(
+                                  controller: emailLogin,
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.fromLTRB(
+                                          20.0, 15.0, 20.0, 15.0),
+                                      hintText: "Email",
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.orange),
+                                          borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.0))),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                                margin: EdgeInsets.all(8),
+                                child: TextFormField(
+                                  controller: passLogin,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.fromLTRB(
+                                          20.0, 15.0, 20.0, 15.0),
+                                      hintText: "password",
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.orange),
+                                          borderRadius:
+                                              BorderRadius.circular(16.0)),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.0))),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                child: FlatButton(
+                                  onPressed: _onLogin,
+                                  color: Colors.orange,
+                                  textColor: Colors.white,
+                                  padding:
+                                      EdgeInsets.fromLTRB(100, 12, 100, 12),
+                                  splashColor: Colors.orangeAccent,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16)),
+                                  child: Text("Login"),
+                                ),
+                              ),
+                              // Container(
+                              //     margin: const EdgeInsets.only(top: 10),
+                              //     child: Center(
+                              //       child: LargeButton(
+                              //         widgetsList: <Widget>[
+                              //           SizedBox(
+                              //             width: 40,
+                              //             child: SvgPicture.asset(
+                              //               'lib/assets/icons/icon-google.svg',
+                              //             ),
+                              //           ),
+                              //           Text(
+                              //             'Masuk Dengan Google',
+                              //             style: TextStyle(
+                              //                 color: Colors.black, fontSize: 14),
+                              //           )
+                              //         ],
+                              //       ),
+                              //     )),
+                              Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                child: goToRegister,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(24),
+                                margin: EdgeInsets.all(24),
+                              )
+                            ],
+                          ),
                     secondChild: _isLoading
                         ? Center(
                             child: CircularProgressIndicator(),
@@ -280,6 +477,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               Form(
                                 key: _formKey,
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: <Widget>[
                                     Container(
                                       padding:
@@ -383,14 +583,88 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                     Container(
-                                      padding: EdgeInsets.all(8),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 36),
+                                      child: Text('Select Gender',
+                                          style: TextStyle(
+                                            color: Colors.orange,
+                                            fontSize: 15.0,
+                                          )),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 36),
+                                      margin:
+                                          EdgeInsets.only(top: 5, bottom: 16),
+                                      child: CupertinoRadioChoice(
+                                        choices: genderMap,
+                                        onChange: onGenderSelected,
+                                        initialKeyValue: _selectedGender,
+                                        selectedColor:
+                                            CupertinoColors.activeOrange,
+                                        notSelectedColor: Colors.black12,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(24, 0, 24, 0),
+                                      margin: EdgeInsets.all(8),
+                                      child: TextFormField(
+                                        controller: addressController,
+                                        decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                20.0, 15.0, 20.0, 15.0),
+                                            hintText: "Address",
+                                            filled: true,
+                                            fillColor: Color.fromRGBO(
+                                                243, 241, 239, 0.4),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                    color: Colors.orange),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        16.0)),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        16.0))),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(24, 0, 24, 0),
+                                      margin: EdgeInsets.all(8),
+                                      child: TextFormField(
+                                        controller: phoneController,
+                                        decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                20.0, 15.0, 20.0, 15.0),
+                                            hintText: "Phone",
+                                            filled: true,
+                                            fillColor: Color.fromRGBO(
+                                                243, 241, 239, 0.4),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                    color: Colors.orange),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        16.0)),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        16.0))),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 32, vertical: 8),
                                       margin: EdgeInsets.all(8),
                                       child: FlatButton(
                                         onPressed: _onRegister,
                                         color: Colors.orange,
                                         textColor: Colors.white,
                                         padding:
-                                            EdgeInsets.fromLTRB(64, 12, 64, 12),
+                                            EdgeInsets.fromLTRB(0, 12, 0, 12),
                                         splashColor: Colors.orangeAccent,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -400,6 +674,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     )
                                   ],
                                 ),
+                              ),
+                              Container(
+                                child: backToLogin,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(24),
+                                margin: EdgeInsets.all(24),
                               )
                             ],
                           ),

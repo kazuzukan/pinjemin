@@ -10,7 +10,7 @@ class User with ChangeNotifier {
   final String address;
   final bool gender;
   final int point;
-  final bool isambasaddor;
+  final bool isambassador;
 
   User(
       {this.id,
@@ -22,5 +22,5 @@ class User with ChangeNotifier {
       this.address,
       this.gender,
       this.point,
-      this.isambasaddor});
+      this.isambassador});
 }

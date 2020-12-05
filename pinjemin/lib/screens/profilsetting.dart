@@ -7,20 +7,18 @@ import '../providers/user.dart';
 
 class SettingAkun extends StatefulWidget {
   static var tag;
-  final String email;
-  SettingAkun(this.email);
   @override
-  _SettingAkunState createState() => _SettingAkunState(email);
+  _SettingAkunState createState() => _SettingAkunState();
 }
 
 class _SettingAkunState extends State<SettingAkun> {
   final _formKey = GlobalKey<FormState>();
 
   bool _isHidePassword = true;
-  String email;
-  List<User> _userData = new List();
+  var _userData;
+  String _gender;
 
-  _SettingAkunState(this.email);
+  _SettingAkunState();
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -31,17 +29,22 @@ class _SettingAkunState extends State<SettingAkun> {
   @override
   void initState() {
     super.initState();
+
+    setState(() {
+      _userData = Provider.of<Users>(context, listen: false).currentUser;
+    });
+    if (_userData.gender) {
+      _gender = 'laki-laki';
+    } else {
+      _gender = 'perempuan';
+    }
   }
 
   @override
   void didChangeDependencies() {
-    Provider.of<Users>(context, listen: false).getUser(email);
-    final user = Provider.of<Users>(context, listen: false).userDetail;
-    final userExist = Provider.of<User>(context);
     setState(() {
-      _userData = <User>[user[0]];
+      _userData = Provider.of<Users>(context, listen: false).currentUser;
     });
-    print(userExist.firstname);
     super.didChangeDependencies();
   }
 
@@ -81,7 +84,7 @@ class _SettingAkunState extends State<SettingAkun> {
                   Row(
                     children: <Widget>[
                       Text(
-                        _userData[0].firstname,
+                        _userData.firstname,
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       IconButton(
@@ -209,7 +212,7 @@ class _SettingAkunState extends State<SettingAkun> {
                   Row(
                     children: <Widget>[
                       Text(
-                        'Gang Mawar 2 lantai...',
+                        _userData.address,
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       IconButton(
@@ -339,7 +342,7 @@ class _SettingAkunState extends State<SettingAkun> {
                   Row(
                     children: <Widget>[
                       Text(
-                        _userData[0].email,
+                        _userData.email,
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       IconButton(
@@ -469,7 +472,7 @@ class _SettingAkunState extends State<SettingAkun> {
                   Row(
                     children: <Widget>[
                       Text(
-                        '15 / 11 / 1998',
+                        'soon to be implemented',
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       IconButton(
@@ -509,7 +512,7 @@ class _SettingAkunState extends State<SettingAkun> {
                   Row(
                     children: <Widget>[
                       Text(
-                        'Laki - laki',
+                        _gender,
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       IconButton(
