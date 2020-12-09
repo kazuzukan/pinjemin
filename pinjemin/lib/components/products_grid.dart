@@ -7,9 +7,7 @@ class ProductsGrid extends StatelessWidget {
   //bool  true: offer, false: request
   final bool type;
 
-  ProductsGrid({
-    this.type
-  });
+  ProductsGrid({this.type});
 
   @override
   Widget build(BuildContext context) {

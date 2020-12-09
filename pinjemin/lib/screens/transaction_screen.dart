@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pinjemin/components/transaksi_card.dart';
+import 'package:pinjemin/components/loan_grid.dart';
 
 class TransactionScreen extends StatelessWidget {
   static const tag = '/transaction-screen';
@@ -9,11 +9,12 @@ class TransactionScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Histori Transaksi",
-          style: new TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w800),
+          style: new TextStyle(
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.w800),
         ),
       ),
       body: Container(
-        child: TransaksiCard(),
+        child: LoansGrid(),
       ),
     );
   }

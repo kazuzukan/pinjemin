@@ -7,14 +7,27 @@ import '../components/user_product_item.dart';
 import './form_req.dart';
 import '../providers/users.dart';
 
-class UserProductsScreen extends StatelessWidget {
+class UserProductsScreen extends StatefulWidget {
   static const tag = '/user-products';
   final bool type;
 
   UserProductsScreen({this.type});
 
+  @override
+  _UserProductsScreenState createState() => _UserProductsScreenState();
+}
+
+class _UserProductsScreenState extends State<UserProductsScreen> {
   Future<void> _refreshProducts(BuildContext context, int userId) async {
     await Provider.of<Products>(context, listen: false).fetchMyProducts(userId);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    var _currentUser = Provider.of<Users>(context, listen: false).currentUser;
+
+    _refreshProducts(context, _currentUser.id);
   }
 
   @override
@@ -23,9 +36,8 @@ class UserProductsScreen extends StatelessWidget {
 
     var productsData;
     var _currentUser = Provider.of<Users>(context, listen: false).currentUser;
-    _refreshProducts(context, _currentUser.id);
 
-    if (type) {
+    if (widget.type) {
       productsData = products.myOfferItems;
     } else {
       productsData = products.myRequestItems;
@@ -36,7 +48,7 @@ class UserProductsScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: type
+            onPressed: widget.type
                 ? () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => FormOffer()));
@@ -54,14 +66,14 @@ class UserProductsScreen extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: ListView.builder(
-            itemCount: type ? productsData.length : productsData.length,
+            itemCount: widget.type ? productsData.length : productsData.length,
             itemBuilder: (_, i) => Column(
               children: [
                 UserProductItem(
                   id: productsData[i].id,
                   name: productsData[i].name,
                   image: productsData[i].image,
-                  type: type,
+                  type: widget.type,
                 ),
                 Divider(),
               ],

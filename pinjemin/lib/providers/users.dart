@@ -1,20 +1,17 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:pinjemin/providers/section.dart';
-// import './product.dart';
 import './user.dart';
 import 'package:http_middleware/http_middleware.dart';
-import 'package:http_logger/http_logger.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
-import 'dart:developer';
+// import 'package:http_logger/http_logger.dart';
 
 class Users with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
-  // static final ip = "192.168.55.21:3000";
-  static final ip = "pinjemin-app.herokuapp.com";
-  static final urls = 'https://${ip.toString()}/';
+  static final ip = "192.168.55.13:3000";
+  // static final ip = "pinjemin-app.herokuapp.com";
+  static final urls = 'http://${ip.toString()}/';
   final urlUser = urls + 'user';
 
   HttpWithMiddleware httpClient = HttpWithMiddleware.build(middlewares: [

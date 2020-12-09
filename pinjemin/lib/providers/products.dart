@@ -9,13 +9,14 @@ class Products with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
 
-  // static final ip = "192.168.55.21:3000";
-  static final ip = "pinjemin-app.herokuapp.com";
-  static final urls = 'https://${ip.toString()}/';
+  static final ip = "192.168.55.13:3000";
+  // static final ip = "pinjemin-app.herokuapp.com";
+  static final urls = 'http://${ip.toString()}/';
   final urlProduct = urls + 'product';
   final urlSection = urls + 'section';
   final urlRequestSection = urls + 'request-section';
   final urlOfferSection = urls + 'offer-section';
+
   List<Product> _requestItems = [
     // Product(
     //   name: 'Red Shirt',
@@ -181,6 +182,7 @@ class Products with ChangeNotifier {
     try {
       final res = await http.get(urls + 'userproduct/' + userId.toString());
       final response = json.decode(res.body);
+
       if (response['is_success']) {
         getMyProducts(response['data']['products']);
       }

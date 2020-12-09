@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import './providers/products.dart';
 import './providers/users.dart';
 import './providers/user.dart';
+import './providers/loans.dart';
 
 import './screens/loginPage.dart';
 import './screens/request_screen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
     FlutterStatusbarcolor.setStatusBarColor(Color(0xFFFF7700));
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: Loans()),
         ChangeNotifierProvider.value(value: Products()),
         ChangeNotifierProvider.value(value: Users()),
         ChangeNotifierProvider.value(value: User())
