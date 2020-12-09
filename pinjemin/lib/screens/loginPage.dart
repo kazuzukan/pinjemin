@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
-// import '../components/largeButton.dart';
 import '../components/radio_choice.dart';
 import '../components/carousel.dart';
 import 'package:provider/provider.dart';
-import 'package:pinjemin/screens/main_screen.dart';
 import '../providers/user.dart';
 import '../providers/users.dart';
 

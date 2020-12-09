@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/product.dart';
 import '../providers/section.dart';
 import '../providers/products.dart';
+import '../providers/users.dart';
 
 class FormOffer extends StatefulWidget {
   static String tag = 'form-offer-page';
@@ -33,6 +34,8 @@ class _FormOfferState extends State<FormOffer> {
   var _isInit = true;
   var _isLoading = false;
 
+  var _currentUser;
+
   _onOnFocusNodeEvent() {
     setState(() {
       // Re-renders
@@ -45,6 +48,10 @@ class _FormOfferState extends State<FormOffer> {
     super.initState();
     _imageUrlFocusNode.addListener(_updateImageUrl);
     _priceFocusNode.addListener(_onOnFocusNodeEvent);
+
+    setState(() {
+      _currentUser = Provider.of<Users>(context, listen: false).currentUser;
+    });
   }
 
   @override
@@ -64,6 +71,11 @@ class _FormOfferState extends State<FormOffer> {
       }
     }
     _isInit = false;
+
+    setState(() {
+      _currentUser = Provider.of<Users>(context, listen: false).currentUser;
+    });
+
     super.didChangeDependencies();
   }
 
@@ -107,7 +119,7 @@ class _FormOfferState extends State<FormOffer> {
     } else {
       try {
         await Provider.of<Products>(context, listen: false)
-            .addProduct(_editedProduct, offerSection);
+            .addProduct(_editedProduct, offerSection, _currentUser.id);
       } catch (error) {
         await showDialog(
           context: context,
@@ -277,34 +289,34 @@ class _FormOfferState extends State<FormOffer> {
                                     color: Colors.grey,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                children: <Widget>[
+                              child: Column(children: <Widget>[
                                 Container(
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                                     child: _imageUrlController.text.isEmpty
                                         ? Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                  top: 65,
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                    top: 65,
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.photo_camera,
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    size: 50,
+                                                  ),
                                                 ),
-                                                child: Icon(
-                                                  Icons.photo_camera,
-                                                  color: Colors.grey.withOpacity(0.5),
-                                                  size: 50,
-                                                ),
-                                              ),
-                                              Text(
-                                            'Image URL',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey),
+                                                Text(
+                                                  'Image URL',
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey),
+                                                )
+                                              ],
+                                            ),
                                           )
-                                            ],
-                                          ),
-                                        )
                                         : FittedBox(
                                             child: Image.network(
                                               _imageUrlController.text,

@@ -57,6 +57,18 @@ class Products with ChangeNotifier {
     return [..._requestItems];
   }
 
+  List<Product> _myOfferItems = [];
+
+  List<Product> get myOfferItems {
+    return [..._myOfferItems];
+  }
+
+  List<Product> _myRequestItems = [];
+
+  List<Product> get myRequestItems {
+    return [..._myRequestItems];
+  }
+
   Product findById({int id, bool type}) {
     //bool  true: offer, false: request
     if (type) {
@@ -143,7 +155,41 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<void> addProduct(Product product, Section section) async {
+  Future<void> getMyProducts(data) async {
+    final List<Product> loadedReqProducts = [];
+    final List<Product> loadedOfferProducts = [];
+    data.forEach((prod) {
+      Product p = Product(
+          id: prod['id'],
+          name: prod['name'],
+          desc: prod['desc'],
+          price: prod['price'],
+          image: prod['image']);
+
+      if (prod['section']['type'] == 0) {
+        loadedReqProducts.add(p);
+      } else {
+        loadedOfferProducts.add(p);
+      }
+    });
+    _myRequestItems = loadedReqProducts;
+    _myOfferItems = loadedOfferProducts;
+    notifyListeners();
+  }
+
+  Future<void> fetchMyProducts(int userId) async {
+    try {
+      final res = await http.get(urls + 'userproduct/' + userId.toString());
+      final response = json.decode(res.body);
+      if (response['is_success']) {
+        getMyProducts(response['data']['products']);
+      }
+    } catch (error) {
+      throw (error);
+    }
+  }
+
+  Future<void> addProduct(Product product, Section section, int userId) async {
     try {
       final res = await http.post(
         urlProduct,
@@ -155,6 +201,7 @@ class Products with ChangeNotifier {
           'desc': product.desc,
           'image': product.image,
           'price': product.price,
+          'userId': userId
         }),
       );
       final response = json.decode(res.body);

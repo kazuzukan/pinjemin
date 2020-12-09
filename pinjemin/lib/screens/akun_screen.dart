@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../screens/profilsetting.dart';
-import '../screens/loginPage.dart';
 import '../screens/user_product_screen.dart';
 import '../providers/users.dart';
 
@@ -37,12 +36,6 @@ class _AkunScreenState extends State<AkunScreen> {
 
   _logout() {
     widget.toLogin();
-    // _googleSignIn.signOut();
-    // Navigator.pushAndRemoveUntil(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => LoginScreen()),
-    //   (Route<dynamic> route) => false,
-    // );
   }
 
   @override
