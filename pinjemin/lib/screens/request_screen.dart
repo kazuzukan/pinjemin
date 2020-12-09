@@ -3,10 +3,6 @@ import '../components/products_grid.dart';
 import '../screens/form_req.dart';
 import '../providers/products.dart';
 import 'package:provider/provider.dart';
-// import '../screens/product_detail_screen.dart';
-// import '../screens/productdetailoffer.dart';
-// import '../screens/productdetailreq.dart';
-// import '../components/bottomnav.dart';
 
 class RequestScreen extends StatefulWidget {
   static String tag = 'request-screen';
@@ -34,7 +30,9 @@ class _RequestScreenState extends State<RequestScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Products>(context, listen: false).fetchRequestProduct().then((_) {
+      Provider.of<Products>(context, listen: false)
+          .fetchRequestProduct()
+          .then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -78,7 +76,7 @@ class _RequestScreenState extends State<RequestScreen> {
         ],
       ),
       floatingActionButton: new FloatingActionButton(
-          heroTag: null,
+          heroTag: "reqBtn",
           foregroundColor: Colors.white,
           onPressed: () {
             Navigator.push(

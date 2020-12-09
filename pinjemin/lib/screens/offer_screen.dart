@@ -30,7 +30,9 @@ class _OfferScreenState extends State<OfferScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Products>(context, listen: false).fetchOfferProduct().then((_) {
+      Provider.of<Products>(context, listen: false)
+          .fetchOfferProduct()
+          .then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -74,7 +76,7 @@ class _OfferScreenState extends State<OfferScreen> {
           ],
         ),
         floatingActionButton: new FloatingActionButton(
-            heroTag: null,
+            heroTag: "offerBtn",
             foregroundColor: Colors.white,
             onPressed: () {
               Navigator.push(context,

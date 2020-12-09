@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
-// import 'package:pinjemin/assets/fonts/custom1_icons.dart';
 import 'package:provider/provider.dart';
-// import 'package:pinjemin/screens/productdetailreq.dart';
-// import 'package:pinjemin/screens/productdetailoffer.dart';
-// import 'package:pinjemin/screens/loginPage.dart';
 import '../screens/profilsetting.dart';
 import '../screens/loginPage.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 import '../screens/user_product_screen.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
-// import '../providers/user.dart';
 import '../providers/users.dart';
-
-// GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
 class AkunScreen extends StatefulWidget {
   static String tag = 'akun-screen';
+  final Function toLogin;
+  const AkunScreen({Key key, this.toLogin}) : super(key: key);
 
   @override
   _AkunScreenState createState() => _AkunScreenState();
@@ -32,14 +25,6 @@ class _AkunScreenState extends State<AkunScreen> {
     setState(() {
       _currentUser = Provider.of<Users>(context, listen: false).currentUser;
     });
-
-    // _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-    //   setState(() {
-    //     _currentUser = account;
-    //   });
-    //   _getUser();
-    // });
-    // _googleSignIn.signInSilently();
   }
 
   @override
@@ -51,6 +36,7 @@ class _AkunScreenState extends State<AkunScreen> {
   }
 
   _logout() {
+    widget.toLogin();
     // _googleSignIn.signOut();
     // Navigator.pushAndRemoveUntil(
     //   context,
@@ -59,23 +45,8 @@ class _AkunScreenState extends State<AkunScreen> {
     // );
   }
 
-  // Future<void> _getUser() async {
-  //   try {
-  //     // await Provider.of<Users>(context, listen: false)
-  //     //     .getUser(_currentUser.email);
-  //   } catch (error) {
-  //     print(error);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // final userConstructor = Provider.of<User>(context);
-    // final user = Provider.of<Users>(context, listen: false);
-    // final userExist = user.userDetail;
-    // String name = userExist[0].firstname;
-    // int point = userExist[0].point;
-
     String inisial =
         (_currentUser.firstname[0] + _currentUser.lastname[0]).toUpperCase();
 
@@ -103,20 +74,6 @@ class _AkunScreenState extends State<AkunScreen> {
                           color: Colors.white,
                         )),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsets.fromLTRB(50, 0, 50, 10),
-                  //   child: FittedBox(
-                  //     fit: BoxFit.contain, // otherwise the logo will be tiny
-                  //     child: Padding(
-                  //       padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
-                  //       child: SizedBox(
-                  //         width: 100,
-                  //         height: 100,
-                  //         child: GoogleUserCircleAvatar(identity: _currentUser),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(50, 0, 50, 10),
                     child: FittedBox(

@@ -12,6 +12,8 @@ import '../providers/users.dart';
 class LoginScreen extends StatefulWidget {
   // static String google = '/assets/icons/icon-google.svg';
   static String tag = 'login-screen';
+  final Function toHome;
+  const LoginScreen({Key key, this.toHome}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -48,21 +50,6 @@ class _LoginScreenState extends State<LoginScreen> {
     print(_selectedGender);
   }
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    emailLogin.dispose();
-    passLogin.dispose();
-
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    addressController.dispose();
-    phoneController.dispose();
-    super.dispose();
-  }
-
   Future<void> _onLogin() async {
     setState(() {
       _isLoading = true;
@@ -73,35 +60,12 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       var res = await Provider.of<Users>(context, listen: false).login(user);
 
-      var currentUser = Provider.of<Users>(context, listen: false).currentUser;
-
       setState(() {
         _isLoading = false;
       });
 
       if (res['status']) {
-        setState(() {
-          Navigator.of(context).pushReplacementNamed(MainScreen.tag);
-        });
-
-        await showDialog(
-            context: context,
-            builder: (ctx) {
-              Future.delayed(Duration(seconds: 5), () {
-                Navigator.of(ctx).pop(true);
-              });
-
-              return AlertDialog(
-                  content: Text(
-                    'Success, Welcome ${currentUser.firstname}',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w300, color: Colors.white),
-                  ),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24)),
-                  backgroundColor: Color.fromRGBO(76, 175, 80, 1));
-            });
+        widget.toHome();
       } else {
         await showDialog(
             context: context,

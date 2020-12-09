@@ -66,67 +66,78 @@ class Products with ChangeNotifier {
     }
   }
 
+  Future<void> getRequestProduct(data) async {
+    final List<Product> loadedProducts = [];
+    data.forEach((prod) {
+      final product = prod as Map<String, dynamic>;
+      DateTime startDateValue;
+      DateTime endDateValue;
+      int typeValue;
+      product.forEach((key, value) {
+        if (key == 'startDate') {
+          startDateValue = DateTime.parse(value);
+        }
+        if (key == 'endDate') {
+          endDateValue = DateTime.parse(value);
+        }
+        if (key == 'type') {
+          typeValue = value;
+        }
+        if (key == 'product') {
+          loadedProducts.add(Product(
+              id: value['id'],
+              name: value['name'],
+              desc: value['desc'],
+              price: value['price'],
+              image: value['image'],
+              startDate: startDateValue,
+              endDate: endDateValue,
+              type: typeValue));
+        }
+      });
+    });
+    _requestItems = loadedProducts;
+    notifyListeners();
+  }
+
   Future<void> fetchRequestProduct() async {
     try {
-      final response = await http.get(urlRequestSection);
-      final extractedData = json.decode(response.body);
-      final List<Product> loadedProducts = [];
-      extractedData.forEach((prod) {
-        final product = prod as Map<String, dynamic>;
-        DateTime startDateValue;
-        DateTime endDateValue;
-        int typeValue;
-        product.forEach((key, value) {
-          if (key == 'startDate') {
-            startDateValue = DateTime.parse(value);
-          }
-          if (key == 'endDate') {
-            endDateValue = DateTime.parse(value);
-          }
-          if (key == 'type') {
-            typeValue = value;
-          }
-          if (key == 'product') {
-            loadedProducts.add(Product(
-                id: value['id'],
-                name: value['name'],
-                desc: value['desc'],
-                price: value['price'],
-                image: value['image'],
-                startDate: startDateValue,
-                endDate: endDateValue,
-                type: typeValue));
-          }
-        });
-      });
-      _requestItems = loadedProducts;
-      print(loadedProducts);
-      notifyListeners();
+      final res = await http.get(urlRequestSection);
+      final response = json.decode(res.body);
+      if (response['is_success']) {
+        getRequestProduct(response['data']);
+      }
     } catch (error) {
       throw (error);
     }
   }
 
+  Future<void> getOfferProduct(data) async {
+    final List<Product> loadedProducts = [];
+    data.forEach((prod) {
+      final product = prod as Map<String, dynamic>;
+      product.forEach((key, value) {
+        if (key == 'product') {
+          loadedProducts.add(Product(
+              id: value['id'],
+              name: value['name'],
+              desc: value['desc'],
+              price: value['price'],
+              image: value['image']));
+        }
+      });
+    });
+    _offerItems = loadedProducts;
+    notifyListeners();
+  }
+
   Future<void> fetchOfferProduct() async {
     try {
-      final response = await http.get(urlOfferSection);
-      final extractedData = json.decode(response.body);
-      final List<Product> loadedProducts = [];
-      extractedData.forEach((prod) {
-        final product = prod as Map<String, dynamic>;
-        product.forEach((key, value) {
-          if (key == 'product') {
-            loadedProducts.add(Product(
-                id: value['id'],
-                name: value['name'],
-                desc: value['desc'],
-                price: value['price'],
-                image: value['image']));
-          }
-        });
-      });
-      _offerItems = loadedProducts;
-      notifyListeners();
+      final res = await http.get(urlOfferSection);
+      final response = json.decode(res.body);
+      if (response['is_success']) {
+        getOfferProduct(response['data']);
+      }
     } catch (error) {
       throw (error);
     }
@@ -134,7 +145,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product, Section section) async {
     try {
-      final response = await http.post(
+      final res = await http.post(
         urlProduct,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -146,29 +157,31 @@ class Products with ChangeNotifier {
           'price': product.price,
         }),
       );
-      // print(json.decode(response.body)['id']);
-      var prodId = json.decode(response.body)['id'];
+      final response = json.decode(res.body);
 
-      String startD = section.startDate.toString();
-      String endD = section.endDate.toString();
+      if (response['is_success']) {
+        final prodId = response['data']['id'];
 
-      await http
-          .post(
-            urlSection,
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: jsonEncode(<String, dynamic>{
-              'id': prodId,
-              'startDate': startD,
-              'endDate': endD,
-              'type': section.type,
-              'productId': prodId,
-            }),
-          )
-          .then((_) => fetchRequestProduct())
-          .then((_) => fetchOfferProduct())
-          .then((_) => notifyListeners());
+        String startD = section.startDate.toString();
+        String endD = section.endDate.toString();
+
+        await http
+            .post(
+              urlSection,
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, dynamic>{
+                'startDate': startD,
+                'endDate': endD,
+                'type': section.type,
+                'productId': prodId,
+              }),
+            )
+            .then((_) => fetchRequestProduct())
+            .then((_) => fetchOfferProduct())
+            .then((_) => notifyListeners());
+      }
     } catch (error) {
       print(error);
       throw (error);
