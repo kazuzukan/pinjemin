@@ -132,8 +132,6 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       var res = await Provider.of<Users>(context, listen: false).register(user);
 
-      print(res);
-
       setState(() {
         _isLoading = false;
       });
@@ -171,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
           content: Text('Something went wrong.'),
           actions: <Widget>[
             FlatButton(
-              child: Text('Okay'),
+              child: Text('Okay', style: TextStyle(color: Colors.black87)),
               onPressed: () {
                 Navigator.of(ctx).pop();
               },

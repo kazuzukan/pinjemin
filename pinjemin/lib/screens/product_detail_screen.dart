@@ -120,7 +120,10 @@ class ProductDetailScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar:
-            this.type ? BottomButtonOffer() : BottomButtonReq());
+        bottomNavigationBar: this.type
+            ? BottomButtonOffer()
+            : BottomButtonReq(
+                product: loadedProduct,
+              ));
   }
 }

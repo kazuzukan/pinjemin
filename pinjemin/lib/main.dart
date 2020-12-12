@@ -11,7 +11,6 @@ import './providers/loans.dart';
 
 import './screens/loginPage.dart';
 import './screens/request_screen.dart';
-import './screens/request_page.dart';
 import './screens/form_req.dart';
 import './screens/offer_screen.dart';
 import './screens/form_offer.dart';
@@ -43,7 +42,6 @@ class MyApp extends StatelessWidget {
           LoginScreen.tag: (context) => LoginScreen(),
           MainScreen.tag: (context) => MainScreen(),
           RequestScreen.tag: (context) => RequestScreen(),
-          RequestPage.tag: (context) => RequestPage(),
           OfferScreen.tag: (context) => OfferScreen(),
           FormReq.tag: (context) => FormReq(),
           FormOffer.tag: (context) => FormOffer(),

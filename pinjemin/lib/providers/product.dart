@@ -11,18 +11,18 @@ class Product with ChangeNotifier {
   final DateTime startDate;
   final DateTime endDate;
   final int type;
-  
+  final int userId;
 
-  Product({
-    this.id,
-    this.name, 
-    this.desc,
-    this.method,
-    this.price ,
-    this.duration,
-    this.image,
-    this.startDate,
-    this.endDate,
-    this.type
-  });
+  Product(
+      {this.id,
+      this.name,
+      this.desc,
+      this.method,
+      this.price,
+      this.duration,
+      this.image,
+      this.startDate,
+      this.endDate,
+      this.type,
+      this.userId});
 }

@@ -9,7 +9,7 @@ class Products with ChangeNotifier {
   /* Change IP to your current Local Computer Ip Addres 
      on the same network as your Android Device or Emulator */
 
-  static final ip = "192.168.55.13:3000";
+  static final ip = "192.168.55.20:3000";
   // static final ip = "pinjemin-app.herokuapp.com";
   static final urls = 'http://${ip.toString()}/';
   final urlProduct = urls + 'product';
@@ -105,7 +105,8 @@ class Products with ChangeNotifier {
               image: value['image'],
               startDate: startDateValue,
               endDate: endDateValue,
-              type: typeValue));
+              type: typeValue,
+              userId: value['userId']));
         }
       });
     });
@@ -136,7 +137,8 @@ class Products with ChangeNotifier {
               name: value['name'],
               desc: value['desc'],
               price: value['price'],
-              image: value['image']));
+              image: value['image'],
+              userId: value['userId']));
         }
       });
     });

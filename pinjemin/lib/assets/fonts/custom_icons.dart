@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/Custom.ttf
 ///
-/// 
+///
 ///
 import 'package:flutter/widgets.dart';
 
@@ -21,6 +21,10 @@ class Custom {
   static const _kFontFam = 'Custom';
   static const _kFontPkg = null;
 
-  static const IconData iconoffer = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData iconrequest = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData iconoffer =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData iconrequest =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData iconbox =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

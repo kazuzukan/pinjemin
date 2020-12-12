@@ -69,17 +69,17 @@ class _MainScreenState extends State<MainScreen> {
                     items: [
                       new BottomNavigationBarItem(
                         icon: Icon(Custom.iconrequest),
-                        title: Text('Permintaan'),
+                        label: 'Permintaan',
                       ),
                       new BottomNavigationBarItem(
                         icon: Icon(Custom.iconoffer),
-                        title: Text('Penawaran'),
+                        label: 'Penawaran',
                       ),
                       new BottomNavigationBarItem(
-                          icon: Icon(Icons.receipt), title: Text('Transaksi')),
+                          icon: Icon(Icons.receipt), label: 'Transaksi'),
                       new BottomNavigationBarItem(
                         icon: Icon(Icons.person),
-                        title: Text('Akun'),
+                        label: 'Akun',
                       )
                     ],
                     onTap: (index) {

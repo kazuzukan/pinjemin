@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pinjemin/assets/fonts/custom_icons.dart';
-import 'package:pinjemin/assets/fonts/custom2_icons.dart';
 import 'package:provider/provider.dart';
 import '../providers/loan.dart';
 
@@ -8,11 +7,20 @@ class LoanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loan = Provider.of<Loan>(context);
+    String _status(String status) {
+      switch (status) {
+        case "pending-owners":
+          return 'menunggu konfirmasi';
+        case "pending-loaners":
+          return 'menunggu konfirmasi';
+        default:
+          return 'sedang berlangsung';
+      }
+    }
 
     return Container(
         margin: new EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        constraints: BoxConstraints(
-            minHeight: 230, maxHeight: 230, minWidth: 500, maxWidth: 500),
+        constraints: BoxConstraints(minHeight: 230, minWidth: 500),
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
@@ -31,9 +39,9 @@ class LoanCard extends StatelessWidget {
         ),
         child: Column(children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 10, 260, 0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Text(
-              'Request',
+              loan.name,
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 14,
@@ -80,7 +88,7 @@ class LoanCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 IconButton(
-                    icon: Icon(Custom2.iconbox,
+                    icon: Icon(Icons.shopping_bag,
                         size: 20, color: Color.fromARGB(255, 254, 178, 1)),
                     onPressed: () {
                       print("Notification Clicked");
@@ -99,26 +107,25 @@ class LoanCard extends StatelessWidget {
                     child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 55, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: Text(
-                        loan.status,
+                        _status(loan.status),
                         style: TextStyle(fontSize: 12),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: RaisedButton(
                           textColor: Colors.white,
                           color: Colors.red,
                           padding: const EdgeInsets.all(8.0),
                           child: new Text(
-                            "Selesai",
+                            loan.callToAction,
                             style: TextStyle(fontSize: 12),
                           ),
-                          onPressed: () {}),
+                          onPressed: loan.callToActionActive ? () {} : null),
                     ),
                   ],
                 ))
